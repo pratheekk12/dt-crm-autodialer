@@ -1362,7 +1362,9 @@ const Dashboard = () => {
             <Card style={{ display: 'flex', justifyContent: 'center' }}>
               <CardHeader title={'Disposition Form'} />
             </Card>
-            <DispositionForm />
+            <Card style={{ padding: '1rem' }}>
+              <DispositionForm />
+            </Card>
           </Grid>
           <Grid item lg={5} xs={12}>
             <PendingCallList />

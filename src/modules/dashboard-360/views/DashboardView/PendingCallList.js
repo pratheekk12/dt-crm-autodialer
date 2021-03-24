@@ -1,5 +1,19 @@
-import React from 'react';
-import { Chip, withStyles, Card, CardHeader } from '@material-ui/core';
+import React, { useState } from 'react';
+import {
+  Chip,
+  withStyles,
+  Card,
+  CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide,
+  Button,
+  Grid,
+  Typography
+} from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import CallIcon from '@material-ui/icons/Call';
 import { green } from '@material-ui/core/colors';
@@ -14,9 +28,20 @@ const GreenChip = withStyles(theme => ({
   }
 }))(Chip);
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const PendingCallList = () => {
+  const [detail, setDetail] = useState('');
+  const handleClickOpen = () => {
+    setOpen(false);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [open, setOpen] = React.useState(false);
   const columns = [
-    { field: 'id', headerName: 'ID', flex: 1, headerAlign: 'center' },
     {
       field: 'customerName',
       headerName: 'Customer Name',
@@ -30,9 +55,26 @@ const PendingCallList = () => {
         <GreenChip
           color="primary"
           icon={<CallIcon fontSize="small" />}
-          label="Call"
+          label={rowData.row.callBtn}
           style={{ color: 'white' }}
         />
+      )
+    },
+    {
+      field: 'viewDetail',
+      headerName: 'View Detail',
+      flex: 1,
+      renderCell: rowData => (
+        <Button
+          onClick={() => {
+            setOpen(true);
+            setDetail(rowData.row);
+          }}
+          variant="outlined"
+          color="primary"
+        >
+          View Detail
+        </Button>
       )
     }
   ];
@@ -40,55 +82,68 @@ const PendingCallList = () => {
   const rows = [
     {
       id: 1,
-      customerName: 'Amit Yadav'
+      customerName: 'Amit Yadav',
+      callBtn: 'Call'
     },
     {
       id: 2,
-      customerName: 'Dhaval Patel'
+      customerName: 'Dhaval Patel',
+      callBtn: 'Call'
     },
     {
       id: 3,
-      customerName: 'Bhavik Patel'
+      customerName: 'Bhavik Patel',
+      callBtn: 'Call'
     },
     {
       id: 4,
-      customerName: 'Payal Parmar'
+      customerName: 'Payal Parmar',
+      callBtn: 'Call'
     },
     {
       id: 5,
-      customerName: 'Riya Singh'
+      customerName: 'Riya Singh',
+      callBtn: 'Call'
     },
     {
       id: 6,
-      customerName: 'Deepak Suthar'
+      customerName: 'Deepak Suthar',
+      callBtn: 'Call'
     },
     {
       id: 7,
-      customerName: 'Kishan Chauhan'
+      customerName: 'Kishan Chauhan',
+      callBtn: 'Call'
     },
     {
       id: 8,
-      customerName: 'Bhavik Parmar'
+      customerName: 'Bhavik Parmar',
+      callBtn: 'Call'
     },
     {
       id: 9,
-      customerName: 'Zuber Jalla'
+      customerName: 'Zuber Jalla',
+      callBtn: 'Call'
     },
     {
       id: 10,
-      customerName: 'Shashi Patil'
+      customerName: 'Shashi Patil',
+      callBtn: 'Call'
     },
     {
       id: 11,
-      customerName: 'Mitali Gupta'
+      customerName: 'Mitali Gupta',
+      callBtn: 'Call'
     },
     {
       id: 12,
-      customerName: 'Priyanshu Gami'
+      customerName: 'Priyanshu Gami',
+      callBtn: 'Call'
     },
     {
       id: 13,
-      customerName: 'Dinesh Kanayalal'
+      customerName: 'Dinesh Kanayalal',
+      callBtn: 'Call'
     }
   ];
   return (
@@ -101,10 +156,69 @@ const PendingCallList = () => {
           columns={columns}
           rows={rows}
           pageSize={7}
+          autoPageSize
           rowsPerPageOptions={[7, 10, 20]}
           pagination
+          // onRowSelected={({ data }) => console.log(data)}
           // autoHeight
         />
+        <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            <Typography variant="h2">All Customer Details</Typography>
+          </DialogTitle>
+          <DialogContent>
+            <Grid container direction="column">
+              <Grid item container direction="row">
+                <Grid item xs={5}>
+                  <Typography variant="body1">Id</Typography>
+                </Grid>
+                <Grid item xs={1}>
+                  :
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="body1">{detail.id}</Typography>
+                </Grid>
+              </Grid>
+              <Grid item container direction="row">
+                <Grid item xs={5}>
+                  <Typography variant="body1">Name</Typography>
+                </Grid>
+                <Grid item xs={1}>
+                  :
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="body1">{detail.customerName}</Typography>
+                </Grid>
+              </Grid>
+              <Grid item container direction="row">
+                <Grid item xs={5}>
+                  <Typography variant="body1">Other Details</Typography>
+                </Grid>
+                <Grid item xs={1}>
+                  :
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="body1">Other Details</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            {/* <Button onClick={handleClose} color="primary">
+              Disagree
+            </Button> */}
+            <Button onClick={handleClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </>
   );

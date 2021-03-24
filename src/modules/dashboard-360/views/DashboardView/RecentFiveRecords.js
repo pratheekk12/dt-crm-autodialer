@@ -81,7 +81,13 @@ const RecentFiveRecords = () => {
         <Card style={{ display: 'flex', justifyContent: 'center' }}>
           <CardHeader title={'Last Five Disposition Data'} />
         </Card>
-        <DataGrid columns={columns} rows={rows} pageSize={5} pagination />
+        <DataGrid
+          columns={columns}
+          rows={rows}
+          pageSize={5}
+          pagination
+          autoPageSize
+        />
       </div>
     </>
   );

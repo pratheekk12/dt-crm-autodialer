@@ -201,7 +201,7 @@ const TopBar = ({
                 className={classes.title}
                 variant="h5"
                 noWrap
-                key={route.label}
+                key={Math.random()}
               >
                 <Link to={route.link} className="color-white">
                   {route.title}
