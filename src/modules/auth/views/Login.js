@@ -226,7 +226,7 @@ function Login(props) {
                     variant="outlined"
                   />
 
-                  <TextField
+                  {/* <TextField
                     error={Boolean(touched.role && errors.role)}
                     fullWidth
                     helperText={touched.role && errors.role}
@@ -238,8 +238,8 @@ function Login(props) {
                     type="text"
                     value={values.role}
                     variant="outlined"
-                  />
-                  <TextField
+                  /> */}
+                  {/* <TextField
                     error={Boolean(touched.AgentType && errors.AgentType)}
                     fullWidth
                     helperText={touched.AgentType && errors.AgentType}
@@ -264,7 +264,7 @@ function Login(props) {
                     type="text"
                     value={values.AgentSIPID}
                     variant="outlined"
-                  />
+                  /> */}
 
                   {!!error && (
                     <Box my={1}>
