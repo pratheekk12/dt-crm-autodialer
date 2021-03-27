@@ -536,6 +536,8 @@ import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
 import * as yup from 'yup';
+import { isEmpty, get, filter, includes, map } from 'lodash'
+import { getDispositionFormQuestions } from './../../utils/util-functions'
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -546,39 +548,32 @@ const useStyle = makeStyles(() => ({
 const DispositionForm = () => {
   const classes = useStyle();
   const formRef = useRef({});
-  const [categories, setCategories] = useState([
-    'Do you feel satisy with our food?',
-    'How would you rate the quality of the food at our restaurant?',
-    'Did you face any issues with any service of the restaurant?'
-  ]);
-  const [category, setCategory] = useState(null);
-
-  const [subCategories, setSubCategories] = useState({
-    'Do you feel satisy with our food?': [
-      'Satisfied',
-      'It was okay',
-      'Not Satisfied'
-    ]
-  });
-  const [subCategory, setSubCategory] = useState([
-    'Default 1',
-    'Default 2',
-    'Default 3'
-  ]);
-  const [subCategoryItems, setSubCategoryItems] = useState({
-    'Not Satisfied': ['Reason 1', 'Reason 2', 'Reason 3']
-  });
-  const [subCategoryItem, setSubCategoryItem] = useState([
-    'Default 1',
-    'Default 2',
-    'Default 3'
-  ]);
+  const questionsStates = getDispositionFormQuestions()
+  const allQuestions = get(questionsStates,'states',[])
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    if (category !== null) {
-      setSubCategory(subCategories[category]);
+    if(isEmpty(questions)){
+      addAnotherQues(allQuestions[0])
     }
-  }, [category, subCategory, subCategoryItem]);
+  }, [questions]);
+
+  const addAnotherQues = (ques) => {
+    let nextQues = filter(allQuestions, function(que) {
+      return includes(ques.nextQuestions,que.questionCode)
+    });
+    if(!isEmpty(nextQues)){
+      ques.nextQues = nextQues
+    }
+    if(ques.nextQues || ques.answers){
+      setQuestions([...questions,ques])
+    }
+  }
+
+  const resetQuestions = () => {
+    setQuestions([])
+  }
+
   return (
     <>
       <Formik
@@ -595,104 +590,58 @@ const DispositionForm = () => {
           resetForm();
         }}
         innerRef={formRef}
-        validationSchema={yup.object({
+        /*validationSchema={yup.object({
           category: yup.string().required('Please select a category'),
           subCategory: yup.string().required('Please select a sub category'),
           subCategoryItem: yup
             .string()
             .required('Please select a sub category item')
-        })}
+        })}*/
       >
         {({ setFieldValue }) => (
           <Form>
             <Grid container spacing={2} direction="column">
-              <Grid item>
-                <FormControl
-                  variant="outlined"
-                  className={classes.fieldContainer}
-                >
-                  <Autocomplete
-                    options={categories}
-                    getOptionLabel={option => option}
-                    getOptionSelected={(option, value) => value === option}
-                    onChange={(event, value) => {
-                      setCategory(value);
-                      setFieldValue('category', value);
-                    }}
-                    renderInput={params => (
-                      <Field
-                        component={TextField}
-                        {...params}
-                        label="Select a category"
-                        variant="outlined"
+              {
+                map(questions, (ques, index) => {
+                  return <Grid item key={index}>
+                    <FormControl
+                      variant="outlined"
+                      className={classes.fieldContainer}
+                    >
+                      <Autocomplete
+                        options={ques.nextQues ? ques.nextQues : (ques.answers || [])}
+                        getOptionLabel={option => option.question ? option.question : option}
+                        getOptionSelected={(option, value) => value === option}
+                        onChange={(event, value) => {
+                          if(ques.nextQues){
+                            addAnotherQues(value)
+                          }
+                          setFieldValue(ques.questionCode, value.question ? value.question : value);
+                        }}
+                        renderInput={params => (
+                          <Field
+                            component={TextField}
+                            {...params}
+                            label={ques.question}
+                            variant="outlined"
+                            name="category"
+                          />
+                        )}
                         name="category"
+                        disabled={questions.length !== index+1}
                       />
-                    )}
-                    name="category"
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item>
-                <FormControl
-                  variant="outlined"
-                  className={classes.fieldContainer}
+                    </FormControl>
+                  </Grid>
+                })
+              }
+              <Grid item container justify="left" alignContent="left">
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  size="small" onClick={resetQuestions}
                 >
-                  <Autocomplete
-                    options={subCategory}
-                    getOptionLabel={option => option}
-                    getOptionSelected={(option, value) => value === option}
-                    onChange={(event, value) => {
-                      setSubCategoryItem(subCategoryItems[value]);
-                      setFieldValue('subCategory', value);
-                    }}
-                    renderInput={params => (
-                      <Field
-                        component={TextField}
-                        {...params}
-                        label="Select a sub category"
-                        variant="outlined"
-                        name="subCategory"
-                      />
-                    )}
-                    name="subCategory"
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item>
-                <FormControl
-                  variant="outlined"
-                  className={classes.fieldContainer}
-                >
-                  <Autocomplete
-                    options={subCategoryItem}
-                    getOptionLabel={option => option}
-                    getOptionSelected={(option, value) => value === option}
-                    onChange={(event, value) => {
-                      setFieldValue('subCategoryItem', value);
-                    }}
-                    renderInput={params => (
-                      <Field
-                        component={TextField}
-                        {...params}
-                        label="Select a sub category Item"
-                        variant="outlined"
-                        name="subCategoryItem"
-                      />
-                    )}
-                    name="subCategoryItem"
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item>
-                <Field
-                  className={classes.fieldContainer}
-                  name="comments"
-                  component={TextField}
-                  variant="outlined"
-                  multiline
-                  rows={2}
-                  label="Comments"
-                />
+                  reset
+                </Button>
               </Grid>
               <Grid item container justify="center" alignContent="center">
                 <Button
