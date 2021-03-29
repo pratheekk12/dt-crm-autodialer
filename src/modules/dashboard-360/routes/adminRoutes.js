@@ -3,6 +3,8 @@ import Orders from '../views/admin/orders';
 import Dashboard from '../views/DashboardView/index';
 import agentDispostionList from '../views/admin/agentlastfive';
 import distribuerCallDisposedList from '../views/admin/distributerlastfive';
+import AdminDashboard from '../views/admin/admin-dashboard';
+import Manager from '../views/admin/restuarant-manager-dashboard';
 
 export default [
   {
@@ -10,6 +12,20 @@ export default [
     exact: false,
     key: 'dashboard',
     component: Dashboard
+  },
+  {
+    path: '/admin-dashboard',
+    exact: true,
+    key: 'adminDashboard',
+    component: AdminDashboard,
+    crumb: 'Admin Dashboard'
+  },
+  {
+    path: '/manager-dashboard',
+    exact: true,
+    key: 'managerDashboard',
+    component: Manager,
+    crumb: 'Manager Dashboard'
   },
   {
     path: '/orders',
