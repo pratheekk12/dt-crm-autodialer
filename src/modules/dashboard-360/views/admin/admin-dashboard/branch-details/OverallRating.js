@@ -42,7 +42,7 @@ const OverallRating = () => {
     <>
       <div id="chart">
         <Card style={{ textAlign: 'center' }}>
-          <CardHeader title={'Customer Rating'} />
+          <CardHeader title={'Branch Rating'} />
           <Divider />
           <CardContent>
             <ReactApexChart
@@ -55,7 +55,7 @@ const OverallRating = () => {
           <Divider />
           <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
             <Typography variant="body1">
-              Overall Customer Rating : 4.3 star
+              Overall Branch Rating : 4.3 star
             </Typography>
           </CardActions>
         </Card>
