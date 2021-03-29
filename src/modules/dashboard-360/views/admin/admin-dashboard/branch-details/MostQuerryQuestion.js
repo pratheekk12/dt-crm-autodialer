@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactApexChart from 'react-apexcharts';
 import {
   Card,
   CardActions,
@@ -6,24 +8,16 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
-import React from 'react';
-import ReactApexChart from 'react-apexcharts';
 
-const OverallRating = () => {
-  const series = [5.6, 9.6, 15, 30, 40];
+const MostQuerryQuestion = () => {
+  const series = [25, 65, 10];
 
   const options = {
     chart: {
       width: 380,
       type: 'pie'
     },
-    labels: [
-      '1 Star Rating',
-      '2 Star Rating',
-      '3 Star Rating',
-      '4 Star Rating',
-      '5 Star Rating'
-    ],
+    labels: ['It was Okay', 'Satisfied', 'Not Satisfied'],
     responsive: [
       {
         breakpoint: 480,
@@ -42,7 +36,7 @@ const OverallRating = () => {
     <>
       <div id="chart">
         <Card style={{ textAlign: 'center' }}>
-          <CardHeader title={'Customer Rating'} />
+          <CardHeader title={'Do you feel satisfied with our food?'} />
           <Divider />
           <CardContent>
             <ReactApexChart
@@ -54,9 +48,7 @@ const OverallRating = () => {
           </CardContent>
           <Divider />
           <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
-            <Typography variant="body1">
-              Overall Customer Rating : 4.3 star
-            </Typography>
+            <Typography variant="body1">Most rating on : Satisfied</Typography>
           </CardActions>
         </Card>
       </div>
@@ -64,4 +56,4 @@ const OverallRating = () => {
   );
 };
 
-export default OverallRating;
+export default MostQuerryQuestion;

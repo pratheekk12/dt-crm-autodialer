@@ -1,15 +1,24 @@
-import { Grid } from '@material-ui/core';
+import {
+  Grid,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
+  Typography
+} from '@material-ui/core';
 import React from 'react';
-import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import FeedbackList from './FeedbackList';
 import MostQuerryQuestion from './MostQuerryQuestion';
 import OverallRating from './OverallRating';
 
-const Manager = () => {
+const BranchDetail = ({ branch }) => {
   return (
     <>
-      <CustomBreadcrumbs />
-      <div style={{ padding: '2rem', marginBottom: '1rem' }}>
+      <div id="chart" style={{ marginTop: '1.5rem' }}>
+        <Card style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
+          <CardHeader title={branch.name} />
+        </Card>
         <Grid
           container
           direction="row"
@@ -32,4 +41,4 @@ const Manager = () => {
   );
 };
 
-export default Manager;
+export default BranchDetail;

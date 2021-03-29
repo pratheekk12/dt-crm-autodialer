@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const OverallRating = () => {
+const BranchesOverallRating = () => {
   const series = [5.6, 9.6, 15, 30, 40];
 
   const options = {
@@ -64,4 +64,4 @@ const OverallRating = () => {
   );
 };
 
-export default OverallRating;
+export default BranchesOverallRating;
