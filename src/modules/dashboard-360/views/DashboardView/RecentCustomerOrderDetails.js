@@ -23,7 +23,7 @@ const RecentCustomerOrderDetails = () => {
     },
     {
       field: 'memberType',
-      flex: 1,
+      flex: 1.5,
       headerName: 'Member Type'
     },
     {
@@ -46,13 +46,6 @@ const RecentCustomerOrderDetails = () => {
       age: '35',
       memberType: 'Regular',
       phone: 'xxxxxx6584'
-    },
-    {
-      id: 3,
-      customerName: 'Payal Parmar',
-      age: '29',
-      memberType: 'Regular',
-      phone: 'xxxxxx4581'
     }
   ];
 
@@ -64,10 +57,10 @@ const RecentCustomerOrderDetails = () => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="body1">Last 3 Customer Order Details</Typography>
+          <Typography variant="body1">Last 2 Customer Order Details</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <div style={{ height: 280, width: '100%' }}>
+          <div style={{ height: 230, width: '100%' }}>
             <DataGrid
               columns={columns}
               rows={rows}

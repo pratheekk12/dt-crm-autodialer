@@ -5,7 +5,7 @@ import PendingCallList from './PendingCallList';
 import RecentFiveRecords from './RecentFiveRecords';
 import LeadButtons from './LeadButtons';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
-// import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
+import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
 
 const Dashboard = () => {
   return (
@@ -28,7 +28,7 @@ const Dashboard = () => {
           </Grid>
           <Grid container item lg={5} xs={12} spacing="3">
             <Grid item xs={12}>
-              <PendingCallList />
+              <RecentCustomerOrderDetails />
             </Grid>
             <Grid item xs={12}>
               <RecentFiveRecords />
