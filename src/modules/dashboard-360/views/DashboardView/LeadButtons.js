@@ -34,6 +34,7 @@ const LeadButtons = () => {
         <Grid item>
           <Button variant="contained" color="primary">
             Leads To Followup 10
+          </Button>
         </Grid>
       </Grid>
     </>
