@@ -13,28 +13,27 @@ const LeadButtons = () => {
       >
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Total
+            Leads Total 500
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Pending
+            Leads Pending 450
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Assigned
+            Leads Assigned 10
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Closed
+            Leads Closed 30
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads To Followup
-          </Button>
+            Leads To Followup 10
         </Grid>
       </Grid>
     </>
