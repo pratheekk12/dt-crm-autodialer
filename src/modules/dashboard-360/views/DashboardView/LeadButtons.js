@@ -18,7 +18,7 @@ const LeadButtons = () => {
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Penalty
+            Leads Pending
           </Button>
         </Grid>
         <Grid item>
