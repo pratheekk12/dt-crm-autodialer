@@ -7,9 +7,9 @@ const LeadButtons = () => {
       <Grid
         container
         direction="row"
-        justify="center"
+        justify="flex-start"
         alignItems="center"
-        spacing={4}
+        spacing={2}
       >
         <Grid item>
           <Button variant="contained" color="primary">

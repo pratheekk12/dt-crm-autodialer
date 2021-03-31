@@ -10,42 +10,49 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const RecentCustomerOrderDetails = () => {
   const columns = [
-    { field: 'id', headerName: 'ID', flex: 1 },
+    { field: 'id', headerName: 'Order ID', flex: 1 },
     {
       field: 'customerName',
       headerName: 'Customer Name',
       flex: 2
     },
     {
-      field: 'age',
+      field: 'order1',
       flex: 1,
-      headerName: 'Age'
+      headerName: 'Order 1'
     },
     {
-      field: 'memberType',
+      field: 'order2',
       flex: 1.5,
-      headerName: 'Member Type'
+      headerName: 'Order 2'
     },
     {
-      field: 'phone',
+      field: 'order3',
       flex: 2,
-      headerName: 'Phone'
+      headerName: 'Order 3'
     }
   ];
   const rows = [
     {
       id: 1,
       customerName: 'Amit Yadav',
-      age: '20',
-      memberType: 'Regular',
-      phone: 'xxxxxx8965'
+      order1: 'Item 1',
+      order2: 'Item 2',
+      order3: 'Item 3'
     },
     {
       id: 2,
-      customerName: 'Dhaval Patel',
-      age: '35',
-      memberType: 'Regular',
-      phone: 'xxxxxx6584'
+      customerName: 'Amit Yadav',
+      order1: 'Item 1',
+      order2: 'Item 2',
+      order3: 'Item 3'
+    },
+    {
+      id: 3,
+      customerName: 'Amit Yadav',
+      order1: 'Item 1',
+      order2: 'Item 2',
+      order3: ''
     }
   ];
 
@@ -57,14 +64,14 @@ const RecentCustomerOrderDetails = () => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="body1">Last 2 Customer Order Details</Typography>
+          <Typography variant="body1">Last 3 Customer Order Details</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <div style={{ height: 230, width: '100%' }}>
+          <div style={{ height: 280, width: '100%' }}>
             <DataGrid
               columns={columns}
               rows={rows}
-              pageSize={3}
+              pageSize={1}
               pagination
               autoHeight
             />
