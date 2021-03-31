@@ -537,7 +537,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
 import * as yup from 'yup';
 import { isEmpty, get, filter, includes, map } from 'lodash'
-import { getDispositionFormQuestions } from './../../utils/util-functions'
+import { getDispositionFormQuestions2 } from './../../utils/util-functions'
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -548,18 +548,23 @@ const useStyle = makeStyles(() => ({
 const DispositionForm = () => {
   const classes = useStyle();
   const formRef = useRef({});
-  const questionsStates = getDispositionFormQuestions()
-  const allQuestions = get(questionsStates,'states',[])
-  const [questions, setQuestions] = useState([]);
+  const defaultQuestions = getDispositionFormQuestions2()
+  const allQuestions = [...defaultQuestions]
+  const [questions, setQuestions] = useState(allQuestions);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if(isEmpty(questions)){
       addAnotherQues(allQuestions[0])
     }
-  }, [questions]);
+  }, [questions]);*/
 
-  const addAnotherQues = (ques) => {
-    let nextQues = filter(allQuestions, function(que) {
+  const addAnotherQues = (ques, index) => {
+    //questions.length = index+1
+    if(ques && ques.dependentQuestion){
+      questions.splice(index+1,0,...ques.dependentQuestion)
+      setQuestions(questions)
+    }
+    /*let nextQues = filter(allQuestions, function(que) {
       return includes(ques.nextQuestions,que.questionCode)
     });
     if(!isEmpty(nextQues)){
@@ -567,11 +572,11 @@ const DispositionForm = () => {
     }
     if(ques.nextQues || ques.answers){
       setQuestions([...questions,ques])
-    }
+    }*/
   }
 
   const resetQuestions = () => {
-    setQuestions([])
+    setQuestions(defaultQuestions)
   }
 
   return (
@@ -609,14 +614,12 @@ const DispositionForm = () => {
                       className={classes.fieldContainer}
                     >
                       <Autocomplete
-                        options={ques.nextQues ? ques.nextQues : (ques.answers || [])}
-                        getOptionLabel={option => option.question ? option.question : option}
-                        getOptionSelected={(option, value) => value === option}
+                        options={ques.option}
+                        getOptionLabel={option => option.label}
+                        getOptionSelected={(option, value) => {return value.label === option.label}}
                         onChange={(event, value) => {
-                          if(ques.nextQues){
-                            addAnotherQues(value)
-                          }
-                          setFieldValue(ques.questionCode, value.question ? value.question : value);
+                          addAnotherQues(value, index)
+                          setFieldValue(ques.questionCode, value.label);
                         }}
                         renderInput={params => (
                           <Field
@@ -628,7 +631,6 @@ const DispositionForm = () => {
                           />
                         )}
                         name="category"
-                        disabled={questions.length !== index+1}
                       />
                     </FormControl>
                   </Grid>

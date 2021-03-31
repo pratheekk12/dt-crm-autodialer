@@ -36,3 +36,103 @@ export function getDispositionFormQuestions() {
     }]
   }
 }
+
+export function getDispositionFormQuestions2() {
+  const questionArr = [{
+    "question": "Were you satisfied with the food quality?",
+    questionCode: "QA_1",
+    "option": [{
+      label: "Yes"
+    }, {
+      label: "No",
+      dependentQuestion: [{
+        question: "What were you not satisfied with?",
+        questionCode: "QA_2",
+        option: [{
+          label: "Food",
+          dependentQuestion: [{
+            question: "Portion Size?",
+            questionCode: "QA_3",
+            option: [{
+              label: 'Small'
+            }]
+          }]
+        },
+          {
+            label: "Ambience",
+          },
+          {
+            label: "Service",
+          }
+        ]
+      }]
+    }, {
+      label: "Don't want to answer"
+    }],
+  },
+    {
+      "question": "Were you satisfied Staff Behaviour?",
+      questionCode: "QA_4",
+      "option": [{
+        label: "Yes"
+      }, {
+        label: "No",
+        dependentQuestion: [{
+          question: "What were you not satisfied with?",
+          questionCode: "QA_5",
+          option: [{
+            label: "Food",
+            dependentQuestion: [{
+              question: "Was he rude?",
+              questionCode: "QA_6",
+              option: [{
+                label: 'yes'
+              },{
+                label: 'no'
+              }]
+            },{
+              question: "Not clean the table properly?",
+              questionCode: "QA_7",
+              option: [{
+                label: 'yes'
+              },{
+                label: 'no'
+              }]
+            }]
+          },
+            {
+              label: "Ambience",
+            },
+            {
+              label: "Service",
+              dependentQuestion: [{
+                question: "Delay in service?",
+                questionCode: "QA_9",
+                option: [{
+                  label: 'yes'
+                },{
+                  label: 'no'
+                }]
+              }]
+            }
+          ]
+        }]
+      }, {
+        label: "Don't want to answer"
+      }],
+    },
+    {
+      "question": "How likely will you recommend us to your friends and relatives",
+      questionCode: "QA_8",
+      "option": [{
+        label: "Yes"
+      }, {
+        label: "No"
+      }, {
+        label: "Don't want to answer"
+      }],
+    }
+  ]
+
+  return questionArr
+}
