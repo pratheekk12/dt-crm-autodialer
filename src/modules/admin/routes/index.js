@@ -3,6 +3,7 @@ import CreateUser from '../views/create-user';
 import AdminDashboard from '../views/dashboard';
 import ManageRoles from '../views/manage-roles';
 import manageUsers from '../views/manage-users';
+import CreateDispositionForm from '../views/create-disposition-form';
 
 export default [
   {
@@ -39,6 +40,22 @@ export default [
         key: 'createUser',
         component: CreateUser,
         crumb: 'Create User'
+      }
+    ]
+  },
+  {
+    path: '/manage-disposition-form',
+    exact: false,
+    key: 'manageDispositionContainer',
+    component: EmptyRouteContainer,
+    crumb: 'Manage Disposition Form',
+    routes: [
+      {
+        path: '/create',
+        exact: true,
+        key: 'createForm',
+        component: CreateDispositionForm,
+        crumb: 'Create Form'
       }
     ]
   }
