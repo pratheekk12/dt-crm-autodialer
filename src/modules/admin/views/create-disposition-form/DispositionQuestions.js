@@ -33,16 +33,16 @@ const initialValues =
     }]
   }
 
-function DispositionQuestions({ questions }) {
+function DispositionQuestions({ questions, name }) {
   const classes = useStyles();
   const [dependentQuestions, setDependentQuestions] = React.useState({});
 
-  const handleChange = (questionAns, dependentQuestions, queIndex, ansIndex) => {
+  const handleChange = (questionAns, dependentQues, queIndex, ansIndex) => {
     setDependentQuestions({...dependentQuestions, [`dependentQuestions${queIndex}${ansIndex}`] : !dependentQuestions[`dependentQuestions${queIndex}${ansIndex}`] })
-    questionAns.dependentQuestion = dependentQuestions;
+    questionAns.dependentQuestion = dependentQues;
   };
 
-  return (questions.length > 0 && <FieldArray name="dispositionQuestions">
+  return (questions.length > 0 && <FieldArray name={name}>
       {({ insert, remove, push }) => (
         <>
           {questions.length > 0 &&
@@ -50,23 +50,23 @@ function DispositionQuestions({ questions }) {
             <Box padding={2} display="block" position="relative"
                  border={1} key={index} margin={1}>
               <Field
-                name={`dispositionQuestions.${index}.question`}
+                name={`${name}.${index}.question`}
                 component={TextField}
                 style={{ width: 400 }}
                 className={classes.textField}
-                label="Enter Question"
+                label={`Enter Question ${index+1}`}
                 variant="outlined"
                 autoComplete="off"
               />
               <Box padding={1} border={1} display="block" position="relative">
-                <FieldArray name={`dispositionQuestions.${index}.option`}>
+                <FieldArray name={`${name}.${index}.option`}>
                   {({ insert, remove, push }) => (
                     <div>
                       {dispositionQuestion.option.length > 0 &&
                       dispositionQuestion.option.map((questionAns, ansIndex) => (
-                        <div className="row" key={ansIndex}>
+                        <div className="row" key={`${name}.${index}.option.${ansIndex}`}>
                           <Field
-                            name={`dispositionQuestions.${index}.option.${ansIndex}.label`}
+                            name={`${name}.${index}.option.${ansIndex}.label`}
                             component={TextField}
                             style={{ width: 400 }}
                             className={classes.textField}
@@ -87,14 +87,14 @@ function DispositionQuestions({ questions }) {
                           <FormControlLabel control={<Checkbox checked={dependentQuestions[`dependentQuestions${index}${ansIndex}`]} onChange={()=>{handleChange(questionAns, initialValues.dispositionQuestions, index, ansIndex);}} color="primary" />}
                             label="It has dependent Question?"/>
                           {
-                            dependentQuestions[`dependentQuestions${index}${ansIndex}`] && <DispositionQuestions questions={questionAns.dependentQuestion ? questionAns.dependentQuestion : []}/>
+                            dependentQuestions[`dependentQuestions${index}${ansIndex}`] && <DispositionQuestions questions={questionAns.dependentQuestion ? questionAns.dependentQuestion : []} name={`${name}.${index}.option.${ansIndex}.dependentQuestion`}/>
                           }
                         </div>
                       ))}
                       <Button
                         variant="outlined"
                         startIcon={<AddIcon />}
-                        onClick={() => { push({ label: '', dependentQuestion: true }) } }
+                        onClick={() => { push({ label: '' }) } }
                         style={{margin: 10}}
                       >
                         Answer
