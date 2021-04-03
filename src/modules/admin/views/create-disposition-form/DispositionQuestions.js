@@ -3,7 +3,7 @@ import {
   Button,
   makeStyles,
 } from '@material-ui/core';
-import { Field, FieldArray } from 'formik';
+import { Field, FastField, FieldArray } from 'formik';
 import { TextField } from 'formik-material-ui';
 import React  from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -49,7 +49,7 @@ function DispositionQuestions({ questions, name }) {
           questions.map((dispositionQuestion, index) => (
             <Box padding={2} display="block" position="relative"
                  border={1} key={index} margin={1}>
-              <Field
+              <FastField
                 name={`${name}.${index}.question`}
                 component={TextField}
                 style={{ width: 400 }}
@@ -65,7 +65,7 @@ function DispositionQuestions({ questions, name }) {
                       {dispositionQuestion.option.length > 0 &&
                       dispositionQuestion.option.map((questionAns, ansIndex) => (
                         <div className="row" key={`${name}.${index}.option.${ansIndex}`}>
-                          <Field
+                          <FastField
                             name={`${name}.${index}.option.${ansIndex}.label`}
                             component={TextField}
                             style={{ width: 400 }}

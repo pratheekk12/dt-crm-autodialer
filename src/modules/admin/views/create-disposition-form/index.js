@@ -31,6 +31,7 @@ function CreateDispositionForm() {
                 createNodeForSortableTree(values.dispositionQuestions)
                 setSTree(values.dispositionQuestions)
               }}
+              validateOnChange={false}
             >
               {({ values }) => (
                 <Form>
