@@ -536,8 +536,8 @@ import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
 import * as yup from 'yup';
-import { isEmpty, get, filter, includes, map } from 'lodash'
-import { getDispositionFormQuestions2 } from './../../utils/util-functions'
+import { isEmpty, get, filter, includes, map } from 'lodash';
+import { getDispositionFormQuestions2 } from './../../utils/util-functions';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -548,8 +548,8 @@ const useStyle = makeStyles(() => ({
 const DispositionForm = () => {
   const classes = useStyle();
   const formRef = useRef({});
-  const defaultQuestions = getDispositionFormQuestions2()
-  const allQuestions = [...defaultQuestions]
+  const defaultQuestions = getDispositionFormQuestions2();
+  const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
 
   /*useEffect(() => {
@@ -560,9 +560,9 @@ const DispositionForm = () => {
 
   const addAnotherQues = (ques, index) => {
     //questions.length = index+1
-    if(ques && ques.dependentQuestion){
-      questions.splice(index+1,0,...ques.dependentQuestion)
-      setQuestions(questions)
+    if (ques && ques.dependentQuestion) {
+      questions.splice(index + 1, 0, ...ques.dependentQuestion);
+      setQuestions(questions);
     }
     /*let nextQues = filter(allQuestions, function(que) {
       return includes(ques.nextQuestions,que.questionCode)
@@ -573,11 +573,11 @@ const DispositionForm = () => {
     if(ques.nextQues || ques.answers){
       setQuestions([...questions,ques])
     }*/
-  }
+  };
 
   const resetQuestions = () => {
-    setQuestions(defaultQuestions)
-  }
+    setQuestions(defaultQuestions);
+  };
 
   return (
     <>
@@ -606,9 +606,9 @@ const DispositionForm = () => {
         {({ setFieldValue }) => (
           <Form>
             <Grid container spacing={2} direction="column">
-              {
-                map(questions, (ques, index) => {
-                  return <Grid item key={index}>
+              {map(questions, (ques, index) => {
+                return (
+                  <Grid item key={index}>
                     <FormControl
                       variant="outlined"
                       className={classes.fieldContainer}
@@ -616,9 +616,11 @@ const DispositionForm = () => {
                       <Autocomplete
                         options={ques.option}
                         getOptionLabel={option => option.label}
-                        getOptionSelected={(option, value) => {return value.label === option.label}}
+                        getOptionSelected={(option, value) => {
+                          return value.label === option.label;
+                        }}
                         onChange={(event, value) => {
-                          addAnotherQues(value, index)
+                          addAnotherQues(value, index);
                           setFieldValue(ques.questionCode, value.label);
                         }}
                         renderInput={params => (
@@ -634,13 +636,19 @@ const DispositionForm = () => {
                       />
                     </FormControl>
                   </Grid>
-                })
-              }
-              <Grid item container justify="left" alignContent="left">
+                );
+              })}
+              <Grid
+                item
+                container
+                justify="flex-start"
+                alignContent="flex-start"
+              >
                 <Button
                   color="secondary"
                   variant="contained"
-                  size="small" onClick={resetQuestions}
+                  size="small"
+                  onClick={resetQuestions}
                 >
                   reset
                 </Button>

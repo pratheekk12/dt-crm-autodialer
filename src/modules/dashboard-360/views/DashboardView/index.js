@@ -31,7 +31,7 @@ const Dashboard = () => {
     <>
       <CustomBreadcrumbs />
       <div style={{ padding: '1rem 2rem 2rem' }}>
-        <Grid container spacing="5">
+        <Grid container spacing={5}>
           <Grid item lg={9} xs={12}>
             <LeadButtons />
           </Grid>
@@ -54,7 +54,7 @@ const Dashboard = () => {
         <Grid
           container
           direction="row"
-          spacing="3"
+          spacing={3}
           style={{ marginTop: '1rem' }}
         >
           <Grid item lg={5} xs={12}>
@@ -65,14 +65,14 @@ const Dashboard = () => {
               <DispositionForm />
             </Card>
           </Grid>
-          <Grid container item lg={7} xs={12} spacing="3">
+          <Grid container item lg={7} xs={12}>
             <Grid item xs={12}>
               <CustomerDetails />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentCustomerOrderDetails />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentFiveRecords />
             </Grid>
           </Grid>
