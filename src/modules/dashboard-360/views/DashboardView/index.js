@@ -1354,10 +1354,7 @@ import RecentFiveRecords from './RecentFiveRecords';
 const Dashboard = () => {
   return (
     <>
-      <div
-        style={{ backgroundColor: 'white', margin: '1rem', padding: '2rem' }}
-      >
-        <Grid container direction="row" justify="center" spacing={3}>
+        <Grid container direction="row" justify="center" spacing={3} style={{ backgroundColor: 'white', margin: '1rem', padding: '2rem', height: 'fit-content' }}>
           <Grid item lg={7} xs={12}>
             <Card style={{ display: 'flex', justifyContent: 'center' }}>
               <CardHeader title={'Disposition Form'} />
@@ -1373,7 +1370,6 @@ const Dashboard = () => {
             <RecentFiveRecords />
           </Grid>
         </Grid>
-      </div>
     </>
   );
 };
