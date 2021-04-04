@@ -36,17 +36,12 @@ const Dashboard = () => {
             <LeadButtons />
           </Grid>
           <Grid container item justify="flex-end" lg={3} xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ marginRight: '1.5rem' }}
-              onClick={handleClick}
-            >
+            <Button variant="contained" color="primary" onClick={handleClick}>
               Fetch New Customer
             </Button>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="info">
-                Calling !
+              <Alert onClose={handleClose} severity="success">
+                Call is connecting !
               </Alert>
             </Snackbar>
           </Grid>
