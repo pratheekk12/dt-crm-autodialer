@@ -1,30 +1,54 @@
 import React from 'react';
 import DispositionForm from './DispositionForm';
-import { Grid, Card, CardHeader, Button } from '@material-ui/core';
+import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 import PendingCallList from './PendingCallList';
 import RecentFiveRecords from './RecentFiveRecords';
 import LeadButtons from './LeadButtons';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
 import CustomerDetails from './CustomerDetails';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Dashboard = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <>
       <CustomBreadcrumbs />
       <div style={{ padding: '1rem 2rem 2rem' }}>
         <Grid container spacing="5">
-          <Grid item xs={9}>
+          <Grid item lg={9} xs={12}>
             <LeadButtons />
           </Grid>
-          <Grid container item justify="flex-end" xs={3}>
+          <Grid container item justify="flex-end" lg={3} xs={12}>
             <Button
               variant="contained"
               color="primary"
               style={{ marginRight: '1.5rem' }}
+              onClick={handleClick}
             >
               Fetch New Customer
             </Button>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="info">
+                Calling !
+              </Alert>
+            </Snackbar>
           </Grid>
         </Grid>
         <Grid
