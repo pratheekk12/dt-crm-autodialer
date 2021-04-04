@@ -32,7 +32,7 @@ const BranchDetail = ({ branch }) => {
           <Grid item xs={12} lg={6}>
             <MostQuerryQuestion />
           </Grid>
-          <Grid item xs={12} lg={8}>
+          <Grid item xs={12}>
             <FeedbackList />
           </Grid>
         </Grid>

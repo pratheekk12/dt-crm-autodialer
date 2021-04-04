@@ -102,6 +102,7 @@ const TopBar = ({
   const [searchText, setSearchText] = useState('');
   const history = useHistory();
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+  console.log('Routes', permissions, navBarRoutes(permissions, userRole));
   // useEffect(() => {
   //   const apiUrl = config.APIS_URL + '/access/email/' + userData.email;
   //   fetch(apiUrl)

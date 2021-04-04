@@ -10,22 +10,28 @@ export default [
   {
     path: '/dashboard',
     exact: false,
+    crumb: 'Dashboard 360',
     key: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    selector: 'dashboard.canViewAgentDashboard'
   },
   {
     path: '/admin-dashboard',
     exact: true,
+    crumb: 'Admin Dashboard',
     key: 'adminDashboard',
     component: AdminDashboard,
-    crumb: 'Admin Dashboard'
+    crumb: 'Admin Dashboard',
+    selector: 'dashboard.canViewAdminDashboard'
   },
   {
     path: '/manager-dashboard',
+    crumb: 'Manager Dashboard',
     exact: true,
     key: 'managerDashboard',
     component: Manager,
-    crumb: 'Manager Dashboard'
+    crumb: 'Manager Dashboard',
+    selector: 'dashboard.canViewManagerDashboard'
   },
   {
     path: '/orders',

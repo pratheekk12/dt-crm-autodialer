@@ -106,7 +106,7 @@ export const searchDistributor = (state = '', action) => {
 const permissions = {
   resources: 'CRU',
   telephony: ['callReceiving', 'callPlacing'],
-  dashboard: ['all', 'disposition'],
+  dashboard: ['agent'],
   telephonyDashboard: ['inboundDashboard', 'outboundDashboard'],
   ticketing: ['user', 'team', 'all'],
   ticketingDashboard: ['user', 'team', 'all'],
@@ -114,7 +114,7 @@ const permissions = {
   campaign: ['dashboard', 'admin'],
   admin: ['all']
 };
-export const accessAccToRole = (state = permissions, action) => {
+export const accessAccToRole = (state = getAccessObj(permissions), action) => {
   switch (action.type) {
     case SET_ACCESS_FOR_ROLE: {
       return getAccessObj(action.payload);
@@ -143,7 +143,15 @@ function getAccessObj(permissions) {
       'callReceiving'
     );
     obj.telephony.canPlaceCall = permissions.telephony?.includes('callPlacing');
-    obj.dashboard.canViewDashboard = permissions.dashboard?.includes('all');
+    obj.dashboard.canViewAgentDashboard = permissions.dashboard?.includes(
+      'agent'
+    );
+    obj.dashboard.canViewManagerDashboard = permissions.dashboard?.includes(
+      'manager'
+    );
+    obj.dashboard.canViewAdminDashboard = permissions.dashboard?.includes(
+      'admin'
+    );
     obj.dashboard.canAccessDisposition = permissions.dashboard?.includes(
       'disposition'
     );
