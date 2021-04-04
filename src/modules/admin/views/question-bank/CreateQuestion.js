@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FormFormik = props => {
+const CreateQuestion = props => {
   const formRef = useRef();
 
   const classes = useStyles();
@@ -113,21 +113,9 @@ const FormFormik = props => {
   };
 
   return (
-    <Page title="questions">
-      {/* <Box margin="0.5rem 0 0 1rem">
-        <ButtonGroup color="primary" aria-label="outlined primary button group">
-          <Button>
-            <Link to="/surveys/questions">View Questions</Link>
-          </Button>
-          <Button>
-            <Link to="/surveys/edit">Edit Questions</Link>
-          </Button>
-        </ButtonGroup>
-      </Box> */}
-      <Box margin="1rem">
-        <Grid container spacing={2}>
+        <Grid container spacing={2} direction="row" justify="center" spacing={3} style={{ backgroundColor: 'white', margin: '1rem', padding: '2rem', display: 'contents'  }}>
           <Grid xs={12} lg={6} item>
-            <Card style={{ width: '100%' }}>
+            <Card style={{ display: 'flex', justifyContent: 'center', padding: 10 }}>
               <CardHeader title="Feedback Designer" />
               <Divider />
               <CardContent className={classes.cardcontent}>
@@ -203,28 +191,28 @@ const FormFormik = props => {
                 {inputValue && handleInputs(inputValue)}
                 <List component="nav" aria-label="main mailbox folders">
                   {!!input.length &&
-                    input.map((data, index) => (
-                      <div key={input + 'formik'}>
-                        <ListItem
-                          key={index}
-                          classes={{
-                            container: classes.container,
-                            root: classes.listItem
-                          }}
-                        >
-                          <ListItemText primary={data.label} />
-                          <ListItemSecondaryAction>
-                            <IconButton
-                              edge="end"
-                              aria-label="delete"
-                              onClick={() => handleDelete(data)}
-                            >
-                              <DeleteIcon color="secondary" />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      </div>
-                    ))}
+                  input.map((data, index) => (
+                    <div key={input + 'formik'}>
+                      <ListItem
+                        key={index}
+                        classes={{
+                          container: classes.container,
+                          root: classes.listItem
+                        }}
+                      >
+                        <ListItemText primary={data.label} />
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={() => handleDelete(data)}
+                          >
+                            <DeleteIcon color="secondary" />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </div>
+                  ))}
                 </List>
               </CardContent>
             </Card>
@@ -255,9 +243,7 @@ const FormFormik = props => {
             </Card>
           </Grid>
         </Grid>
-      </Box>
-    </Page>
   );
 };
 
-export default FormFormik;
+export default CreateQuestion;

@@ -37,7 +37,7 @@ import Spinner from 'src/components/Spinner';
 import CommonAlert from 'src/components/CommonAlert';
 import { AccountTree, Close, Visibility } from '@material-ui/icons';
 import { SEARCH_QUESTION, CRUD_SURVEY } from '../../utils/endpoints';
-import GenerateForm from '../Questions/GenerateForm';
+import GenerateForm from '../../../../components/GenerateForm';
 
 const asyncFunction = async text =>
   Axios.get(`${SEARCH_QUESTION}/${text}`)

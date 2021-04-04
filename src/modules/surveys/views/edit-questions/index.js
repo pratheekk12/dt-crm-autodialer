@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import GenerateForm from '../Questions/GenerateForm';
+import GenerateForm from '../../../../components/GenerateForm';
 import {
   Grid,
   Box,

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
-import TextareaInput from '../../Questions/InputTypes/Textarea';
-import RatingInput from '../../Questions/InputTypes/Rating';
-import TextInput from '../../Questions/InputTypes/Text';
-import MultiOptions from '../../Questions/InputTypes/MultiOptions';
+import TextareaInput from '../../../../../components/InputTypes/Textarea';
+import RatingInput from '../../../../../components/InputTypes/Rating';
+import TextInput from '../../../../../components/InputTypes/Text';
+import MultiOptions from '../../../../../components/InputTypes/MultiOptions';
 
 const UpdateQuestions = ({ updateData: [prevData], newUpdatedValue }) => {
   const initialValue = {};

@@ -4,6 +4,7 @@ import AdminDashboard from '../views/dashboard';
 import ManageRoles from '../views/manage-roles';
 import manageUsers from '../views/manage-users';
 import CreateDispositionForm from '../views/create-disposition-form';
+import CreateQuestion from '../views/question-bank/CreateQuestion';
 
 export default [
   {
@@ -56,6 +57,22 @@ export default [
         key: 'createForm',
         component: CreateDispositionForm,
         crumb: 'Create Form'
+      }
+    ]
+  },
+  {
+    path: '/question-bank',
+    exact: false,
+    key: 'questionContainer',
+    component: EmptyRouteContainer,
+    crumb: 'Question Bank',
+    routes: [
+      {
+        path: '/create',
+        exact: true,
+        key: 'createQuestion',
+        component: CreateQuestion,
+        crumb: 'Create Question'
       }
     ]
   }
