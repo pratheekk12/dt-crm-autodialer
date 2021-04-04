@@ -9,14 +9,15 @@ export default [
   {
     path: '/home',
     key: 'home',
-    component: home
+    component: home,
+    requiresAuth: false
   },
   {
     path: '/new',
     key: 'createSurvey',
     component: CreateSurvey,
     crumb: 'Create Survey',
-    selector: 'survey.canAccessSurveyAdminPrivileges'
+    /*selector: 'survey.canAccessSurveyAdminPrivileges'*/
   },
   {
     path: '/:surveyId/view',
@@ -39,7 +40,7 @@ export default [
     key: 'addQuestions',
     component: FormFormik,
     crumb: 'Create Question',
-    selector: 'survey.canAccessSurveyAdminPrivileges'
+    /*selector: 'survey.canAccessSurveyAdminPrivileges'*/
   },
   {
     path: '/questions/:questionId/view',

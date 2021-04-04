@@ -32,7 +32,7 @@ export default [
     key: 'dash360',
     component: dash360,
     crumb: 'Dashboard 360',
-    requiresAuth: true
+    requiresAuth: false
     /* selector: 'dashboard.canViewDashboard'*/
   },
   {
@@ -49,8 +49,8 @@ export default [
     key: 'surveys',
     component: surveys,
     crumb: 'Surveys',
-    requiresAuth: true,
-    selector: 'survey.canAccessSurveyDashboard'
+    requiresAuth: false,
+    /*selector: 'survey.canAccessSurveyDashboard'*/
   },
   {
     path: '/telephony',
@@ -83,7 +83,7 @@ export default [
     key: 'admin',
     component: admin,
     crumb: 'Admin',
-    requiresAuth: true
+    requiresAuth: false
   },
   {
     path: '/auth',

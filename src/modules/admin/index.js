@@ -12,8 +12,8 @@ function View({ routes, userData, permissions }) {
     <DynamicModuleLoader modules={[getAdminModule()]}>
       <CustomBreadcrumbs />
       <RouteSwitch
-        routes={isAdmin ? routes : []}
-        redirectPath={isAdmin ? '/admin/dashboard' : '/'}
+        routes={!isAdmin ? routes : []}
+        redirectPath={!isAdmin ? '/admin/dashboard' : '/'}
       />
     </DynamicModuleLoader>
   );

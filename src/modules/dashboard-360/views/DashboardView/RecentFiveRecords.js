@@ -1,6 +1,12 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import { Card, CardHeader } from '@material-ui/core';
+import {
+  Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const RecentFiveRecords = () => {
   const columns = [
@@ -76,20 +82,26 @@ const RecentFiveRecords = () => {
   ];
 
   return (
-    <>
-      <div style={{ height: 400, width: '100%', margin: '4rem 0 3rem' }}>
-        <Card style={{ display: 'flex', justifyContent: 'center' }}>
-          <CardHeader title={'Last Five Disposition Data'} />
-        </Card>
-        <DataGrid
-          columns={columns}
-          rows={rows}
-          pageSize={5}
-          pagination
-          autoPageSize
-        />
-      </div>
-    </>
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography variant="body1">Last 5 agent Interaction</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <div style={{ height: 380, width: '100%' }}>
+          <DataGrid
+            columns={columns}
+            rows={rows}
+            pageSize={5}
+            pagination
+            autoHeight
+          />
+        </div>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
