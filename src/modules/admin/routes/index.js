@@ -5,6 +5,7 @@ import ManageRoles from '../views/manage-roles';
 import manageUsers from '../views/manage-users';
 import CreateDispositionForm from '../views/create-disposition-form';
 import CreateQuestion from '../views/question-bank/CreateQuestion';
+import RegistrationForm from '../../../components/RegistrationForm';
 
 export default [
   {
@@ -20,6 +21,13 @@ export default [
     key: 'manageRoles',
     component: ManageRoles,
     crumb: 'Roles'
+  },
+  {
+    path: '/register',
+    exact: true,
+    key: 'register',
+    component: RegistrationForm,
+    crumb: 'Register'
   },
   {
     path: '/manage-users',
