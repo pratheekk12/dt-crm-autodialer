@@ -167,8 +167,8 @@ function Login(props) {
             </div>
             <Formik
               initialValues={{
-                email: 'admin@admin.com',
-                password: 'abcabcabc',
+                email: '',
+                password: '',
                 role: 'Agent',
                 AgentType: 'Inbound',
                 AgentSIPID: '9999'

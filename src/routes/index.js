@@ -32,7 +32,7 @@ export default [
     key: 'dash360',
     component: dash360,
     crumb: 'Dashboard 360',
-    requiresAuth: false
+    requiresAuth: true
     /* selector: 'dashboard.canViewDashboard'*/
   },
   {
@@ -57,7 +57,7 @@ export default [
     key: 'admin',
     component: admin,
     crumb: 'Admin',
-    requiresAuth: false
+    requiresAuth: true
   },
   {
     path: '/auth',
