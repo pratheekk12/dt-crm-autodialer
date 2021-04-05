@@ -20,9 +20,11 @@ import Axios from 'axios';
 import {
   setLoggedIn,
   setUserDetails,
-  setAccessLevels
+  setAccessLevels,
+  setAccountType
 } from '../../../redux/action';
 import { CRUD_LOGIN } from '../utils/endpoints';
+import { ADMIN, USER } from 'src/redux/constants';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -88,7 +90,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Login(props) {
-  const { setAccess, setUserDetailsMain, setLoggedInMain } = props;
+  const {
+    setAccess,
+    setUserDetailsMain,
+    setLoggedInMain,
+    setAccountTypeMain
+  } = props;
   console.log('set access', props);
   const classes = useStyles();
   const [error, setError] = useState('');
@@ -101,7 +108,8 @@ function Login(props) {
       const obj = res.data.userObj || res.data.userDetails;
 
       setUserDetailsMain(obj);
-      // setAccountTypeMain(obj.role === 'admin' ? ADMIN : USER);
+      console.log({ obj }, 'login');
+      setAccountTypeMain(obj.role === 'admin' ? ADMIN : USER);
 
       // TODO: Uncomment for build
       // setAccess(obj.permissions);
@@ -306,6 +314,7 @@ function Login(props) {
 
 const mapDispatchToProps = dispatch => ({
   setUserDetailsMain: details => dispatch(setUserDetails(details)),
+  setAccountTypeMain: accType => dispatch(setAccountType(accType)),
   setLoggedInMain: val => dispatch(setLoggedIn(val)),
   setAccess: roles => dispatch(setAccessLevels(roles))
 });

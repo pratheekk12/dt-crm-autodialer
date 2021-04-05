@@ -118,7 +118,9 @@ function RegistrationForm({
                 username: '',
                 email: '',
                 phone: '',
-                role: ''
+                role: '',
+                AgentSIPID: '',
+                AgentType: ''
               }
         }
         validationSchema={RegistrationSchema(admin)}
@@ -162,6 +164,36 @@ function RegistrationForm({
                 style={{ width: 400 }}
                 className={classes.textField}
                 label="Enter Mobile Number"
+                variant="outlined"
+                disabled={false}
+                autoComplete="off"
+              />
+              <Field
+                name="role"
+                component={TextField}
+                style={{ width: 400 }}
+                className={classes.textField}
+                label="Role"
+                variant="outlined"
+                disabled={false}
+                autoComplete="off"
+              />
+              <Field
+                name="AgentType"
+                component={TextField}
+                style={{ width: 400 }}
+                className={classes.textField}
+                label="Agent Type"
+                variant="outlined"
+                disabled={false}
+                autoComplete="off"
+              />
+              <Field
+                name="AgentSIPID"
+                component={TextField}
+                style={{ width: 400 }}
+                className={classes.textField}
+                label="Agent SIPID"
                 variant="outlined"
                 disabled={false}
                 autoComplete="off"

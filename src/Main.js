@@ -5,7 +5,13 @@ import { CRUD_LOGIN } from 'src/modules/auth/utils/endpoints';
 import MainLoader from './components/MainLoader';
 import RouteSwitch from './components/RouteSwitch';
 import TopBar from './components/TopBar';
-import { setAccessLevels, setLoggedIn, setUserDetails } from './redux/action';
+import {
+  setAccessLevels,
+  setLoggedIn,
+  setUserDetails,
+  setAccountType
+} from './redux/action';
+import { ADMIN, USER } from './redux/constants';
 import routes from './routes';
 
 function Main({
@@ -13,7 +19,8 @@ function Main({
   classes,
   setUserDetailsMain,
   setAccess,
-  setLoggedInMain
+  setLoggedInMain,
+  setAccountTypeMain
 }) {
   const [loading, setLoading] = useState(true);
   const [filteredRoutes, setfilteredRoutes] = useState(
@@ -30,6 +37,7 @@ function Main({
         const obj = res.data.userObj;
         console.log({ obj });
         setUserDetailsMain(obj);
+        setAccountTypeMain(obj.role === 'admin' ? ADMIN : USER);
         // obj.permissions = { dashboard: { canViewAgentDashboard: true } };
 
         // TODO: Uncomment for build
@@ -76,6 +84,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   setUserDetailsMain: details => dispatch(setUserDetails(details)),
+  setAccountTypeMain: accType => dispatch(setAccountType(accType)),
   setLoggedInMain: val => dispatch(setLoggedIn(val)),
   setAccess: role => dispatch(setAccessLevels(role))
 });
