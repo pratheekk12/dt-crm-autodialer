@@ -1,43 +1,29 @@
 export default (permissions, userRole) => [
   {
-    isVisible: true,
-    link: '/dash360',
+    isVisible: permissions.dashboard.canViewAgentDashboard,
+    link: '/dash360/admin/dashboard',
     title: 'Dashboard'
   },
   {
-    isVisible: true, // to be updated by person working on telephony
+    isVisible: permissions.dashboard.canViewAdminDashboard,
+    link: '/dash360/admin/admin-dashboard',
+    title: 'Dashboard'
+  },
+  {
+    isVisible: permissions.dashboard.canViewManagerDashboard,
+    link: '/dash360/admin/manager-dashboard',
+    title: 'Dashboard'
+  },
+  {
+    isVisible: permissions.dashboard.canViewAdminDashboard, // to be updated by person working on telephony
     link: '/upload/home',
     title: 'Upload'
   },
   // {
-  //   isVisible: true, // to be updated by person working on telephony
+  //   isVisible:
+  //     permissions.telephonyDashboard.canAccessTelephonyOutboundDashboard, // to be updated by person workin on telephony
   //   link: '/telephony/dashboard',
   //   title: 'Telephony'
-  // },
-  // {
-  //   isVisible: true, // to be updated by person working on ticketing
-  //   link: '/ticketing/ticket-dashboard',
-  //   title: 'Ticketing'
-  // },
-  // {
-  //   isVisible: permissions.survey.canAccessSurveyDashboard,
-  //   link: '/surveys/home',
-  //   title: 'Surveys'
-  // },
-  // {
-  //   isVisible: permissions.campaign.canAccessCampaignDashboard,
-  //   link: '/campaign/dashboard',
-  //   title: 'Campaign'
-  // },
-  // {
-  //   isVisible: true, // To be updated
-  //   link: '/ticketing/setup',
-  //   title: 'Tkt-Setup'
-  // },
-  // {
-  //   isVisible: true, // To be updated
-  //   link: '/ticketing/ticket-report',
-  //   title: 'Tkt-Dashboard'
   // },
   {
     isVisible:

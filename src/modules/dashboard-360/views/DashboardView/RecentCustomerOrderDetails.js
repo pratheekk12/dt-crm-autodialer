@@ -71,7 +71,7 @@ const RecentCustomerOrderDetails = () => {
             <DataGrid
               columns={columns}
               rows={rows}
-              pageSize={1}
+              pageSize={3}
               pagination
               autoHeight
             />

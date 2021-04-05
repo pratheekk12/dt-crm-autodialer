@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.dark,
     display: 'flex',
     height: '100%',
-    overflow: 'scroll',
+    // overflow: 'scroll',
     width: '100%'
   },
   wrapper: {

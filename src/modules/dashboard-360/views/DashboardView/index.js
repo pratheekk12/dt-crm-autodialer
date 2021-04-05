@@ -31,22 +31,17 @@ const Dashboard = () => {
     <>
       <CustomBreadcrumbs />
       <div style={{ padding: '1rem 2rem 2rem' }}>
-        <Grid container spacing="5">
+        <Grid container spacing={5}>
           <Grid item lg={9} xs={12}>
             <LeadButtons />
           </Grid>
           <Grid container item justify="flex-end" lg={3} xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ marginRight: '1.5rem' }}
-              onClick={handleClick}
-            >
+            <Button variant="contained" color="primary" onClick={handleClick}>
               Fetch New Customer
             </Button>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="info">
-                Calling !
+              <Alert onClose={handleClose} severity="success">
+                Call is connecting !
               </Alert>
             </Snackbar>
           </Grid>
@@ -54,7 +49,7 @@ const Dashboard = () => {
         <Grid
           container
           direction="row"
-          spacing="3"
+          spacing={3}
           style={{ marginTop: '1rem' }}
         >
           <Grid item lg={5} xs={12}>
@@ -65,14 +60,14 @@ const Dashboard = () => {
               <DispositionForm />
             </Card>
           </Grid>
-          <Grid container item lg={7} xs={12} spacing="3">
+          <Grid container item lg={7} xs={12}>
             <Grid item xs={12}>
               <CustomerDetails />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentCustomerOrderDetails />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentFiveRecords />
             </Grid>
           </Grid>

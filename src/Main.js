@@ -30,8 +30,10 @@ function Main({
         const obj = res.data.userObj;
         console.log({ obj });
         setUserDetailsMain(obj);
-        // obj.permissions = { dashboard: { canViewDashboard: true } };
-        setAccess(obj.permissions);
+        // obj.permissions = { dashboard: { canViewAgentDashboard: true } };
+
+        // TODO: Uncomment for build
+        // setAccess(obj.permissions);
         setLoggedInMain(true);
       } catch (error) {
         setLoggedInMain(false);
