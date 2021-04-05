@@ -4,8 +4,10 @@ import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
 import * as yup from 'yup';
-import { isEmpty, get, filter, includes, map } from 'lodash';
-import { getDispositionFormQuestions2 } from './../../utils/util-functions';
+import { isEmpty, get, filter, includes, map } from 'lodash'
+import { getDispositionFormQuestions2 } from './../../utils/util-functions'
+import Axios from 'axios';
+import { SAVE_DISPOSITION } from '../../utils/endpoints';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -41,18 +43,22 @@ const DispositionForm = () => {
     setQuestions(defaultQuestions);
   };
 
+  async function saveDispositionForm(formValue) {
+    try {
+      await Axios.post(SAVE_DISPOSITION, formValue);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <Formik
         validateOnBlur={false}
-        initialValues={{
-          category: '',
-          subCategory: '',
-          subCategoryItem: '',
-          comments: ''
-        }}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        initialValues={{}}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           console.log(values);
+          await saveDispositionForm(values)
           setSubmitting(false);
           resetForm();
         }}

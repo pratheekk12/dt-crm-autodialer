@@ -12,4 +12,5 @@ export const GET_CURRENT_STATUS_BY_AGENT_SIP_ID =  '/agentservice/crm/currentsta
 export const ORIGINATE_CALL_WITH_SIP_ID = '/agentservice/ami/actions/orginatecall?';
 export const UPDATE_CALL_STATUS = '/agentservice/crm/interactions/';
 export const GET_INBOUND_DASHBOARD_DATA = '/gpreport/service/dashboardcount?AccessKeys=123'
-
+const prefix = process.env.NODE_ENV === 'production' ? '/auth/' : '/auth/';
+export const SAVE_DISPOSITION = prefix + 'dashboard/admin/saveDisposition';

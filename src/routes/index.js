@@ -30,9 +30,10 @@ export default [
     path: '/dash360',
     routes,
     key: 'dash360',
-    component: EmptyRouteContainer,
-    requiresAuth: true
-    /* selector: 'dashboard.canViewAgentDashboard'*/
+    component: dash360,
+    crumb: 'Dashboard 360',
+    requiresAuth: false
+    /* selector: 'dashboard.canViewDashboard'*/
   },
   {
     path: '/upload',
@@ -56,7 +57,7 @@ export default [
     key: 'admin',
     component: admin,
     crumb: 'Admin',
-    requiresAuth: true
+    requiresAuth: false
   },
   {
     path: '/auth',
