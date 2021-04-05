@@ -36,16 +36,18 @@ function CreateDispositionForm() {
             <Formik
               initialValues={initialValues}
               onSubmit={async values => {
+                console.log(`values------>`,JSON.stringify(values))
                 createNodeForSortableTree(values.dispositionQuestions);
                 setSTree(values.dispositionQuestions);
               }}
               validateOnChange={false}
             >
-              {({ values }) => (
+              {({ values, setFieldValue }) => (
                 <Form>
                   <DispositionQuestions
                     questions={values.dispositionQuestions}
                     name={'dispositionQuestions'}
+                    setFieldValue={setFieldValue}
                   />
                   <Button variant="contained" color="primary" type="submit">
                     {'Save'}
