@@ -10,7 +10,7 @@ export default [
   {
     path: '/dashboard',
     exact: false,
-    crumb: 'Dashboard 360',
+    // crumb: 'Dashboard 360',
     key: 'dashboard',
     component: Dashboard,
     selector: 'dashboard.canViewAgentDashboard'

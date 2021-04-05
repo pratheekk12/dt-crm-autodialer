@@ -52,7 +52,7 @@ const Dashboard = () => {
           spacing={3}
           style={{ marginTop: '1rem' }}
         >
-          <Grid item lg={5} xs={12}>
+          <Grid item lg={6} xs={12}>
             <Card style={{ display: 'flex', justifyContent: 'center' }}>
               <CardHeader title={'Disposition Form'} />
             </Card>
@@ -60,7 +60,7 @@ const Dashboard = () => {
               <DispositionForm />
             </Card>
           </Grid>
-          <Grid container item lg={7} xs={12}>
+          <Grid container item lg={6} xs={12}>
             <Grid item xs={12}>
               <CustomerDetails />
             </Grid>
@@ -78,5 +78,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// demo commit
