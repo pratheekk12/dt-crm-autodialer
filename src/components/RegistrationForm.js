@@ -119,6 +119,7 @@ function RegistrationForm({
                 email: '',
                 phone: '',
                 role: '',
+                password: '',
                 AgentSIPID: '',
                 AgentType: ''
               }
@@ -154,6 +155,17 @@ function RegistrationForm({
                 className={classes.textField}
                 style={{ width: 400 }}
                 label="Enter Email"
+                variant="outlined"
+                disabled={!!isEdit}
+                autoComplete="off"
+              />
+              <Field
+                name="email"
+                component={TextField}
+                className={classes.textField}
+                type="password"
+                style={{ width: 400 }}
+                label="Enter password"
                 variant="outlined"
                 disabled={!!isEdit}
                 autoComplete="off"

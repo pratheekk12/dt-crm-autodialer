@@ -51,6 +51,7 @@ export function getDispositionFormQuestions2() {
   const questionArr = [
     {
       question: 'Agent name',
+      questionName: 'agentName',
       questionCode: 'QA_1',
       option: [
         {
@@ -68,16 +69,19 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'customerPhoneNumber',
       question: 'Customer Phone Number',
       questionCode: 'QA_2',
       questionType: 'text'
     },
     {
+      questionName: 'guestName',
       question: 'Enter Guest Name',
       questionCode: 'QA_3',
       questionType: 'text'
     },
     {
+      questionName: 'numberOfAttempt',
       question: 'Attempt',
       questionCode: 'QA_4',
       option: [
@@ -93,6 +97,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'languageChoosed',
       question: 'Language',
       questionCode: 'QA_5',
       option: [
@@ -117,6 +122,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'mainDisposition',
       question: 'Main Disposition',
       questionCode: 'QA_6',
       option: [
@@ -132,6 +138,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'requiredType',
       question: 'Required Type',
       questionCode: 'QA_7',
       option: [
@@ -147,6 +154,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'subDisposition',
       question: 'Sub disposition',
       questionCode: 'QA_8',
       option: [
@@ -183,6 +191,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'customerExperiences',
       question: "Customer Experience's",
       questionCode: 'QA_9',
       option: [
@@ -198,6 +207,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'issues',
       question: 'Issues',
       questionCode: 'QA_10',
       option: [
@@ -243,6 +253,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'Rating',
       question: 'Rating',
       questionCode: 'QA_11',
       option: [
@@ -255,6 +266,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'overallCustomerRating',
       question: 'Overall customer rating given in call',
       questionCode: 'QA_12',
       option: [
@@ -276,6 +288,7 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
+      questionName: 'remarks_feedback',
       question: 'Remarks/feedback',
       questionCode: 'QA_13',
       questionType: 'text',

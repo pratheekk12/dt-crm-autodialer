@@ -19,6 +19,11 @@ export default (permissions, userRole) => [
     link: '/upload/home',
     title: 'Upload'
   },
+  {
+    isVisible: permissions.dashboard.canViewAdminDashboard, // to be updated by person working on telephony
+    link: '/dash360/admin/report',
+    title: 'Report'
+  },
   // {
   //   isVisible:
   //     permissions.telephonyDashboard.canAccessTelephonyOutboundDashboard, // to be updated by person workin on telephony

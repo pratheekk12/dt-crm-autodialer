@@ -20,7 +20,7 @@ function View({ accountType, routes }) {
         redirectPath={
           accountType === ADMIN
             ? '/dash360/admin/dashboard'
-            : '/dash360/admin/dashboard'
+            : '/dash360/profile'
         }
       />
     </DynamicModuleLoader>

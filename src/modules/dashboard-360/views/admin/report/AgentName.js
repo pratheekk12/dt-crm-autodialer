@@ -2,37 +2,38 @@ import { TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
 
-const Branches = ({ value }) => {
-  const branches = [
+const AgentName = ({ name }) => {
+  console.log(name);
+  const names = [
     {
-      name: 'Branch 1'
+      name: 'Pavithra'
     },
     {
-      name: 'Branch 2'
+      name: 'Nandini'
     },
     {
-      name: 'Branch 3'
+      name: 'Bhuvaneshwari'
     },
     {
-      name: 'Branch 4'
+      name: 'Maria'
     }
   ];
   return (
     <>
       <Autocomplete
-        id="branches"
-        options={branches}
+        id="agentName"
+        options={names}
         onChange={(event, newValue) => {
-          value(newValue);
+          name(newValue);
         }}
         style={{ width: '100%', backgroundColor: 'white' }}
         getOptionLabel={option => option.name}
         renderInput={params => (
-          <TextField {...params} label="Branch Name" variant="outlined" />
+          <TextField {...params} label="Agent Name" variant="outlined" />
         )}
       />
     </>
   );
 };
 
-export default Branches;
+export default AgentName;

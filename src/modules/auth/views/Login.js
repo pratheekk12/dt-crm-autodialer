@@ -176,10 +176,10 @@ function Login(props) {
             <Formik
               initialValues={{
                 email: '',
-                password: '',
-                role: 'Agent',
-                AgentType: 'Inbound',
-                AgentSIPID: '9999'
+                password: ''
+                // role: 'Agent',
+                // AgentType: 'Inbound',
+                // AgentSIPID: '9999'
               }}
               validationSchema={Yup.object().shape({
                 email: Yup.string()

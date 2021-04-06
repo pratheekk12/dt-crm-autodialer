@@ -8,6 +8,7 @@ import { isEmpty, get, filter, includes, map } from 'lodash';
 import { getDispositionFormQuestions2 } from './../../utils/util-functions';
 import Axios from 'axios';
 import { SAVE_DISPOSITION } from '../../utils/endpoints';
+import CommonAlert from 'src/components/CommonAlert';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -44,8 +45,11 @@ const DispositionForm = () => {
   };
 
   async function saveDispositionForm(formValue) {
+    console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
+
+      return <CommonAlert text={'Form submitted successfully'} />;
     } catch (err) {
       console.log(err);
     }
@@ -63,7 +67,7 @@ const DispositionForm = () => {
             console.log(values);
             await saveDispositionForm(values);
             setSubmitting(false);
-            resetForm();
+            // resetForm();
           }}
           innerRef={formRef}
           /*validationSchema={yup.object({
@@ -90,7 +94,7 @@ const DispositionForm = () => {
                           variant="outlined"
                           multiline={ques.multiline}
                           rows={ques.rows}
-                          name={ques.question}
+                          name={ques.questionName}
                         />
                       </FormControl>
                     </Grid>
@@ -108,7 +112,7 @@ const DispositionForm = () => {
                           }}
                           onChange={(event, value) => {
                             addAnotherQues(value, index);
-                            setFieldValue(ques.questionCode, value.label);
+                            setFieldValue(ques.questionName, value.label);
                           }}
                           renderInput={params => (
                             <Field
@@ -116,16 +120,16 @@ const DispositionForm = () => {
                               {...params}
                               label={ques.question}
                               variant="outlined"
-                              name="category"
+                              name={ques.questionName}
                             />
                           )}
-                          name="category"
+                          name={ques.questionName}
                         />
                       </FormControl>
                     </Grid>
                   )
                 )}
-                <Grid
+                {/* <Grid
                   item
                   container
                   justify="flex-start"
@@ -139,7 +143,7 @@ const DispositionForm = () => {
                   >
                     reset
                   </Button>
-                </Grid>
+                </Grid> */}
                 <Grid item container justify="center" alignContent="center">
                   <Button
                     type="submit"
