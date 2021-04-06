@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Autocomplete } from '@material-ui/lab';
+import isEmpty from 'lodash/isEmpty'
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -22,11 +23,7 @@ const initialValues = {
   dispositionQuestions: [
     {
       question: '',
-      option: [
-        {
-          label: ''
-        }
-      ]
+      option: []
     }
   ]
 };
@@ -74,8 +71,18 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
                     getOptionSelected={(option, value) => {
                       return value.questionName === option.questionName;
                     }}
+                    name={`${name}.${index}.question`}
                     onChange={(event, value) => {
                       console.log(`value------>`,value)
+                      if(value.options){
+                        let answers = []
+                        for(let option of value.options){
+                          answers.push({
+                            label: option.value
+                          })
+                        }
+                        dispositionQuestion.option = answers
+                      }
                       setFieldValue(`${name}.${index}.question`, value.questionName);
                     }}
                     renderInput={params => (
@@ -91,17 +98,19 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
                       />
                     )}
                   />
-                  <Box
-                    padding={1}
-                    border={1}
-                    display="block"
-                    position="relative"
-                    style={{ borderColor: '#C4C4C4', borderRadius: '0.25rem' }}
-                  >
-                    <FieldArray name={`${name}.${index}.option`}>
-                      {({ insert, remove, push }) => (
-                        <div>
-                          {dispositionQuestion.option.length > 0 &&
+                  {
+                    dispositionQuestion.option.length > 0 &&
+                    <Box
+                      padding={1}
+                      border={1}
+                      display="block"
+                      position="relative"
+                      style={{ borderColor: '#C4C4C4', borderRadius: '0.25rem' }}
+                    >
+                      <FieldArray name={`${name}.${index}.option`}>
+                        {({ insert, remove, push }) => (
+                          <div>
+                            {dispositionQuestion.option.length > 0 &&
                             dispositionQuestion.option.map(
                               (questionAns, ansIndex) => (
                                 <div
@@ -186,10 +195,11 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
                           >
                             Answer
                           </Button>
-                        </div>
-                      )}
-                    </FieldArray>
-                  </Box>
+                          </div>
+                        )}
+                      </FieldArray>
+                    </Box>
+                  }
                   <div className="col">
                     <Button
                       variant="contained"
@@ -210,11 +220,7 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
               onClick={() =>
                 push({
                   question: '',
-                  option: [
-                    {
-                      label: ''
-                    }
-                  ]
+                  option: []
                 })
               }
               style={{ margin: 10 }}
