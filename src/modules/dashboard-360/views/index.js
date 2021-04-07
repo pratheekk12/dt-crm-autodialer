@@ -18,7 +18,7 @@ function View({ accountType, routes }) {
       <RouteSwitch
         routes={routes}
         redirectPath={
-          accountType === ADMIN ? '/dash360/admin/dashboard' : '/dash360/'
+          accountType === ADMIN ? '/dash360/admin/dashboard' : '/dash360/agent'
         }
       />
     </DynamicModuleLoader>

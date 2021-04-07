@@ -12,7 +12,7 @@ export default [
     component: EmptyRouteContainer
   },
   {
-    path: '/',
+    path: '/agent',
     exact: true,
     key: 'dashboard',
     component: Dashboard,

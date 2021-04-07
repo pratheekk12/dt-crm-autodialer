@@ -18,9 +18,9 @@ function Main({
   isLoggedIn,
   classes,
   setUserDetailsMain,
-  setAccess,
   setLoggedInMain,
-  setAccountTypeMain
+  setAccountTypeMain,
+  setAccessTypeMain
 }) {
   const [loading, setLoading] = useState(true);
   const [filteredRoutes, setfilteredRoutes] = useState(
@@ -41,8 +41,8 @@ function Main({
         // obj.permissions = { dashboard: { canViewAgentDashboard: true } };
 
         // TODO: Uncomment for build
-        // setAccess(obj.permissions);
-        setLoggedInMain(true);
+        setAccessTypeMain(obj.permissions);
+       // setLoggedInMain(true);
       } catch (error) {
         setLoggedInMain(false);
       } finally {
@@ -86,6 +86,6 @@ const mapDispatchToProps = dispatch => ({
   setUserDetailsMain: details => dispatch(setUserDetails(details)),
   setAccountTypeMain: accType => dispatch(setAccountType(accType)),
   setLoggedInMain: val => dispatch(setLoggedIn(val)),
-  setAccess: role => dispatch(setAccessLevels(role))
+  setAccessTypeMain: role => dispatch(setAccessLevels(role))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
