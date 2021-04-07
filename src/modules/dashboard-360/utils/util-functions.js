@@ -199,7 +199,34 @@ export function getDispositionFormQuestions2() {
           label: 'Happy'
         },
         {
-          label: 'Not Happy'
+          label: 'Not Happy',
+          dependentQuestion: [
+            {
+              questionName: 'whatWereYouNotSatisfiedWith?',
+              question: 'What were you not satisfied with ?',
+              questionCode: 'QA_14',
+              option: [
+                {
+                  label: 'Food',
+                  dependentQuestion: [
+                    {
+                      questionName: 'taste',
+                      question: 'Are you satisfied with our food?',
+                      questionCode: 'QA_15',
+                      option: [
+                        {
+                          label: 'yes'
+                        },
+                        {
+                          label: 'no'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           label: 'Average'

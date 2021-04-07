@@ -42,7 +42,7 @@ function Main({
 
         // TODO: Uncomment for build
         setAccessTypeMain(obj.permissions);
-       // setLoggedInMain(true);
+        setLoggedInMain(true);
       } catch (error) {
         setLoggedInMain(false);
       } finally {
