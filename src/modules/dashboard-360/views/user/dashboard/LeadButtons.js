@@ -1,12 +1,19 @@
 import { Button, Grid } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
 const LeadButtons = () => {
+  const [allLeads, setAllLeads] = useState(0);
+  const [allLeadsInProgress, setAllLeadsInProgress] = useState(0);
+  const [allLeadsComplete, setAllLeadsComplete] = useState(0);
   async function leads() {
     try {
-      const res = await Axios.get('/crm-route/allleads');
-      console.log(res);
+      const allLeadsResp = await Axios.get('/crm-route/allleads');
+      const allLeadsInProgressResp = await Axios.get('/crm-route/allleadsinprogress');
+      const leadsClosedResp = await Axios.get('/crm-route/leadsclosed');
+      setAllLeads(allLeadsResp.data);
+      setAllLeadsInProgress(allLeadsInProgressResp.data);
+      setAllLeadsComplete(leadsClosedResp.data);
     } catch (err) {
       console.log(err);
     }
@@ -25,27 +32,19 @@ const LeadButtons = () => {
       >
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Total 500
+            Leads Total
+{' '}
+            {allLeads}
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Pending 450
+            Leads In Progress {' '} {allLeadsInProgress}
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Assigned 10
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="contained" color="primary">
-            Leads Closed 30
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="contained" color="primary">
-            Leads To Followup 10
+            Leads Closed {' '} {allLeadsComplete}
           </Button>
         </Grid>
       </Grid>

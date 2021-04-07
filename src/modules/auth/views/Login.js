@@ -112,7 +112,7 @@ function Login(props) {
       setAccountTypeMain(obj.role === 'admin' ? ADMIN : USER);
 
       // TODO: Uncomment for build
-      // setAccess(obj.permissions);
+      setAccess(obj.permissions);
       setLoggedInMain(true);
       setError(false);
     } catch (err) {

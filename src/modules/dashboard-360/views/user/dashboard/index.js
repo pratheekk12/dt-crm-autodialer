@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [open, setOpen] = React.useState(false);
 
   const getData = async () => {
-    const res = await axios.get('channel/getdata');
+    const res = await axios.get('/channel/getdata');
     setCustomer(res.data);
     console.log(res.data);
   };
