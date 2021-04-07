@@ -4,7 +4,7 @@ import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
 import * as yup from 'yup';
-import { isEmpty, get, filter, includes, map } from 'lodash';
+import { map } from 'lodash';
 import Axios from 'axios';
 import CommonAlert from 'src/components/CommonAlert';
 import { getDispositionFormQuestions2 } from 'src/modules/dashboard-360/utils/util-functions';
