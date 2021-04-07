@@ -1,7 +1,19 @@
 import { Button, Grid } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
+import Axios from 'axios';
 
 const LeadButtons = () => {
+  async function leads() {
+    try {
+      const res = await Axios.get('crm-route/allleads');
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(async () => {
+    leads();
+  }, []);
   return (
     <>
       <Grid

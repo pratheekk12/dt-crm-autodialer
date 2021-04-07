@@ -49,37 +49,37 @@ export function getDispositionFormQuestions() {
 
 export function getDispositionFormQuestions2() {
   const questionArr = [
-    {
-      question: 'Agent name',
-      questionName: 'agentName',
-      questionCode: 'QA_1',
-      option: [
-        {
-          label: 'Pavithra'
-        },
-        {
-          label: 'Nandini'
-        },
-        {
-          label: 'Bhuvaneshwari'
-        },
-        {
-          label: 'Maria'
-        }
-      ]
-    },
-    {
-      questionName: 'customerPhoneNumber',
-      question: 'Customer Phone Number',
-      questionCode: 'QA_2',
-      questionType: 'text'
-    },
-    {
-      questionName: 'guestName',
-      question: 'Enter Guest Name',
-      questionCode: 'QA_3',
-      questionType: 'text'
-    },
+    // {
+    //   question: 'Agent name',
+    //   questionName: 'agentName',
+    //   questionCode: 'QA_1',
+    //   option: [
+    //     {
+    //       label: 'Pavithra'
+    //     },
+    //     {
+    //       label: 'Nandini'
+    //     },
+    //     {
+    //       label: 'Bhuvaneshwari'
+    //     },
+    //     {
+    //       label: 'Maria'
+    //     }
+    //   ]
+    // },
+    // {
+    //   questionName: 'customerPhoneNumber',
+    //   question: 'Customer Phone Number',
+    //   questionCode: 'QA_2',
+    //   questionType: 'text'
+    // },
+    // {
+    //   questionName: 'guestName',
+    //   question: 'Enter Guest Name',
+    //   questionCode: 'QA_3',
+    //   questionType: 'text'
+    // },
     {
       questionName: 'numberOfAttempt',
       question: 'Attempt',
