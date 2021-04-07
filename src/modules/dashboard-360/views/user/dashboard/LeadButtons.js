@@ -5,7 +5,7 @@ import Axios from 'axios';
 const LeadButtons = () => {
   async function leads() {
     try {
-      const res = await Axios.get('crm-route/allleads');
+      const res = await Axios.get('/crm-route/allleads');
       console.log(res);
     } catch (err) {
       console.log(err);
