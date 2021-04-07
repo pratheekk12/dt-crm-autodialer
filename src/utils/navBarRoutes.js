@@ -1,12 +1,17 @@
 export default (permissions, userRole) => [
   {
-    isVisible: permissions.dashboard.canViewAgentDashboard,
+    isVisible: permissions.dashboard.canViewAdminDashboard,
     link: '/dash360/admin/dashboard',
     title: 'Dashboard'
   },
+  // {
+  //   isVisible: permissions.dashboard.canViewAdminDashboard,
+  //   link: '/dash360/admin/admin-dashboard',
+  //   title: 'Dashboard'
+  // },
   {
-    isVisible: permissions.dashboard.canViewAdminDashboard,
-    link: '/dash360/admin/admin-dashboard',
+    isVisible: permissions.dashboard.canViewAgentDashboard,
+    link: '/dash360',
     title: 'Dashboard'
   },
   {
@@ -31,8 +36,7 @@ export default (permissions, userRole) => [
   //   title: 'Telephony'
   // },
   {
-    isVisible:
-      userRole === 'admin' || permissions.admin.canAccessAdminPrivileges,
+    isVisible: permissions.dashboard.canViewAdminDashboard,
     link: '/admin',
     title: ' Admin'
   }

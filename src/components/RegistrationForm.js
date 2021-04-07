@@ -160,7 +160,7 @@ function RegistrationForm({
                 autoComplete="off"
               />
               <Field
-                name="email"
+                name="password"
                 component={TextField}
                 className={classes.textField}
                 type="password"

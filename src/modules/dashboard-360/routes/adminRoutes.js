@@ -13,17 +13,17 @@ export default [
     exact: false,
     // crumb: 'Dashboard 360',
     key: 'dashboard',
-    component: Dashboard,
-    selector: 'dashboard.canViewAgentDashboard'
-  },
-  {
-    path: '/admin-dashboard',
-    exact: true,
-    crumb: 'Admin Dashboard',
-    key: 'adminDashboard',
     component: AdminDashboard,
     selector: 'dashboard.canViewAdminDashboard'
   },
+  // {
+  //   path: '/admin-dashboard',
+  //   exact: true,
+  //   // crumb: 'Admin Dashboard',
+  //   key: 'adminDashboard',
+  //   component: AdminDashboard,
+  //   selector: 'dashboard.canViewAdminDashboard'
+  // },
   {
     path: '/report',
     exact: true,

@@ -9,7 +9,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-const ReportChart = ({ name }) => {
+const ReportChart = ({ agentName }) => {
   const series = [65, 45, 20];
 
   const options = {
@@ -36,7 +36,7 @@ const ReportChart = ({ name }) => {
     <>
       <div id="chart">
         <Card style={{ textAlign: 'center' }}>
-          <CardHeader title={name.name} />
+          <CardHeader title={agentName.name} />
           <Divider />
           <CardContent>
             <ReactApexChart

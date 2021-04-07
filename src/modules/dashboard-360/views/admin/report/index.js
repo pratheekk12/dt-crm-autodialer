@@ -27,7 +27,7 @@ const Report = () => {
 
           <Grid item xs={12} lg={6}>
             {agentName !== null && agentName !== '' ? (
-              <ReportChart name={agentName} />
+              <ReportChart agentName={agentName} />
             ) : null}
           </Grid>
         </Grid>

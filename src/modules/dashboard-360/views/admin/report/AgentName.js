@@ -3,7 +3,6 @@ import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
 
 const AgentName = ({ name }) => {
-  console.log(name);
   const names = [
     {
       name: 'Pavithra'

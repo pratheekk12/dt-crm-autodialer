@@ -12,15 +12,13 @@ function View({ accountType, routes }) {
       (route.accountType ? route.accountType === accountType : true) ||
       route.accountType === COMMON
   );
-  console.log({ accountType });
+  console.log('account type :', accountType);
   return (
     <DynamicModuleLoader modules={[getDashboardModule()]}>
       <RouteSwitch
         routes={routes}
         redirectPath={
-          accountType === ADMIN
-            ? '/dash360/admin/dashboard'
-            : '/dash360/profile'
+          accountType === ADMIN ? '/dash360/admin/dashboard' : '/dash360/'
         }
       />
     </DynamicModuleLoader>

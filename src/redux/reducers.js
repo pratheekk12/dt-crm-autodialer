@@ -106,7 +106,7 @@ export const searchDistributor = (state = '', action) => {
 const permissions = {
   resources: 'CRU',
   telephony: ['callReceiving', 'callPlacing'],
-  dashboard: ['admin'],
+  dashboard: ['agent'],
   telephonyDashboard: ['inboundDashboard', 'outboundDashboard'],
   ticketing: ['user', 'team', 'all'],
   ticketingDashboard: ['user', 'team', 'all'],
