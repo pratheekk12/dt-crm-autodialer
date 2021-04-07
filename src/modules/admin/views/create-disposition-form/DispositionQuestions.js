@@ -1,5 +1,5 @@
 import { Box, Button, makeStyles } from '@material-ui/core';
-import { Field, FastField, FieldArray } from 'formik';
+import { FastField, FieldArray } from 'formik';
 import { TextField } from 'formik-material-ui';
 import React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -7,7 +7,6 @@ import AddIcon from '@material-ui/icons/Add';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Autocomplete } from '@material-ui/lab';
-import isEmpty from 'lodash/isEmpty'
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -35,7 +34,15 @@ const questionsBank = [{question_id: 1, "questionType":"rating","questionName":"
   {question_id: 5,"questionType":"radio","questionName":"radio name","label":"radio label","additionalConfig":{"displayType":"inline"},"options":[{"label":"radio label 1","value":"radio opt 1"},{"label":"radio label 2","value":"radio opt 2"},{"label":"radio label 3","value":"radio opt 3"}]},
   {question_id: 6,"questionType":"select","questionName":"select name","label":"select label","additionalConfig":{"displayType":"inline"},"options":[{"label":"select label 1","value":"select opt 1"},{"label":"select label 2","value":"select opt 2"},{"label":"select label 3","value":"select opt 3"},{"label":"select label 4","value":"select opt 4"}]}]
 
-function DispositionQuestions({ questions, name, setFieldValue }) {
+function validateField(value) {
+  let error;
+  if (!value) {
+    error = 'Required';
+  }
+  return error;
+}
+
+function DispositionQuestions({ questions, name, setFieldValue, errors }) {
   const classes = useStyles();
   const [dependentQuestions, setDependentQuestions] = React.useState({});
 
@@ -74,16 +81,20 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
                     name={`${name}.${index}.question`}
                     onChange={(event, value) => {
                       console.log(`value------>`,value)
-                      if(value.options){
-                        let answers = []
-                        for(let option of value.options){
-                          answers.push({
-                            label: option.value
-                          })
+                      if(value){
+                        if(value.options){
+                          let answers = []
+                          for(let option of value.options){
+                            answers.push({
+                              label: option.value
+                            })
+                          }
+                          dispositionQuestion.option = answers
+                        }else{
+                          dispositionQuestion.option = []
                         }
-                        dispositionQuestion.option = answers
+                        setFieldValue(`${name}.${index}.question`, value.questionName);
                       }
-                      setFieldValue(`${name}.${index}.question`, value.questionName);
                     }}
                     renderInput={params => (
                       <FastField
@@ -95,6 +106,7 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
                         variant="outlined"
                         autoComplete="off"
                         {...params}
+                        validate={validateField}
                       />
                     )}
                   />
@@ -129,6 +141,7 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
                                     label="Enter Answer"
                                     variant="outlined"
                                     autoComplete="off"
+                                    validate={validateField}
                                   />
                                   <Button
                                     variant="contained"
@@ -180,6 +193,7 @@ function DispositionQuestions({ questions, name, setFieldValue }) {
                                       }
                                       name={`${name}.${index}.option.${ansIndex}.dependentQuestion`}
                                       setFieldValue={setFieldValue}
+                                      errors={errors}
                                     />
                                   )}
                                 </div>

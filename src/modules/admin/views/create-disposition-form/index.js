@@ -5,7 +5,6 @@ import DispositionQuestions from './DispositionQuestions';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css';
 import { createNodeForSortableTree } from './utils';
-import * as Yup from 'yup';
 
 const initialValues = {
   dispositionQuestions: [
@@ -15,15 +14,6 @@ const initialValues = {
     }
   ]
 };
-
-export const validateSchema = Yup.object().shape({
-  dispositionQuestions: Yup.array()
-    .of(
-      Yup.object().shape({
-        question: Yup.string().required("Question is required"),
-      })
-    )
-});
 
 function CreateDispositionForm() {
   const [sTree, setSTree] = React.useState(
@@ -47,14 +37,14 @@ function CreateDispositionForm() {
                 setSTree(values.dispositionQuestions);
               }}
               validateOnChange={false}
-              validationSchema={validateSchema}
             >
-              {({ values, setFieldValue }) => (
+              {({ values, setFieldValue, errors }) => (
                 <Form>
                   <DispositionQuestions
                     questions={values.dispositionQuestions}
                     name={'dispositionQuestions'}
                     setFieldValue={setFieldValue}
+                    errors={errors}
                   />
                   <Button variant="contained" color="primary" type="submit">
                     {'Save'}
