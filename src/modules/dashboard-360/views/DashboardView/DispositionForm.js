@@ -5,7 +5,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
 import * as yup from 'yup';
 import { isEmpty, get, filter, includes, map } from 'lodash';
-import { getDispositionFormQuestions2 } from './../../utils/util-functions';
+import { getDispositionFormQuestions2, getDependentQuestionsCodes } from './../../utils/util-functions';
 import Axios from 'axios';
 import { SAVE_DISPOSITION } from '../../utils/endpoints';
 import CommonAlert from 'src/components/CommonAlert';
@@ -23,21 +23,30 @@ const DispositionForm = () => {
   const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
 
-  const addAnotherQues = (ques, index) => {
-    //questions.length = index+1
+  const addAnotherQues = (ques, index, parentQuestion, setFieldValue) => {
+    let dependentQuesCodes = []
+    const dependentQuesCodesArr = getDependentQuestionsCodes(parentQuestion.option, dependentQuesCodes)
+    let filteredQues = questions
+    if(!isEmpty(dependentQuesCodesArr)){
+      filteredQues = questions.filter(currentObj => {
+        for(let queCode of dependentQuesCodesArr){
+          const isQuesCodeMatched = includes(dependentQuesCodesArr, currentObj.questionCode)
+          if(isQuesCodeMatched){
+            setFieldValue(queCode, '')
+          }
+          return !isQuesCodeMatched
+        }
+      });
+    }
     if (ques && ques.dependentQuestion) {
-      questions.splice(index + 1, 0, ...ques.dependentQuestion);
-      setQuestions(questions);
+      for(let depQue of ques.dependentQuestion){
+        depQue.parentQuestion = parentQuestion.questionCode
+      }
+      filteredQues.splice(index + 1, 0, ...ques.dependentQuestion);
+    }else{
+      filteredQues.splice(index + 1, 0, ...[]);
     }
-    /*let nextQues = filter(allQuestions, function(que) {
-      return includes(ques.nextQuestions,que.questionCode)
-    });
-    if(!isEmpty(nextQues)){
-      ques.nextQues = nextQues
-    }
-    if(ques.nextQues || ques.answers){
-      setQuestions([...questions,ques])
-    }*/
+    setQuestions(filteredQues);
   };
 
   const resetQuestions = () => {
@@ -94,7 +103,7 @@ const DispositionForm = () => {
                           variant="outlined"
                           multiline={ques.multiline}
                           rows={ques.rows}
-                          name={ques.questionName}
+                          name={ques.questionCode}
                         />
                       </FormControl>
                     </Grid>
@@ -111,8 +120,10 @@ const DispositionForm = () => {
                             return value.label === option.label;
                           }}
                           onChange={(event, value) => {
-                            addAnotherQues(value, index);
-                            setFieldValue(ques.questionName, value.label);
+                            if(value){
+                              addAnotherQues(value, index, ques, setFieldValue);
+                              setFieldValue(ques.questionCode, value.label);
+                            }
                           }}
                           renderInput={params => (
                             <Field
@@ -120,10 +131,10 @@ const DispositionForm = () => {
                               {...params}
                               label={ques.question}
                               variant="outlined"
-                              name={ques.questionName}
+                              name={ques.questionCode}
                             />
                           )}
-                          name={ques.questionName}
+                          name={ques.questionCode}
                         />
                       </FormControl>
                     </Grid>
