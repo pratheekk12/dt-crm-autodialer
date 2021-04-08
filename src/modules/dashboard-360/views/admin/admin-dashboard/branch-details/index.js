@@ -1,12 +1,4 @@
-import {
-  Grid,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography
-} from '@material-ui/core';
+import { Grid, Card, CardHeader } from '@material-ui/core';
 import React from 'react';
 import FeedbackList from './FeedbackList';
 import MostQuerryQuestion from './MostQuerryQuestion';

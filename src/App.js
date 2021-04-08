@@ -44,16 +44,14 @@ const App = () => {
   const classes = useStyles();
   return (
     <Provider store={rootStore}>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <React.Suspense fallback={<MainLoader />}>
-            <div className={classes.root}>
-              <GlobalStyles />
-              <Main classes={classes} />
-            </div>
-          </React.Suspense>
-        </ThemeProvider>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <React.Suspense fallback={<MainLoader />}>
+          <div className={classes.root}>
+            <GlobalStyles />
+            <Main classes={classes} />
+          </div>
+        </React.Suspense>
+      </ThemeProvider>
     </Provider>
   );
 };

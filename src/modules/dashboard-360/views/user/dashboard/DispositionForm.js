@@ -4,11 +4,11 @@ import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
 import * as yup from 'yup';
-import { isEmpty, get, filter, includes, map } from 'lodash';
-import { getDispositionFormQuestions2 } from './../../utils/util-functions';
+import { map } from 'lodash';
 import Axios from 'axios';
-import { SAVE_DISPOSITION } from '../../utils/endpoints';
 import CommonAlert from 'src/components/CommonAlert';
+import { getDispositionFormQuestions2 } from 'src/modules/dashboard-360/utils/util-functions';
+import { SAVE_DISPOSITION } from 'src/modules/dashboard-360/utils/endpoints';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -62,7 +62,9 @@ const DispositionForm = () => {
       >
         <Formik
           validateOnBlur={false}
-          initialValues={{}}
+          initialValues={{
+            subDisposition: ''
+          }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             console.log(values);
             await saveDispositionForm(values);
@@ -78,7 +80,7 @@ const DispositionForm = () => {
             .required('Please select a sub category item')
         })}*/
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, resetForm }) => (
             <Form>
               <Grid container spacing={2} direction="column">
                 {map(questions, (ques, index) =>
@@ -129,21 +131,21 @@ const DispositionForm = () => {
                     </Grid>
                   )
                 )}
-                {/* <Grid
+                <Grid
                   item
                   container
                   justify="flex-start"
                   alignContent="flex-start"
                 >
-                  <Button
+                  {/* <Button
                     color="secondary"
                     variant="contained"
                     size="small"
                     onClick={resetQuestions}
                   >
                     reset
-                  </Button>
-                </Grid> */}
+                  </Button> */}
+                </Grid>
                 <Grid item container justify="center" alignContent="center">
                   <Button
                     type="submit"
