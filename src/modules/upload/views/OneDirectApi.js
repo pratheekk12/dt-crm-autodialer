@@ -81,7 +81,7 @@ const OneDirectApi = () => {
     setLoading(true);
     (async function getQuestions() {
       try {
-        const res = await Axios.get('/channel/sheetdata');
+        const res = await Axios.get('/channel/getsheetdata');
         setUserData(res.data);
         console.log(res.data);
         setLoading(false);
