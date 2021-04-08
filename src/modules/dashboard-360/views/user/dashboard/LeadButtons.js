@@ -20,7 +20,7 @@ const LeadButtons = () => {
       console.log(err);
     }
   }
-  useEffect(async () => {
+  useEffect(() => {
     leads();
   }, []);
   return (
