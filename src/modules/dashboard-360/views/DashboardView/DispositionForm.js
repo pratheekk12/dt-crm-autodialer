@@ -48,9 +48,10 @@ const DispositionForm = () => {
     console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
-
-      return <CommonAlert text={'Form submitted successfully'} />;
+      alert('Form submitted successfully')
+      //return <CommonAlert text={'Form submitted successfully'} />;
     } catch (err) {
+      alert('Form submission failed')
       console.log(err);
     }
   }
