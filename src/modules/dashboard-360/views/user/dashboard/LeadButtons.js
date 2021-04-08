@@ -13,9 +13,9 @@ const LeadButtons = () => {
         '/crm-route/allleadsinprogress'
       );
       const leadsClosedResp = await Axios.get('/crm-route/leadsclosed');
-      // setAllLeads(allLeadsResp.data);
-      // setAllLeadsInProgress(allLeadsInProgressResp.data);
-      // setAllLeadsComplete(leadsClosedResp.data);
+      setAllLeads(allLeadsResp.data);
+      setAllLeadsInProgress(allLeadsInProgressResp.data);
+      setAllLeadsComplete(leadsClosedResp.data);
     } catch (err) {
       console.log(err);
     }
