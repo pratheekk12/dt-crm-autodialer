@@ -58,7 +58,7 @@ const RecentCustomerOrderDetails = () => {
 
   return (
     <>
-      <Accordion>
+      <Accordion disabled>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
