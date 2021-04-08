@@ -18,7 +18,7 @@ function Alert(props) {
 const Dashboard = () => {
   const userData = useSelector(state => state.userData);
   console.log('user data', userData);
-  const [customer, setCustomer] = useState('');
+  const [customer, setCustomer] = useState(null);
   const [open, setOpen] = React.useState(false);
 
   const getData = async () => {

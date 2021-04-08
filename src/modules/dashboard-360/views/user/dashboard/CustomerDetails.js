@@ -40,16 +40,21 @@ const CustomerDetails = ({ customer }) => {
   // ];
   return (
     <>
-      <div style={{ height: 170, width: '100%', backgroundColor: 'white' }}>
-        {customer !== '' && (
-          <DataGrid
-            columns={columns}
-            rows={[{ ...customer, id: customer['_id'] }]}
-            pagination
-            autoHeight
-            pageSize={1}
-          />
-        )}
+      <div
+        style={
+          customer !== null
+            ? { height: 106, backgroundColor: 'white' }
+            : { height: 160, width: '100%', backgroundColor: 'white' }
+        }
+      >
+        <DataGrid
+          columns={columns}
+          rows={customer !== null ? [{ ...customer, id: customer['_id'] }] : []}
+          // pagination
+          autoHeight
+          pageSize={1}
+          hideFooter
+        />
       </div>
     </>
   );
