@@ -113,7 +113,7 @@ function Login(props) {
         if (obj.role === 'admin') return ADMIN;
         if (obj.role === 'manager') return MANAGER;
         if (obj.role === 'areaManager') return AREAMANAGER;
-        if (obj.role === 'user') return USER;
+        return USER;
       };
       setAccountTypeMain(
         // obj.role === 'admin' ? ADMIN : obj.role === 'manager' ? MANAGER : USER

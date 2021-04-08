@@ -2,7 +2,14 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
-import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+import {
+  Button,
+  FormControl,
+  Grid,
+  makeStyles,
+  Snackbar
+} from '@material-ui/core';
 import * as yup from 'yup';
 import { map } from 'lodash';
 import Axios from 'axios';
@@ -17,14 +24,30 @@ const useStyle = makeStyles(() => ({
   }
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const DispositionForm = ({ visibilty }) => {
   const userData = useSelector(state => state.userData);
   console.log('user data', userData);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
   const classes = useStyle();
   const formRef = useRef({});
   const defaultQuestions = getDispositionFormQuestions2();
   const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
+
+  const [snackbarMessage, setSnackbarMessage] = useState({
+    severity: '',
+    message: ''
+  });
 
   const addAnotherQues = (ques, index) => {
     //questions.length = index+1
@@ -54,9 +77,19 @@ const DispositionForm = ({ visibilty }) => {
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
 
-      return <CommonAlert text={'Form submitted successfully'} />;
+      // return <CommonAlert text={'Form submitted successfully'} />;
+      setSnackbarMessage({
+        severity: 'success',
+        message: 'Form submitted successfully !'
+      });
+      setOpenSnackbar(true);
     } catch (err) {
       console.log(err);
+      setSnackbarMessage({
+        severity: 'error',
+        message: 'Something went wrong. Please try again !'
+      });
+      setOpenSnackbar(true);
     }
   }
 
@@ -168,6 +201,15 @@ const DispositionForm = ({ visibilty }) => {
             </Form>
           )}
         </Formik>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={snackbarMessage.severity}>
+            {snackbarMessage.message}
+          </Alert>
+        </Snackbar>
       </div>
     </>
   );
