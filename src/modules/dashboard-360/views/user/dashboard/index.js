@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DispositionForm from './DispositionForm';
 import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 // import PendingCallList from './PendingCallList';
 import RecentFiveRecords from './RecentFiveRecords';
 import LeadButtons from './LeadButtons';
-import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
 import CustomerDetails from './CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
+import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const Dashboard = () => {
+  const userData = useSelector(state => state.userData);
+  console.log('user data', userData);
+  const [customer, setCustomer] = useState('');
   const [open, setOpen] = React.useState(false);
 
+  const getData = async () => {
+    const res = await axios.get('/channel/getdata');
+    setCustomer(res.data);
+    console.log(res.data);
+  };
+
   const handleClick = () => {
+    getData();
     setOpen(true);
   };
 
@@ -62,7 +74,7 @@ const Dashboard = () => {
           </Grid>
           <Grid container item lg={6} xs={12}>
             <Grid item xs={12}>
-              <CustomerDetails />
+              <CustomerDetails customer={customer} />
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentCustomerOrderDetails />

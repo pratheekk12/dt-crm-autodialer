@@ -48,9 +48,9 @@ function RegistrationForm({
     try {
       setShowLoader(true);
       setErrorText('');
-      await axios.post(CRUD_USER + '/signup', {
-        ...val,
-        password: 'Indusviva@123' // temporary default password for new user
+      await axios.post(CRUD_USER + '/register', {
+        ...val
+        // password: 'Indusviva@123' // temporary default password for new user
       });
       setShowLoader(false);
       resetForm();
@@ -118,7 +118,10 @@ function RegistrationForm({
                 username: '',
                 email: '',
                 phone: '',
-                role: ''
+                role: '',
+                password: '',
+                AgentSIPID: '',
+                AgentType: ''
               }
         }
         validationSchema={RegistrationSchema(admin)}
@@ -157,11 +160,52 @@ function RegistrationForm({
                 autoComplete="off"
               />
               <Field
+                name="password"
+                component={TextField}
+                className={classes.textField}
+                type="password"
+                style={{ width: 400 }}
+                label="Enter password"
+                variant="outlined"
+                disabled={!!isEdit}
+                autoComplete="off"
+              />
+              <Field
                 name="phone"
                 component={TextField}
                 style={{ width: 400 }}
                 className={classes.textField}
                 label="Enter Mobile Number"
+                variant="outlined"
+                disabled={false}
+                autoComplete="off"
+              />
+              <Field
+                name="role"
+                component={TextField}
+                style={{ width: 400 }}
+                className={classes.textField}
+                label="Role"
+                variant="outlined"
+                disabled={false}
+                autoComplete="off"
+              />
+              <Field
+                name="AgentType"
+                component={TextField}
+                style={{ width: 400 }}
+                className={classes.textField}
+                label="Agent Type"
+                variant="outlined"
+                disabled={false}
+                autoComplete="off"
+              />
+              <Field
+                name="AgentSIPID"
+                component={TextField}
+                style={{ width: 400 }}
+                className={classes.textField}
+                label="Agent SIPID"
                 variant="outlined"
                 disabled={false}
                 autoComplete="off"

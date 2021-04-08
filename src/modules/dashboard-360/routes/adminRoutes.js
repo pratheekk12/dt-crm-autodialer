@@ -3,23 +3,31 @@ import agentDispostionList from '../views/admin/agentlastfive';
 import distribuerCallDisposedList from '../views/admin/distributerlastfive';
 import AdminDashboard from '../views/admin/admin-dashboard';
 import Manager from '../views/admin/restuarant-manager-dashboard';
+import Report from '../views/admin/report';
 
 export default [
   {
     path: '/dashboard',
     exact: false,
-    crumb: 'Dashboard 360',
+    // crumb: 'Dashboard 360',
     key: 'dashboard',
-    component: Dashboard,
-    selector: 'dashboard.canViewAgentDashboard'
-  },
-  {
-    path: '/admin-dashboard',
-    exact: true,
-    crumb: 'Admin Dashboard',
-    key: 'adminDashboard',
     component: AdminDashboard,
-    crumb: 'Admin Dashboard',
+    selector: 'dashboard.canViewAdminDashboard'
+  },
+  // {
+  //   path: '/admin-dashboard',
+  //   exact: true,
+  //   // crumb: 'Admin Dashboard',
+  //   key: 'adminDashboard',
+  //   component: AdminDashboard,
+  //   selector: 'dashboard.canViewAdminDashboard'
+  // },
+  {
+    path: '/report',
+    exact: true,
+    crumb: 'Report',
+    key: 'report',
+    component: Report,
     selector: 'dashboard.canViewAdminDashboard'
   },
   {
@@ -28,7 +36,6 @@ export default [
     exact: true,
     key: 'managerDashboard',
     component: Manager,
-    crumb: 'Manager Dashboard',
     selector: 'dashboard.canViewManagerDashboard'
   },
   {
