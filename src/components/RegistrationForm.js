@@ -49,8 +49,8 @@ function RegistrationForm({
       setShowLoader(true);
       setErrorText('');
       await axios.post(CRUD_USER + '/register', {
-        ...val,
-        password: 'Indusviva@123' // temporary default password for new user
+        ...val
+        // password: 'Indusviva@123' // temporary default password for new user
       });
       setShowLoader(false);
       resetForm();

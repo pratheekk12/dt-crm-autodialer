@@ -9,12 +9,15 @@ import CustomerDetails from './CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const Dashboard = () => {
+  const userData = useSelector(state => state.userData);
+  console.log('user data', userData);
   const [customer, setCustomer] = useState('');
   const [open, setOpen] = React.useState(false);
 

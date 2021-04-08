@@ -9,11 +9,13 @@ const LeadButtons = () => {
   async function leads() {
     try {
       const allLeadsResp = await Axios.get('/crm-route/allleads');
-      const allLeadsInProgressResp = await Axios.get('/crm-route/allleadsinprogress');
+      const allLeadsInProgressResp = await Axios.get(
+        '/crm-route/allleadsinprogress'
+      );
       const leadsClosedResp = await Axios.get('/crm-route/leadsclosed');
-      setAllLeads(allLeadsResp.data);
-      setAllLeadsInProgress(allLeadsInProgressResp.data);
-      setAllLeadsComplete(leadsClosedResp.data);
+      // setAllLeads(allLeadsResp.data);
+      // setAllLeadsInProgress(allLeadsInProgressResp.data);
+      // setAllLeadsComplete(leadsClosedResp.data);
     } catch (err) {
       console.log(err);
     }
@@ -32,19 +34,17 @@ const LeadButtons = () => {
       >
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Total
-{' '}
-            {allLeads}
+            Leads Total {allLeads}
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads In Progress {' '} {allLeadsInProgress}
+            Leads In Progress {allLeadsInProgress}
           </Button>
         </Grid>
         <Grid item>
           <Button variant="contained" color="primary">
-            Leads Closed {' '} {allLeadsComplete}
+            Leads Closed {allLeadsComplete}
           </Button>
         </Grid>
       </Grid>

@@ -80,22 +80,22 @@ export function getDispositionFormQuestions2() {
     //   questionCode: 'QA_3',
     //   questionType: 'text'
     // },
-    {
-      questionName: 'numberOfAttempt',
-      question: 'Attempt',
-      questionCode: 'QA_4',
-      option: [
-        {
-          label: 'Attempt 1'
-        },
-        {
-          label: 'Attempt 2'
-        },
-        {
-          label: 'Attempt 3'
-        }
-      ]
-    },
+    // {
+    //   questionName: 'numberOfAttempt',
+    //   question: 'Attempt',
+    //   questionCode: 'QA_4',
+    //   option: [
+    //     {
+    //       label: 'Attempt 1'
+    //     },
+    //     {
+    //       label: 'Attempt 2'
+    //     },
+    //     {
+    //       label: 'Attempt 3'
+    //     }
+    //   ]
+    // },
     {
       questionName: 'languageChoosed',
       question: 'Language',
@@ -199,34 +199,34 @@ export function getDispositionFormQuestions2() {
           label: 'Happy'
         },
         {
-          label: 'Not Happy',
-          dependentQuestion: [
-            {
-              questionName: 'whatWereYouNotSatisfiedWith?',
-              question: 'What were you not satisfied with ?',
-              questionCode: 'QA_14',
-              option: [
-                {
-                  label: 'Food',
-                  dependentQuestion: [
-                    {
-                      questionName: 'taste',
-                      question: 'Are you satisfied with our food?',
-                      questionCode: 'QA_15',
-                      option: [
-                        {
-                          label: 'yes'
-                        },
-                        {
-                          label: 'no'
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          label: 'Not Happy'
+          // dependentQuestion: [
+          //   {
+          //     questionName: 'whatWereYouNotSatisfiedWith?',
+          //     question: 'What were you not satisfied with ?',
+          //     questionCode: 'QA_14',
+          //     option: [
+          //       {
+          //         label: 'Food',
+          //         dependentQuestion: [
+          //           {
+          //             questionName: 'taste',
+          //             question: 'Are you satisfied with our food?',
+          //             questionCode: 'QA_15',
+          //             option: [
+          //               {
+          //                 label: 'yes'
+          //               },
+          //               {
+          //                 label: 'no'
+          //               }
+          //             ]
+          //           }
+          //         ]
+          //       }
+          //     ]
+          //   }
+          // ]
         },
         {
           label: 'Average'

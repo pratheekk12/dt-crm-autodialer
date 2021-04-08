@@ -62,7 +62,9 @@ const DispositionForm = () => {
       >
         <Formik
           validateOnBlur={false}
-          initialValues={{}}
+          initialValues={{
+            subDisposition: ''
+          }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             console.log(values);
             await saveDispositionForm(values);
@@ -78,7 +80,7 @@ const DispositionForm = () => {
             .required('Please select a sub category item')
         })}*/
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, resetForm }) => (
             <Form>
               <Grid container spacing={2} direction="column">
                 {map(questions, (ques, index) =>
@@ -129,21 +131,21 @@ const DispositionForm = () => {
                     </Grid>
                   )
                 )}
-                {/* <Grid
+                <Grid
                   item
                   container
                   justify="flex-start"
                   alignContent="flex-start"
                 >
-                  <Button
+                  {/* <Button
                     color="secondary"
                     variant="contained"
                     size="small"
                     onClick={resetQuestions}
                   >
                     reset
-                  </Button>
-                </Grid> */}
+                  </Button> */}
+                </Grid>
                 <Grid item container justify="center" alignContent="center">
                   <Button
                     type="submit"

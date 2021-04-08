@@ -18,4 +18,4 @@ export const UPDATE_CALL_STATUS = '/agentservice/crm/interactions/';
 export const GET_INBOUND_DASHBOARD_DATA =
   '/gpreport/service/dashboardcount?AccessKeys=123';
 const prefix = process.env.NODE_ENV === 'production' ? '/auth/' : '/';
-export const SAVE_DISPOSITION = prefix + 'channel/adddisposition';
+export const SAVE_DISPOSITION = prefix + 'crm-route/adddisposition';
