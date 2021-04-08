@@ -180,7 +180,7 @@ function RegistrationForm({
                 disabled={false}
                 autoComplete="off"
               />
-              <Field
+              {/* <Field
                 name="role"
                 component={TextField}
                 style={{ width: 400 }}
@@ -189,7 +189,7 @@ function RegistrationForm({
                 variant="outlined"
                 disabled={!!isEdit}
                 autoComplete="off"
-              />
+              /> */}
               <Field
                 name="AgentType"
                 component={TextField}

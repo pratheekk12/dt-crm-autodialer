@@ -11,7 +11,7 @@ import {
   setUserDetails,
   setAccountType
 } from './redux/action';
-import { ADMIN, USER } from './redux/constants';
+import { ADMIN, USER, MANAGER, AREAMANAGER } from './redux/constants';
 import routes from './routes';
 
 function Main({
@@ -37,7 +37,18 @@ function Main({
         const obj = res.data.userObj;
         console.log({ obj });
         setUserDetailsMain(obj);
-        setAccountTypeMain(obj.role === 'admin' ? ADMIN : USER);
+        // const roleDefined = obj => {
+        //   if (obj.role === 'admin') return ADMIN;
+        // if (obj.role === 'areaManager') return AREAMANAGER;
+        //   if (obj.role === 'manager') return MANAGER;
+        //   if (obj.role === 'user') return USER;
+        // };
+        // setAccountTypeMain(
+        //   roleDefined(obj)
+        // );
+        // setAccountTypeMain(
+        //   obj.role === 'admin' ? ADMIN : obj.role === 'manager' ? MANAGER : USER
+        // );
         // obj.permissions = { dashboard: { canViewAgentDashboard: true } };
 
         // TODO: Uncomment for build
