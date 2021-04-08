@@ -187,7 +187,7 @@ function RegistrationForm({
                 className={classes.textField}
                 label="Role"
                 variant="outlined"
-                disabled={false}
+                disabled={!!isEdit}
                 autoComplete="off"
               />
               <Field

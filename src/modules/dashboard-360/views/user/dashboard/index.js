@@ -9,27 +9,33 @@ import CustomerDetails from './CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const Dashboard = () => {
-  const userData = useSelector(state => state.userData);
-  console.log('user data', userData);
+  const [formDisabled, setFormDisabled] = useState(true);
   const [customer, setCustomer] = useState(null);
   const [open, setOpen] = React.useState(false);
 
   const getData = async () => {
-    const res = await axios.get('/channel/getdata');
-    setCustomer(res.data);
-    console.log(res.data);
+    await axios
+      .get('/channel/getdata')
+      .then(res => {
+        setCustomer(res.data);
+        setFormDisabled(false);
+        setOpen(true);
+      })
+      .catch(err => {
+        setFormDisabled(true);
+        console.log(err);
+        setOpen(true);
+      });
   };
 
   const handleClick = () => {
     getData();
-    setOpen(true);
   };
 
   const handleClose = (event, reason) => {
@@ -52,9 +58,15 @@ const Dashboard = () => {
               Fetch New Customer
             </Button>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="success">
-                Call is connecting !
-              </Alert>
+              {formDisabled ? (
+                <Alert onClose={handleClose} severity="error">
+                  Some error occur please try again !
+                </Alert>
+              ) : (
+                <Alert onClose={handleClose} severity="success">
+                  Fetch new customer successfully !
+                </Alert>
+              )}
             </Snackbar>
           </Grid>
         </Grid>
@@ -69,12 +81,17 @@ const Dashboard = () => {
               <CardHeader title={'Disposition Form'} />
             </Card>
             <Card style={{ padding: '1rem' }}>
-              <DispositionForm />
+              <DispositionForm visibilty={formDisabled} />
             </Card>
           </Grid>
           <Grid container item lg={6} xs={12}>
             <Grid item xs={12}>
-              <CustomerDetails customer={customer} />
+              <Card style={{ display: 'flex', justifyContent: 'center' }}>
+                <CardHeader title={'Customer Details'} />
+              </Card>
+              <Card style={{ padding: '1rem' }}>
+                <CustomerDetails customer={customer} />
+              </Card>
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentCustomerOrderDetails />

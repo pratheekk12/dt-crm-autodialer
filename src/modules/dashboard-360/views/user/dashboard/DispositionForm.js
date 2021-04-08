@@ -9,6 +9,7 @@ import Axios from 'axios';
 import CommonAlert from 'src/components/CommonAlert';
 import { getDispositionFormQuestions2 } from 'src/modules/dashboard-360/utils/util-functions';
 import { SAVE_DISPOSITION } from 'src/modules/dashboard-360/utils/endpoints';
+import { useSelector } from 'react-redux';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -16,7 +17,9 @@ const useStyle = makeStyles(() => ({
   }
 }));
 
-const DispositionForm = () => {
+const DispositionForm = ({ visibilty }) => {
+  const userData = useSelector(state => state.userData);
+  console.log('user data', userData);
   const classes = useStyle();
   const formRef = useRef({});
   const defaultQuestions = getDispositionFormQuestions2();
@@ -45,6 +48,8 @@ const DispositionForm = () => {
   };
 
   async function saveDispositionForm(formValue) {
+    formValue.sip_id = userData.sip_id;
+    formValue.agent_type = userData.agent_type;
     console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
@@ -97,6 +102,7 @@ const DispositionForm = () => {
                           multiline={ques.multiline}
                           rows={ques.rows}
                           name={ques.questionName}
+                          disabled={visibilty}
                         />
                       </FormControl>
                     </Grid>
@@ -108,6 +114,7 @@ const DispositionForm = () => {
                       >
                         <Autocomplete
                           options={ques.option}
+                          disabled={visibilty}
                           getOptionLabel={option => option.label}
                           getOptionSelected={(option, value) => {
                             return value.label === option.label;
@@ -152,6 +159,7 @@ const DispositionForm = () => {
                     color="primary"
                     variant="contained"
                     size="large"
+                    disabled={visibilty}
                   >
                     Submit
                   </Button>

@@ -209,7 +209,7 @@ const TopBar = ({
                 </Link>
               </Typography>
             ))}
-          <IconButton color="inherit">
+          {/* <IconButton color="inherit">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -220,7 +220,7 @@ const TopBar = ({
           </IconButton>
           <IconButton color="inherit" onClick={() => history.push('/user')}>
             <AccountBoxRoundedIcon />
-          </IconButton>
+          </IconButton> */}
           <Tooltip title="Logout">
             <IconButton color="inherit" onClick={() => logoutUser()}>
               <ExitToAppIcon />
