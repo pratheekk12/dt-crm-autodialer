@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DispositionForm from './DispositionForm';
 import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 // import PendingCallList from './PendingCallList';
@@ -9,15 +9,18 @@ import CustomerDetails from './CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const Dashboard = () => {
+  const userData = useSelector(state => state.userData);
   const [formDisabled, setFormDisabled] = useState(true);
   const [customer, setCustomer] = useState(null);
   const [open, setOpen] = React.useState(false);
+  const [lastFiveRecords, setLastFiveRecords] = useState(null);
 
   const getData = async () => {
     await axios
@@ -33,6 +36,20 @@ const Dashboard = () => {
         setOpen(true);
       });
   };
+
+  useEffect(() => {
+    const getLastFiveRecords = async () => {
+      await axios
+        .get(`/crm-route/agentinteraction?agent_id=${userData.userId}`)
+        .then(res => {
+          setLastFiveRecords(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+    getLastFiveRecords();
+  }, [customer]);
 
   const handleClick = () => {
     getData();
@@ -81,7 +98,10 @@ const Dashboard = () => {
               <CardHeader title={'Disposition Form'} />
             </Card>
             <Card style={{ padding: '1rem' }}>
-              <DispositionForm visibilty={formDisabled} />
+              <DispositionForm
+                visibilty={formDisabled}
+                customerName={customer !== null && customer.guestName}
+              />
             </Card>
           </Grid>
           <Grid container item lg={6} xs={12}>
@@ -97,7 +117,9 @@ const Dashboard = () => {
               <RecentCustomerOrderDetails />
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
-              <RecentFiveRecords />
+              <RecentFiveRecords
+                records={lastFiveRecords !== null && lastFiveRecords}
+              />
             </Grid>
           </Grid>
         </Grid>

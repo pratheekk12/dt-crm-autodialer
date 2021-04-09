@@ -3,6 +3,7 @@ import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import ReportChart from './ReportChart';
 import { Grid } from '@material-ui/core';
 import AgentName from './AgentName';
+import StartEndDates from './StartEndDates';
 
 const Report = () => {
   const [agentName, setAgentName] = useState('');
@@ -24,7 +25,9 @@ const Report = () => {
           <Grid item xs={12} lg={6}>
             <AgentName name={setAgentName} />
           </Grid>
-
+          <Grid item xs={12} lg={6}>
+            <StartEndDates />
+          </Grid>
           <Grid item xs={12} lg={6}>
             {agentName !== null && agentName !== '' ? (
               <ReportChart agentName={agentName} />

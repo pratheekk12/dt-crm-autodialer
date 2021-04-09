@@ -7,8 +7,11 @@ import {
   AccordionDetails
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useSelector } from 'react-redux';
 
-const RecentFiveRecords = () => {
+const RecentFiveRecords = ({ records }) => {
+  const userData = useSelector(state => state.userData);
+  console.log(records);
   const columns = [
     { field: 'id', headerName: 'ID', flex: 1 },
     {
@@ -82,7 +85,7 @@ const RecentFiveRecords = () => {
   ];
 
   return (
-    <Accordion disabled>
+    <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
