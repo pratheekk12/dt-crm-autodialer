@@ -23,20 +23,27 @@ const DispositionForm = () => {
   const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
 
-  const addAnotherQues = (ques, index, parentQuestion, setFieldValue) => {
+  const addAnotherQues = (ques, index, parentQuestion, setFieldValue, values, resetForm) => {
     let dependentQuesCodes = []
     const dependentQuesCodesArr = getDependentQuestionsCodes(parentQuestion.option, dependentQuesCodes)
     let filteredQues = questions
     if(!isEmpty(dependentQuesCodesArr)){
-      filteredQues = questions.filter(currentObj => {
-        for(let queCode of dependentQuesCodesArr){
-          const isQuesCodeMatched = includes(dependentQuesCodesArr, currentObj.questionCode)
-          if(isQuesCodeMatched){
-            setFieldValue(queCode, '')
-          }
-          return !isQuesCodeMatched
+      filteredQues = questions.filter(currentObj => !includes(dependentQuesCodesArr, currentObj.questionCode));
+      console.log(`dependentQuesCodesArr----->`,dependentQuesCodesArr)
+      for(let queCode of dependentQuesCodesArr){
+        if(values[queCode]){
+          /*resetForm({
+            values: {
+              // the type of `values` inferred to be Blog
+              ...values,
+              [queCode]: null,
+            },
+            // you can also set the other form states here
+          })*/
+          setFieldValue(queCode, '');
         }
-      });
+        /*delete values[queCode];*/
+      }
     }
     if (ques && ques.dependentQuestion) {
       for(let depQue of ques.dependentQuestion){
@@ -87,7 +94,7 @@ const DispositionForm = () => {
             .required('Please select a sub category item')
         })}*/
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values, resetForm }) => (
             <Form>
               <Grid container spacing={2} direction="column">
                 {map(questions, (ques, index) =>
@@ -119,21 +126,38 @@ const DispositionForm = () => {
                           getOptionSelected={(option, value) => {
                             return value.label === option.label;
                           }}
+                          id={`autocomplete-id-${index}-${ques.questionCode}`}
                           onChange={(event, value) => {
                             if(value){
-                              addAnotherQues(value, index, ques, setFieldValue);
+                              addAnotherQues(value, index, ques, setFieldValue, values, resetForm);
                               setFieldValue(ques.questionCode, value.label);
                             }
                           }}
-                          renderInput={params => (
-                            <Field
-                              component={TextField}
-                              {...params}
-                              label={ques.question}
-                              variant="outlined"
-                              name={ques.questionCode}
-                            />
-                          )}
+                          renderInput={params => {
+                            console.log(`values------->`,values)
+                            const inputObj = {id: `id-${index}-${ques.questionCode}`}
+                            if(values[ques.questionCode]){
+                              inputObj.value = values[ques.questionCode]
+                            }else{
+                              inputObj.value = ""
+                            }
+                            console.log(`params----->`,{
+                              ...params.inputProps,
+                              ...{inputObj}
+                            })
+                           return <Field
+                             component={TextField}
+                             {...params}
+                             label={ques.question}
+                             variant="outlined"
+                             name={ques.questionCode}
+                             id={`field-id-${ques.questionCode}`}
+                             inputProps={{
+                               ...params.inputProps,
+                               ...inputObj
+                             }}
+                           />
+                          }}
                           name={ques.questionCode}
                         />
                       </FormControl>
