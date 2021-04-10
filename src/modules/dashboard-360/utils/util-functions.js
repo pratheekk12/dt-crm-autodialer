@@ -77,6 +77,7 @@ export function getDispositionFormQuestions2() {
               questionName: 'whatWereYouNotSatisfiedWith?',
               question: 'What were you not satisfied with ?',
               questionCode: 'QA_14',
+              questionType: 'radio',
               option: [
                 {
                   label: 'Food',
@@ -85,6 +86,7 @@ export function getDispositionFormQuestions2() {
                       questionName: 'taste',
                       question: 'Are you satisfied with our food?',
                       questionCode: 'QA_15',
+                      questionType: 'rating',
                       option: [
                         {
                           label: 'yes'
@@ -110,7 +112,7 @@ export function getDispositionFormQuestions2() {
                   ]
                 },
                 {
-                  label: 'Food2'
+                  label: 'Food2',
                 }
               ]
             }
@@ -137,6 +139,7 @@ export function getDispositionFormQuestions2() {
       questionName: 'mainDisposition',
       question: 'Main Disposition',
       questionCode: 'QA_6',
+      questionType: 'radio',
       option: [
         {
           label: 'Connected'
@@ -153,15 +156,42 @@ export function getDispositionFormQuestions2() {
       questionName: 'requiredType',
       question: 'Required Type',
       questionCode: 'QA_7',
+      questionType: 'checkbox',
       option: [
         {
-          label: 'Take away'
+          label: 'Food',
+          dependentQuestion: [
+            {
+              questionName: 'taste',
+              question: 'Are you satisfied with our food?',
+              questionCode: 'QA_7_QA_15',
+              questionType: 'rating',
+              option: [
+                {
+                  label: 'yes'
+                },
+                {
+                  label: 'no'
+                }
+              ]
+            },
+            {
+              questionName: 'taste2',
+              question: 'Are you satisfied with our food2?',
+              questionCode: 'QA_7_QA_152',
+              option: [
+                {
+                  label: 'yes'
+                },
+                {
+                  label: 'no'
+                }
+              ]
+            }
+          ]
         },
         {
-          label: 'Quality'
-        },
-        {
-          label: 'Quantity'
+          label: 'Food2'
         }
       ]
     },
@@ -169,6 +199,7 @@ export function getDispositionFormQuestions2() {
       questionName: 'subDisposition',
       question: 'Sub disposition',
       questionCode: 'QA_8',
+      questionType: 'text',
       option: [
         {
           label: 'RNR'
@@ -206,6 +237,7 @@ export function getDispositionFormQuestions2() {
       questionName: 'customerExperiences',
       question: "Customer Experience's",
       questionCode: 'QA_9',
+      questionType: 'textarea',
       option: [
         {
           label: 'Happy'

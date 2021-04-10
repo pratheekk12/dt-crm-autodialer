@@ -3,12 +3,12 @@ import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
-import * as yup from 'yup';
-import { isEmpty, get, filter, includes, map } from 'lodash';
+import { isEmpty, includes, map, find } from 'lodash';
 import { getDispositionFormQuestions2, getDependentQuestionsCodes } from './../../utils/util-functions';
 import Axios from 'axios';
 import { SAVE_DISPOSITION } from '../../utils/endpoints';
 import CommonAlert from 'src/components/CommonAlert';
+import RenderQuestionByInputTypes from 'src/components/RenderQuestionByInputTypes';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -23,26 +23,16 @@ const DispositionForm = () => {
   const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
 
-  const addAnotherQues = (ques, index, parentQuestion, setFieldValue, values, resetForm) => {
+  const addAnotherQues = (ques, index, parentQuestion, setFieldValue, values) => {
     let dependentQuesCodes = []
     const dependentQuesCodesArr = getDependentQuestionsCodes(parentQuestion.option, dependentQuesCodes)
     let filteredQues = questions
     if(!isEmpty(dependentQuesCodesArr)){
       filteredQues = questions.filter(currentObj => !includes(dependentQuesCodesArr, currentObj.questionCode));
-      console.log(`dependentQuesCodesArr----->`,dependentQuesCodesArr)
       for(let queCode of dependentQuesCodesArr){
         if(values[queCode]){
-          /*resetForm({
-            values: {
-              // the type of `values` inferred to be Blog
-              ...values,
-              [queCode]: null,
-            },
-            // you can also set the other form states here
-          })*/
           setFieldValue(queCode, '');
         }
-        /*delete values[queCode];*/
       }
     }
     if (ques && ques.dependentQuestion) {
@@ -71,6 +61,26 @@ const DispositionForm = () => {
     }
   }
 
+  const onInputChange = (inputTypeValues, index, ques, setFieldValue, values) => {
+    const inputValue = inputTypeValues[ques.questionCode]
+
+    if(inputValue){
+      if(ques.questionType === 'checkbox'){
+        if(!isEmpty(inputValue)){
+          for(let cbValue of inputValue){
+            const selectedOption = find(ques.option, {label : cbValue})
+            addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+            setFieldValue(ques.questionCode, inputValue.join());
+          }
+        }
+      }else{
+        const selectedOption = find(ques.option, {label : inputValue})
+        addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+        setFieldValue(ques.questionCode, inputValue);
+      }
+    }
+  }
+
   return (
     <>
       <div
@@ -86,33 +96,14 @@ const DispositionForm = () => {
             // resetForm();
           }}
           innerRef={formRef}
-          /*validationSchema={yup.object({
-          category: yup.string().required('Please select a category'),
-          subCategory: yup.string().required('Please select a sub category'),
-          subCategoryItem: yup
-            .string()
-            .required('Please select a sub category item')
-        })}*/
         >
-          {({ setFieldValue, values, resetForm }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <Grid container spacing={2} direction="column">
                 {map(questions, (ques, index) =>
-                  ques.questionType ? (
+                  (ques.questionType && ques.questionType !== 'select') ? (
                     <Grid item key={index}>
-                      <FormControl
-                        variant="outlined"
-                        className={classes.fieldContainer}
-                      >
-                        <Field
-                          component={TextField}
-                          label={ques.question}
-                          variant="outlined"
-                          multiline={ques.multiline}
-                          rows={ques.rows}
-                          name={ques.questionCode}
-                        />
-                      </FormControl>
+                      <RenderQuestionByInputTypes question={ques} onInputChange={(newValues)=>onInputChange(newValues, index, ques, setFieldValue, values)}/>
                     </Grid>
                   ) : (
                     <Grid item key={index}>
@@ -129,7 +120,7 @@ const DispositionForm = () => {
                           id={`autocomplete-id-${index}-${ques.questionCode}`}
                           onChange={(event, value) => {
                             if(value){
-                              addAnotherQues(value, index, ques, setFieldValue, values, resetForm);
+                              addAnotherQues(value, index, ques, setFieldValue, values);
                               setFieldValue(ques.questionCode, value.label);
                             }
                           }}
@@ -156,6 +147,7 @@ const DispositionForm = () => {
                                ...params.inputProps,
                                ...inputObj
                              }}
+                             required
                            />
                           }}
                           name={ques.questionCode}
