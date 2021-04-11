@@ -329,12 +329,14 @@ const DispositionForm = ({ visibility, customer }) => {
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
 
+
       setSnackbarMessage({
         severity: 'success',
         message: 'Form submitted successfully !'
       });
       setOpenSnackbar(true);
     } catch (err) {
+      alert('Form submission failed')
       console.log(err);
       setSnackbarMessage({
         severity: 'error',

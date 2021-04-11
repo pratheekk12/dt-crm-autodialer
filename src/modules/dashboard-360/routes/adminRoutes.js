@@ -1,7 +1,5 @@
-// import invoices from '../views/admin/invoices';
-// import Orders from '../views/admin/orders';
-// import Dashboard from '../views/DashboardView/index';
-// import agentDispostionList from '../views/admin/agentlastfive';
+import Dashboard from '../views/DashboardView/index';
+import agentDispostionList from '../views/admin/agentlastfive';
 import distribuerCallDisposedList from '../views/admin/distributerlastfive';
 import AdminDashboard from '../views/admin/admin-dashboard';
 import Manager from '../views/manager/dashboard';
@@ -39,6 +37,32 @@ export default [
     key: 'managerDashboard',
     component: Manager,
     selector: 'dashboard.canViewManagerDashboard'
+  },
+  {
+    path: '/agentlastfive',
+    exact: true,
+    key: 'agentlastfive',
+    component: agentDispostionList,
+    crumb: 'Agent Dispositon List'
+  },
+  {
+    path: '/agentlastfive/:uniqueId',
+    exact: true,
+    key: 'uniqueId',
+    component: agentDispostionList
+  },
+  {
+    path: '/distributerDisposedCallList',
+    exact: true,
+    key: 'distributerDisposedCallList',
+    component: distribuerCallDisposedList,
+    crumb: 'Distributer Call Dispositon List'
+  },
+  {
+    path: '/distributercall/:uniqueId',
+    exact: true,
+    key: 'distributerCallById',
+    component: distribuerCallDisposedList
   }
   // {
   //   path: '/orders',
