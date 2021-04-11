@@ -385,3 +385,167 @@ export function getDispositionFormQuestions2() {
 
   return questionArr;
 }
+
+export function getDispositionFormQuestions3() {
+  const questionArr = [
+    {
+      questionCode: 'mainDisposition',
+      question: 'Main Disposition',
+      questionName: 'QA_1',
+      option: [
+        {
+          label: 'Connected',
+          dependentQuestion: [
+            {
+              questionCode: 'response',
+              question: 'Response',
+              questionName: 'QA_3',
+              option: [
+                {
+                  label: 'Interested',
+                  dependentQuestion: [
+                    {
+                      questionCode: 'languageChoosed',
+                      question: 'Language',
+                      questionName: 'QA_5',
+                      option: [
+                        {
+                          label: 'English'
+                        },
+                        {
+                          label: 'Tamil'
+                        },
+                        {
+                          label: 'Kannada'
+                        },
+                        {
+                          label: 'Hindi'
+                        },
+                        {
+                          label: 'Malayalam'
+                        },
+                        {
+                          label: 'Telugu'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'customerExperiences',
+                      question: "Customer Experience's",
+                      questionName: 'QA_6',
+                      option: [
+                        {
+                          label: 'Happy',
+                          dependentQuestion: [
+                            {
+                              questionCode: 'overallCustomerRating',
+                              question: 'Overall customer rating given in call',
+                              questionName: 'QA_7',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: '1'
+                                },
+                                {
+                                  label: '2'
+                                },
+                                {
+                                  label: '3'
+                                },
+                                {
+                                  label: '4'
+                                },
+                                {
+                                  label: '5'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'remarks_feedback',
+                              question: 'Remarks/feedback',
+                              questionName: 'QA_8',
+                              questionType: 'textarea',
+                              additionalConfig: {
+                                rows: 4
+                              },
+                              option: [{}]
+                            }
+                          ]
+                        },
+                        {
+                          label: 'Not Happy'
+                        },
+                        {
+                          label: 'Average'
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  label: 'Not interested',
+                  dependentQuestion: [
+                    {
+                      questionCode: 'remarks_feedback',
+                      question: 'Remarks/feedback',
+                      questionName: 'QA_4',
+                      questionType: 'textarea',
+                      additionalConfig: {
+                        rows: 4
+                      },
+                      option: [{}]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          label: 'Not Connected',
+          dependentQuestion: [
+            {
+              questionCode: 'subDisposition',
+              question: 'Sub disposition',
+              questionName: 'QA_2',
+              option: [
+                {
+                  label: 'RNR'
+                },
+                {
+                  label: 'Not Reachable'
+                },
+                {
+                  label: 'Switch Off'
+                },
+                {
+                  label: 'Wrong Number'
+                },
+                {
+                  label: 'Call Disconnected'
+                },
+                {
+                  label: 'Language Barrier'
+                },
+                {
+                  label: 'Not Interested to share feedback'
+                },
+                {
+                  label: 'Invalid number'
+                },
+                {
+                  label: 'Busy'
+                },
+                {
+                  label: 'Feedback taken'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  return questionArr;
+}
