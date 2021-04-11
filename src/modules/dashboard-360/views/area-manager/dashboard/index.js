@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
-import ReportChart from './ReportChart';
 import { Grid } from '@material-ui/core';
-import AgentName from './AgentName';
-import StartEndDates from './StartEndDates';
+import BranchesOverallRating from './BranchesOverallRating';
+import Branches from './Branches';
+import BranchDetail from './branch-details';
 
-const Report = () => {
-  const [agentName, setAgentName] = useState('');
+const AdminDashboard = () => {
+  const [value, setValue] = useState('');
   useEffect(() => {
-    console.log(agentName);
-  }, [agentName]);
+    console.log(value);
+  }, [value]);
   return (
     <>
       <CustomBreadcrumbs />
@@ -18,25 +18,22 @@ const Report = () => {
           container
           direction="row"
           justify="center"
-          direction="row"
           alignItems="flex-start"
           spacing={3}
         >
           <Grid item xs={12} lg={6}>
-            <AgentName name={setAgentName} />
+            <BranchesOverallRating />
           </Grid>
           <Grid item xs={12} lg={6}>
-            <StartEndDates />
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            {agentName !== null && agentName !== '' ? (
-              <ReportChart agentName={agentName} />
-            ) : null}
+            <Branches value={setValue} />
           </Grid>
         </Grid>
+        {value !== null && value !== '' ? (
+          <BranchDetail branch={value} />
+        ) : null}
       </div>
     </>
   );
 };
 
-export default Report;
+export default AdminDashboard;

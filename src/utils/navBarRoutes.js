@@ -1,9 +1,9 @@
 export default (permissions, userRole) => [
-  {
-    isVisible: permissions.dashboard.canViewAdminDashboard,
-    link: '/dash360/admin/dashboard',
-    title: 'Dashboard'
-  },
+  // {
+  //   isVisible: permissions.dashboard.canViewAdminDashboard,
+  //   link: '/dash360/admin/dashboard',
+  //   title: 'Dashboard'
+  // },
   // {
   //   isVisible: permissions.dashboard.canViewAdminDashboard,
   //   link: '/dash360/admin/admin-dashboard',
@@ -11,16 +11,21 @@ export default (permissions, userRole) => [
   // },
   {
     isVisible: permissions.dashboard.canViewAgentDashboard,
-    link: '/dash360',
+    link: '/dash360/agent',
     title: 'Dashboard'
   },
   {
     isVisible: permissions.dashboard.canViewManagerDashboard,
-    link: '/dash360/admin/manager-dashboard',
+    link: '/dash360/restaurant-manager-dashboard',
     title: 'Dashboard'
   },
   {
-    isVisible: permissions.dashboard.canViewAdminDashboard, // to be updated by person working on telephony
+    isVisible: permissions.dashboard.canViewAreaManagerDashboard,
+    link: '/dash360/area-manager-dashboard',
+    title: 'Dashboard'
+  },
+  {
+    isVisible: permissions.dashboard.canViewAdminDashboard,
     link: '/upload/home',
     title: 'Upload'
   },

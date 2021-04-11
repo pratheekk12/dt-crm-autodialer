@@ -7,82 +7,40 @@ import {
   AccordionDetails
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useSelector } from 'react-redux';
 
-const RecentFiveRecords = () => {
+const RecentFiveRecords = ({ records }) => {
+  const userData = useSelector(state => state.userData);
+  console.log(records);
   const columns = [
-    { field: 'id', headerName: 'ID', flex: 1 },
     {
-      field: 'customerName',
-      headerName: 'Customer Name',
-      flex: 2
-    },
-    {
-      field: 'option1',
+      field: 'languageChoosed',
+      headerName: 'Language',
       flex: 1,
-      headerName: 'Option 1'
+      renderCell: rowData => rowData.row.languageChoosed
     },
     {
-      field: 'option2',
+      field: 'overallCustomerRating',
+      headerName: 'Rating',
       flex: 1,
-      headerName: 'Option 2'
+      renderCell: rowData => rowData.row.overallCustomerRating
     },
     {
-      field: 'option3',
+      field: 'customerExperiences',
+      headerName: 'Experience',
       flex: 1,
-      headerName: 'Option 3'
+      renderCell: rowData => rowData.row.customerExperiences
     },
     {
-      field: 'option4',
-      flex: 1,
-      headerName: 'Option 4'
-    }
-  ];
-
-  const rows = [
-    {
-      id: 1,
-      customerName: 'Amit Yadav',
-      option1: 'True',
-      option2: 'True',
-      option3: 'False',
-      option4: 'True'
-    },
-    {
-      id: 2,
-      customerName: 'Dhaval Patel',
-      option1: 'True',
-      option2: 'False',
-      option3: 'False',
-      option4: 'True'
-    },
-    {
-      id: 3,
-      customerName: 'Payal Parmar',
-      option1: 'False',
-      option2: 'True',
-      option3: 'False',
-      option4: 'True'
-    },
-    {
-      id: 4,
-      customerName: 'Riya Singh',
-      option1: 'True',
-      option2: 'True',
-      option3: 'True',
-      option4: 'True'
-    },
-    {
-      id: 4,
-      customerName: 'Kishan Chauhan',
-      option1: 'True',
-      option2: 'True',
-      option3: 'False',
-      option4: 'False'
+      field: 'issues',
+      headerName: 'Issues',
+      flex: 2,
+      renderCell: rowData => rowData.row.issues
     }
   ];
 
   return (
-    <Accordion disabled>
+    <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -94,7 +52,14 @@ const RecentFiveRecords = () => {
         <div style={{ height: 380, width: '100%' }}>
           <DataGrid
             columns={columns}
-            rows={rows}
+            rows={
+              records.length
+                ? records.map(record => ({
+                    ...record,
+                    id: record._id
+                  }))
+                : []
+            }
             pageSize={5}
             pagination
             autoHeight

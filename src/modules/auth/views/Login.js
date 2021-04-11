@@ -24,7 +24,7 @@ import {
   setAccountType
 } from '../../../redux/action';
 import { CRUD_LOGIN } from '../utils/endpoints';
-import { ADMIN, USER } from 'src/redux/constants';
+import { ADMIN, AREAMANAGER, MANAGER, USER } from 'src/redux/constants';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -109,7 +109,16 @@ function Login(props) {
 
       setUserDetailsMain(obj);
       console.log({ obj }, 'login');
-      setAccountTypeMain(obj.role === 'admin' ? ADMIN : USER);
+      const roleDefined = obj => {
+        if (obj.role === 'admin') return ADMIN;
+        if (obj.role === 'manager') return MANAGER;
+        if (obj.role === 'areaManager') return AREAMANAGER;
+        return USER;
+      };
+      setAccountTypeMain(
+        // obj.role === 'admin' ? ADMIN : obj.role === 'manager' ? MANAGER : USER
+        roleDefined(obj)
+      );
 
       // TODO: Uncomment for build
       setAccess(obj.permissions);

@@ -1,50 +1,22 @@
+import map from 'lodash/map';
+
 export function getAddressFromObj(obj) {
   return `${obj.address1}, ${obj.address2}, ${obj.BillingTownArea}, ${obj.BillingCityName}, ${obj.BillingStateName}, ${obj.BillingCountryName}, ${obj.BillingPin}`;
 }
 
-export function getDispositionFormQuestions() {
-  return {
-    states: [
-      {
-        question: 'Feedback',
-        questionCode: 'QA_0',
-        nextQuestions: ['QA_1', 'QA_2', 'QA_3']
-      },
-      {
-        question: 'Do you feel satisfied with our food?',
-        questionCode: 'QA_1',
-        nextQuestions: ['QA_4', 'QA_5', 'QA_6']
-      },
-      {
-        question:
-          'How would you rate the quality of the food at our restaurant?',
-        questionCode: 'QA_2',
-        answers: ['1', '2', '3', '4', '5']
-      },
-      {
-        question: 'Did you face any issues with any service of the restaurant?',
-        questionCode: 'QA_3'
-      },
-      {
-        question: 'Satisfied',
-        questionCode: 'QA_4'
-      },
-      {
-        question: 'It was okay',
-        questionCode: 'QA_5',
-        nextQuestions: ['QA_7']
-      },
-      {
-        question: 'Not Satisfied',
-        questionCode: 'QA_6',
-        answers: ['Bad Staff Behaviour', 'Bad Hygiene', 'Bad Food Quality']
-      },
-      {
-        question: 'Any suggestion to approve our service?',
-        questionCode: 'QA_7'
+export function getDependentQuestionsCodes(options, dependentQuesCodes) {
+  for (let opt of options) {
+    if (opt.dependentQuestion) {
+      dependentQuesCodes = [
+        ...dependentQuesCodes,
+        ...map(opt.dependentQuestion, 'questionCode')
+      ];
+      for (let depQue of opt.dependentQuestion) {
+        return getDependentQuestionsCodes(depQue.option, dependentQuesCodes);
       }
-    ]
-  };
+    }
+  }
+  return dependentQuesCodes;
 }
 
 export function getDispositionFormQuestions2() {
@@ -103,6 +75,51 @@ export function getDispositionFormQuestions2() {
       option: [
         {
           label: 'English'
+          // dependentQuestion: [
+          //   {
+          //     questionName: 'whatWereYouNotSatisfiedWith?',
+          //     question: 'What were you not satisfied with ?',
+          //     questionCode: 'QA_14',
+          //     questionType: 'radio',
+          //     option: [
+          //       {
+          //         label: 'Food',
+          //         dependentQuestion: [
+          //           {
+          //             questionName: 'taste',
+          //             question: 'Are you satisfied with our food?',
+          //             questionCode: 'QA_15',
+          //             questionType: 'rating',
+          //             option: [
+          //               {
+          //                 label: 'yes'
+          //               },
+          //               {
+          //                 label: 'no'
+          //               }
+          //             ]
+          //           },
+          //           {
+          //             questionName: 'taste2',
+          //             question: 'Are you satisfied with our food2?',
+          //             questionCode: 'QA_152',
+          //             option: [
+          //               {
+          //                 label: 'yes'
+          //               },
+          //               {
+          //                 label: 'no'
+          //               }
+          //             ]
+          //           }
+          //         ]
+          //       },
+          //       {
+          //         label: 'Food2'
+          //       }
+          //     ]
+          //   }
+          // ]
         },
         {
           label: 'Tamil'
@@ -152,6 +169,44 @@ export function getDispositionFormQuestions2() {
           label: 'Quantity'
         }
       ]
+      // questionType: 'checkbox',
+      // option: [
+      //   {
+      //     label: 'Food',
+      //     dependentQuestion: [
+      //       {
+      //         questionName: 'taste',
+      //         question: 'Are you satisfied with our food?',
+      //         questionCode: 'QA_7_QA_15',
+      //         questionType: 'rating',
+      //         option: [
+      //           {
+      //             label: 'yes'
+      //           },
+      //           {
+      //             label: 'no'
+      //           }
+      //         ]
+      //       },
+      //       {
+      //         questionName: 'taste2',
+      //         question: 'Are you satisfied with our food2?',
+      //         questionCode: 'QA_7_QA_152',
+      //         option: [
+      //           {
+      //             label: 'yes'
+      //           },
+      //           {
+      //             label: 'no'
+      //           }
+      //         ]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     label: 'Food2'
+      //   }
+      // ]
     },
     {
       questionName: 'subDisposition',
@@ -199,34 +254,34 @@ export function getDispositionFormQuestions2() {
           label: 'Happy'
         },
         {
-          label: 'Not Happy'
-          // dependentQuestion: [
-          //   {
-          //     questionName: 'whatWereYouNotSatisfiedWith?',
-          //     question: 'What were you not satisfied with ?',
-          //     questionCode: 'QA_14',
-          //     option: [
-          //       {
-          //         label: 'Food',
-          //         dependentQuestion: [
-          //           {
-          //             questionName: 'taste',
-          //             question: 'Are you satisfied with our food?',
-          //             questionCode: 'QA_15',
-          //             option: [
-          //               {
-          //                 label: 'yes'
-          //               },
-          //               {
-          //                 label: 'no'
-          //               }
-          //             ]
-          //           }
-          //         ]
-          //       }
-          //     ]
-          //   }
-          // ]
+          label: 'Not Happy',
+          dependentQuestion: [
+            {
+              questionName: 'whatWereYouNotSatisfiedWith?',
+              question: 'What were you not satisfied with ?',
+              questionCode: 'QA_14',
+              option: [
+                {
+                  label: 'Food',
+                  dependentQuestion: [
+                    {
+                      questionName: 'taste',
+                      question: 'Are you satisfied with our food?',
+                      questionCode: 'QA_15',
+                      option: [
+                        {
+                          label: 'yes'
+                        },
+                        {
+                          label: 'no'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           label: 'Average'
@@ -292,10 +347,12 @@ export function getDispositionFormQuestions2() {
         }
       ]
     },
+
     {
       questionName: 'overallCustomerRating',
       question: 'Overall customer rating given in call',
       questionCode: 'QA_12',
+      questionType: 'radio',
       option: [
         {
           label: '1'
@@ -318,9 +375,11 @@ export function getDispositionFormQuestions2() {
       questionName: 'remarks_feedback',
       question: 'Remarks/feedback',
       questionCode: 'QA_13',
-      questionType: 'text',
-      multiline: true,
-      rows: 4
+      questionType: 'textarea',
+      additionalConfig: {
+        rows: 4
+      },
+      option: [{}]
     }
   ];
 
