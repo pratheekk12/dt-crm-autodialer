@@ -29,8 +29,8 @@
 // }
 
 // const DispositionForm = ({ visibilty }) => {
-//   const userData = useSelector(state => state.userData);
-//   console.log('user data', userData);
+// const userData = useSelector(state => state.userData);
+// console.log('user data', userData);
 // const [openSnackbar, setOpenSnackbar] = React.useState(false);
 // const handleClose = (event, reason) => {
 //   if (reason === 'clickaway') {
@@ -85,11 +85,11 @@
 // setOpenSnackbar(true);
 //   } catch (err) {
 //     console.log(err);
-//   setSnackbarMessage({
-//     severity: 'error',
-//     message: 'Something went wrong. Please try again !'
-//   });
-//   setOpenSnackbar(true);
+// setSnackbarMessage({
+//   severity: 'error',
+//   message: 'Something went wrong. Please try again !'
+// });
+// setOpenSnackbar(true);
 // }
 // }
 
@@ -221,7 +221,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
-import * as yup from 'yup';
 import {
   Button,
   FormControl,
@@ -229,15 +228,16 @@ import {
   makeStyles,
   Snackbar
 } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import { isEmpty, get, filter, includes, map } from 'lodash';
+import { isEmpty, includes, map, find } from 'lodash';
 import Axios from 'axios';
-import { useSelector } from 'react-redux';
+import MuiAlert from '@material-ui/lab/Alert';
+import RenderQuestionByInputTypes from 'src/components/RenderQuestionByInputTypes';
 import {
   getDependentQuestionsCodes,
   getDispositionFormQuestions2
 } from 'src/modules/dashboard-360/utils/util-functions';
 import { SAVE_DISPOSITION } from 'src/modules/dashboard-360/utils/endpoints';
+import { useSelector } from 'react-redux';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -249,9 +249,10 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const DispositionForm = ({ visibilty, customerName }) => {
+const DispositionForm = ({ visibility, customer }) => {
   const userData = useSelector(state => state.userData);
-  console.log('userData', userData);
+  console.log('user data', userData);
+
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -259,7 +260,6 @@ const DispositionForm = ({ visibilty, customerName }) => {
     }
     setOpenSnackbar(false);
   };
-
   const [snackbarMessage, setSnackbarMessage] = useState({
     severity: '',
     message: ''
@@ -276,8 +276,7 @@ const DispositionForm = ({ visibilty, customerName }) => {
     index,
     parentQuestion,
     setFieldValue,
-    values,
-    resetForm
+    values
   ) => {
     let dependentQuesCodes = [];
     const dependentQuesCodesArr = getDependentQuestionsCodes(
@@ -289,20 +288,10 @@ const DispositionForm = ({ visibilty, customerName }) => {
       filteredQues = questions.filter(
         currentObj => !includes(dependentQuesCodesArr, currentObj.questionCode)
       );
-      console.log(`dependentQuesCodesArr----->`, dependentQuesCodesArr);
       for (let queCode of dependentQuesCodesArr) {
         if (values[queCode]) {
-          /*resetForm({
-            values: {
-              // the type of `values` inferred to be Blog
-              ...values,
-              [queCode]: null,
-            },
-            // you can also set the other form states here
-          })*/
           setFieldValue(queCode, '');
         }
-        /*delete values[queCode];*/
       }
     }
     if (ques && ques.dependentQuestion) {
@@ -324,11 +313,22 @@ const DispositionForm = ({ visibilty, customerName }) => {
     formValue.sip_id = userData.sip_id;
     formValue.agent_type = userData.agent_type;
     formValue.agent_id = userData.userId;
+    formValue.customerPhoneNumber = customer.phoneNumber;
     formValue.agentName = userData.username;
-    formValue.guestName = customerName;
+    formValue.guestName = customer.guestName;
+    formValue.languageChoosed = formValue['QA_5'];
+    formValue.customerExperiences = formValue['QA_9'];
+    formValue.mainDisposition = formValue['QA_6'];
+    formValue.requiredType = formValue['QA_7'];
+    formValue.subDisposition = formValue['QA_8'];
+    formValue.remarks_feedback = formValue['QA_13'];
+    formValue.overallCustomerRating = formValue['QA_12'];
+    formValue.Rating = formValue['QA_11'];
+    formValue.issues = formValue['QA_10'];
     console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
+
       setSnackbarMessage({
         severity: 'success',
         message: 'Form submitted successfully !'
@@ -344,7 +344,31 @@ const DispositionForm = ({ visibilty, customerName }) => {
     }
   }
 
-  let initialValuesObj = {};
+  const onInputChange = (
+    inputTypeValues,
+    index,
+    ques,
+    setFieldValue,
+    values
+  ) => {
+    const inputValue = inputTypeValues[ques.questionCode];
+
+    if (inputValue) {
+      if (ques.questionType === 'checkbox') {
+        if (!isEmpty(inputValue)) {
+          for (let cbValue of inputValue) {
+            const selectedOption = find(ques.option, { label: cbValue });
+            addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+            setFieldValue(ques.questionCode, inputValue.join());
+          }
+        }
+      } else {
+        const selectedOption = find(ques.option, { label: inputValue });
+        addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+        setFieldValue(ques.questionCode, inputValue);
+      }
+    }
+  };
 
   return (
     <>
@@ -353,47 +377,34 @@ const DispositionForm = ({ visibilty, customerName }) => {
       >
         <Formik
           validateOnBlur={false}
-          initialValues={questions.map(question => {
-            initialValuesObj[question.questionCode] = '';
-          })}
-          onSubmit={async (
-            values,
-            { setSubmitting, resetForm, setFieldValue }
-          ) => {
-            // console.log(setFieldValue);
+          initialValues={{}}
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            console.log(values);
             await saveDispositionForm(values);
             setSubmitting(false);
+            // resetForm();
           }}
           innerRef={formRef}
-          /*validationSchema={yup.object({
-          category: yup.string().required('Please select a category'),
-          subCategory: yup.string().required('Please select a sub category'),
-          subCategoryItem: yup
-            .string()
-            .required('Please select a sub category item')
-        })}*/
         >
-          {({ setFieldValue, values, resetForm }) => (
+          {({ setFieldValue, values }) => (
             <Form>
-              .
               <Grid container spacing={2} direction="column">
                 {map(questions, (ques, index) =>
-                  ques.questionType ? (
+                  ques.questionType && ques.questionType !== 'select' ? (
                     <Grid item key={index}>
-                      <FormControl
-                        variant="outlined"
-                        className={classes.fieldContainer}
-                      >
-                        <Field
-                          component={TextField}
-                          label={ques.question}
-                          variant="outlined"
-                          multiline={ques.multiline}
-                          rows={ques.rows}
-                          name={ques.questionCode}
-                          disabled={visibilty}
-                        />
-                      </FormControl>
+                      <RenderQuestionByInputTypes
+                        question={ques}
+                        visibility={visibility}
+                        onInputChange={newValues =>
+                          onInputChange(
+                            newValues,
+                            index,
+                            ques,
+                            setFieldValue,
+                            values
+                          )
+                        }
+                      />
                     </Grid>
                   ) : (
                     <Grid item key={index}>
@@ -402,7 +413,7 @@ const DispositionForm = ({ visibilty, customerName }) => {
                         className={classes.fieldContainer}
                       >
                         <Autocomplete
-                          disabled={visibilty}
+                          disabled={visibility}
                           options={ques.option}
                           getOptionLabel={option => option.label}
                           getOptionSelected={(option, value) => {
@@ -416,13 +427,13 @@ const DispositionForm = ({ visibilty, customerName }) => {
                                 index,
                                 ques,
                                 setFieldValue,
-                                values,
-                                resetForm
+                                values
                               );
                               setFieldValue(ques.questionCode, value.label);
                             }
                           }}
                           renderInput={params => {
+                            console.log(`values------->`, values);
                             const inputObj = {
                               id: `id-${index}-${ques.questionCode}`
                             };
@@ -431,6 +442,10 @@ const DispositionForm = ({ visibilty, customerName }) => {
                             } else {
                               inputObj.value = '';
                             }
+                            console.log(`params----->`, {
+                              ...params.inputProps,
+                              ...{ inputObj }
+                            });
                             return (
                               <Field
                                 component={TextField}
@@ -443,6 +458,7 @@ const DispositionForm = ({ visibilty, customerName }) => {
                                   ...params.inputProps,
                                   ...inputObj
                                 }}
+                                required
                               />
                             );
                           }}
@@ -470,10 +486,10 @@ const DispositionForm = ({ visibilty, customerName }) => {
                 <Grid item container justify="center" alignContent="center">
                   <Button
                     type="submit"
+                    disabled={visibility}
                     color="primary"
                     variant="contained"
                     size="large"
-                    disabled={visibilty}
                   >
                     Submit
                   </Button>

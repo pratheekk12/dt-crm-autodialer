@@ -38,17 +38,27 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    const getLastFiveRecords = async () => {
-      await axios
-        .get(`/crm-route/agentinteraction?agent_id=${userData.userId}`)
-        .then(res => {
-          setLastFiveRecords(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    };
-    getLastFiveRecords();
+    if (customer !== null) {
+      const getLastFiveRecords = async () => {
+        await axios
+          .get(
+            `/crm-route/agentinteraction?phonenumber=${customer.phoneNumber}&agent_id=${userData.userId}`
+          )
+          // .get(
+          //   `/crm-route/agentinteraction?phonenumber=${919600920380}&agent_id=${
+          //     userData.userId
+          //   }`
+          // )
+          .then(res => {
+            setLastFiveRecords(res.data);
+            console.log('res', res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      };
+      getLastFiveRecords();
+    }
   }, [customer]);
 
   const handleClick = () => {
@@ -99,8 +109,8 @@ const Dashboard = () => {
             </Card>
             <Card style={{ padding: '1rem' }}>
               <DispositionForm
-                visibilty={formDisabled}
-                customerName={customer !== null && customer.guestName}
+                visibility={formDisabled}
+                customer={customer !== null && customer}
               />
             </Card>
           </Grid>

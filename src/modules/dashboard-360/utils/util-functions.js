@@ -74,50 +74,52 @@ export function getDispositionFormQuestions2() {
       questionCode: 'QA_5',
       option: [
         {
-          label: 'English',
-          dependentQuestion: [
-            {
-              questionName: 'whatWereYouNotSatisfiedWith?',
-              question: 'What were you not satisfied with ?',
-              questionCode: 'QA_14',
-              option: [
-                {
-                  label: 'Food',
-                  dependentQuestion: [
-                    {
-                      questionName: 'taste',
-                      question: 'Are you satisfied with our food?',
-                      questionCode: 'QA_15',
-                      option: [
-                        {
-                          label: 'yes'
-                        },
-                        {
-                          label: 'no'
-                        }
-                      ]
-                    },
-                    {
-                      questionName: 'taste2',
-                      question: 'Are you satisfied with our food2?',
-                      questionCode: 'QA_152',
-                      option: [
-                        {
-                          label: 'yes'
-                        },
-                        {
-                          label: 'no'
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  label: 'Food2'
-                }
-              ]
-            }
-          ]
+          label: 'English'
+          // dependentQuestion: [
+          //   {
+          //     questionName: 'whatWereYouNotSatisfiedWith?',
+          //     question: 'What were you not satisfied with ?',
+          //     questionCode: 'QA_14',
+          //     questionType: 'radio',
+          //     option: [
+          //       {
+          //         label: 'Food',
+          //         dependentQuestion: [
+          //           {
+          //             questionName: 'taste',
+          //             question: 'Are you satisfied with our food?',
+          //             questionCode: 'QA_15',
+          //             questionType: 'rating',
+          //             option: [
+          //               {
+          //                 label: 'yes'
+          //               },
+          //               {
+          //                 label: 'no'
+          //               }
+          //             ]
+          //           },
+          //           {
+          //             questionName: 'taste2',
+          //             question: 'Are you satisfied with our food2?',
+          //             questionCode: 'QA_152',
+          //             option: [
+          //               {
+          //                 label: 'yes'
+          //               },
+          //               {
+          //                 label: 'no'
+          //               }
+          //             ]
+          //           }
+          //         ]
+          //       },
+          //       {
+          //         label: 'Food2'
+          //       }
+          //     ]
+          //   }
+          // ]
         },
         {
           label: 'Tamil'
@@ -167,6 +169,44 @@ export function getDispositionFormQuestions2() {
           label: 'Quantity'
         }
       ]
+      // questionType: 'checkbox',
+      // option: [
+      //   {
+      //     label: 'Food',
+      //     dependentQuestion: [
+      //       {
+      //         questionName: 'taste',
+      //         question: 'Are you satisfied with our food?',
+      //         questionCode: 'QA_7_QA_15',
+      //         questionType: 'rating',
+      //         option: [
+      //           {
+      //             label: 'yes'
+      //           },
+      //           {
+      //             label: 'no'
+      //           }
+      //         ]
+      //       },
+      //       {
+      //         questionName: 'taste2',
+      //         question: 'Are you satisfied with our food2?',
+      //         questionCode: 'QA_7_QA_152',
+      //         option: [
+      //           {
+      //             label: 'yes'
+      //           },
+      //           {
+      //             label: 'no'
+      //           }
+      //         ]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     label: 'Food2'
+      //   }
+      // ]
     },
     {
       questionName: 'subDisposition',
@@ -307,10 +347,12 @@ export function getDispositionFormQuestions2() {
         }
       ]
     },
+
     {
       questionName: 'overallCustomerRating',
       question: 'Overall customer rating given in call',
       questionCode: 'QA_12',
+      questionType: 'radio',
       option: [
         {
           label: '1'
@@ -333,9 +375,11 @@ export function getDispositionFormQuestions2() {
       questionName: 'remarks_feedback',
       question: 'Remarks/feedback',
       questionCode: 'QA_13',
-      questionType: 'text',
-      multiline: true,
-      rows: 4
+      questionType: 'textarea',
+      additionalConfig: {
+        rows: 4
+      },
+      option: [{}]
     }
   ];
 

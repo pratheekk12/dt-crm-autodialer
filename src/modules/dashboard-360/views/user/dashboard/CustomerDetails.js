@@ -9,26 +9,26 @@
 
 // const CustomerDetails = ({ customer }) => {
 //   console.log('customer', customer);
-//   const columns = [
-//     {
-//       field: 'guestName',
-//       headerName: 'Customer Name',
-//       flex: 1.5,
-//       renderCell: rowData => rowData.row.guestName
-//     },
-//     {
-//       field: 'overallRating',
-//       headerName: 'Rating',
-//       flex: 1,
-//       renderCell: rowData => rowData.row.overallRating
-//     },
-//     {
-//       field: 'overallExperience',
-//       headerName: 'Experience',
-//       flex: 1,
-//       renderCell: rowData => rowData.row.overallExperience
-//     }
-//   ];
+// const columns = [
+//   {
+//     field: 'guestName',
+//     headerName: 'Customer Name',
+//     flex: 1.5,
+//     renderCell: rowData => rowData.row.guestName
+//   },
+//   {
+//     field: 'overallRating',
+//     headerName: 'Rating',
+//     flex: 1,
+//     renderCell: rowData => rowData.row.overallRating
+//   },
+//   {
+//     field: 'overallExperience',
+//     headerName: 'Experience',
+//     flex: 1,
+//     renderCell: rowData => rowData.row.overallExperience
+//   }
+// ];
 //   // const rows = [
 //   //   {
 //   //     id: 1,
@@ -75,6 +75,7 @@ function createData(key, value) {
 }
 
 const CustomerDetails = ({ customer }) => {
+  console.log('Customer', customer);
   let rows = [];
   if (customer !== null) {
     rows = [
@@ -83,7 +84,7 @@ const CustomerDetails = ({ customer }) => {
       createData('Overall Rating', customer.overallRating),
       createData('Outlet', customer.outlet),
       createData('Feedback Date', customer.feedbackRegisteredDate),
-      createData('Feedback Time', customer.feedbackRegisteredDate),
+      createData('Feedback Time', customer.feedbackRegisteredTime),
       createData('Comments', customer.comments),
       createData('Table Number', customer.tableName),
       createData('Waiter Name', customer.waiterName)

@@ -3,12 +3,15 @@ import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
-import * as yup from 'yup';
-import { isEmpty, get, filter, includes, map } from 'lodash';
-import { getDispositionFormQuestions2 } from './../../utils/util-functions';
+import { isEmpty, includes, map, find } from 'lodash';
+import {
+  getDispositionFormQuestions2,
+  getDependentQuestionsCodes
+} from './../../utils/util-functions';
 import Axios from 'axios';
 import { SAVE_DISPOSITION } from '../../utils/endpoints';
 import CommonAlert from 'src/components/CommonAlert';
+import RenderQuestionByInputTypes from 'src/components/RenderQuestionByInputTypes';
 
 const useStyle = makeStyles(() => ({
   fieldContainer: {
@@ -23,21 +26,38 @@ const DispositionForm = () => {
   const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
 
-  const addAnotherQues = (ques, index) => {
-    //questions.length = index+1
+  const addAnotherQues = (
+    ques,
+    index,
+    parentQuestion,
+    setFieldValue,
+    values
+  ) => {
+    let dependentQuesCodes = [];
+    const dependentQuesCodesArr = getDependentQuestionsCodes(
+      parentQuestion.option,
+      dependentQuesCodes
+    );
+    let filteredQues = questions;
+    if (!isEmpty(dependentQuesCodesArr)) {
+      filteredQues = questions.filter(
+        currentObj => !includes(dependentQuesCodesArr, currentObj.questionCode)
+      );
+      for (let queCode of dependentQuesCodesArr) {
+        if (values[queCode]) {
+          setFieldValue(queCode, '');
+        }
+      }
+    }
     if (ques && ques.dependentQuestion) {
-      questions.splice(index + 1, 0, ...ques.dependentQuestion);
-      setQuestions(questions);
+      for (let depQue of ques.dependentQuestion) {
+        depQue.parentQuestion = parentQuestion.questionCode;
+      }
+      filteredQues.splice(index + 1, 0, ...ques.dependentQuestion);
+    } else {
+      filteredQues.splice(index + 1, 0, ...[]);
     }
-    /*let nextQues = filter(allQuestions, function(que) {
-      return includes(ques.nextQuestions,que.questionCode)
-    });
-    if(!isEmpty(nextQues)){
-      ques.nextQues = nextQues
-    }
-    if(ques.nextQues || ques.answers){
-      setQuestions([...questions,ques])
-    }*/
+    setQuestions(filteredQues);
   };
 
   const resetQuestions = () => {
@@ -55,6 +75,32 @@ const DispositionForm = () => {
     }
   }
 
+  const onInputChange = (
+    inputTypeValues,
+    index,
+    ques,
+    setFieldValue,
+    values
+  ) => {
+    const inputValue = inputTypeValues[ques.questionCode];
+
+    if (inputValue) {
+      if (ques.questionType === 'checkbox') {
+        if (!isEmpty(inputValue)) {
+          for (let cbValue of inputValue) {
+            const selectedOption = find(ques.option, { label: cbValue });
+            addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+            setFieldValue(ques.questionCode, inputValue.join());
+          }
+        }
+      } else {
+        const selectedOption = find(ques.option, { label: inputValue });
+        addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+        setFieldValue(ques.questionCode, inputValue);
+      }
+    }
+  };
+
   return (
     <>
       <div
@@ -70,33 +116,25 @@ const DispositionForm = () => {
             // resetForm();
           }}
           innerRef={formRef}
-          /*validationSchema={yup.object({
-          category: yup.string().required('Please select a category'),
-          subCategory: yup.string().required('Please select a sub category'),
-          subCategoryItem: yup
-            .string()
-            .required('Please select a sub category item')
-        })}*/
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, values }) => (
             <Form>
               <Grid container spacing={2} direction="column">
                 {map(questions, (ques, index) =>
-                  ques.questionType ? (
+                  ques.questionType && ques.questionType !== 'select' ? (
                     <Grid item key={index}>
-                      <FormControl
-                        variant="outlined"
-                        className={classes.fieldContainer}
-                      >
-                        <Field
-                          component={TextField}
-                          label={ques.question}
-                          variant="outlined"
-                          multiline={ques.multiline}
-                          rows={ques.rows}
-                          name={ques.questionName}
-                        />
-                      </FormControl>
+                      <RenderQuestionByInputTypes
+                        question={ques}
+                        onInputChange={newValues =>
+                          onInputChange(
+                            newValues,
+                            index,
+                            ques,
+                            setFieldValue,
+                            values
+                          )
+                        }
+                      />
                     </Grid>
                   ) : (
                     <Grid item key={index}>
@@ -110,20 +148,50 @@ const DispositionForm = () => {
                           getOptionSelected={(option, value) => {
                             return value.label === option.label;
                           }}
+                          id={`autocomplete-id-${index}-${ques.questionCode}`}
                           onChange={(event, value) => {
-                            addAnotherQues(value, index);
-                            setFieldValue(ques.questionName, value.label);
+                            if (value) {
+                              addAnotherQues(
+                                value,
+                                index,
+                                ques,
+                                setFieldValue,
+                                values
+                              );
+                              setFieldValue(ques.questionCode, value.label);
+                            }
                           }}
-                          renderInput={params => (
-                            <Field
-                              component={TextField}
-                              {...params}
-                              label={ques.question}
-                              variant="outlined"
-                              name={ques.questionName}
-                            />
-                          )}
-                          name={ques.questionName}
+                          renderInput={params => {
+                            console.log(`values------->`, values);
+                            const inputObj = {
+                              id: `id-${index}-${ques.questionCode}`
+                            };
+                            if (values[ques.questionCode]) {
+                              inputObj.value = values[ques.questionCode];
+                            } else {
+                              inputObj.value = '';
+                            }
+                            console.log(`params----->`, {
+                              ...params.inputProps,
+                              ...{ inputObj }
+                            });
+                            return (
+                              <Field
+                                component={TextField}
+                                {...params}
+                                label={ques.question}
+                                variant="outlined"
+                                name={ques.questionCode}
+                                id={`field-id-${ques.questionCode}`}
+                                inputProps={{
+                                  ...params.inputProps,
+                                  ...inputObj
+                                }}
+                                required
+                              />
+                            );
+                          }}
+                          name={ques.questionCode}
                         />
                       </FormControl>
                     </Grid>
