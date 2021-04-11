@@ -336,7 +336,7 @@ const DispositionForm = ({ visibility, customer }) => {
       });
       setOpenSnackbar(true);
     } catch (err) {
-      alert('Form submission failed')
+      alert('Form submission failed');
       console.log(err);
       setSnackbarMessage({
         severity: 'error',
@@ -372,6 +372,13 @@ const DispositionForm = ({ visibility, customer }) => {
     }
   };
 
+  let initialValuesObj = {};
+  questions.map(question => {
+    initialValuesObj[question.questionCode] = '';
+  });
+
+  console.log('Initial values', initialValuesObj);
+
   return (
     <>
       <div
@@ -379,7 +386,7 @@ const DispositionForm = ({ visibility, customer }) => {
       >
         <Formik
           validateOnBlur={false}
-          initialValues={{}}
+          initialValues={initialValuesObj}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             console.log(values);
             await saveDispositionForm(values);
@@ -436,7 +443,7 @@ const DispositionForm = ({ visibility, customer }) => {
                             }
                           }}
                           renderInput={params => {
-                            console.log(`values------->`, values);
+                            // console.log(`values------->`, values);
                             const inputObj = {
                               id: `id-${index}-${ques.questionCode}`
                             };
@@ -445,10 +452,10 @@ const DispositionForm = ({ visibility, customer }) => {
                             } else {
                               inputObj.value = '';
                             }
-                            console.log(`params----->`, {
-                              ...params.inputProps,
-                              ...{ inputObj }
-                            });
+                            // console.log(`params----->`, {
+                            //   ...params.inputProps,
+                            //   ...{ inputObj }
+                            // });
                             return (
                               <Field
                                 component={TextField}

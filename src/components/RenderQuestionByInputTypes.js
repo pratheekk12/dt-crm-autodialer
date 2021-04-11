@@ -1,16 +1,15 @@
 import React from 'react';
 import { Field } from 'formik';
 import {
-  RadioGroup,
   FormControlLabel,
   Radio,
   Typography,
   FormControl,
   MenuItem,
   Grid,
-  Checkbox,
-  TextField
+  Checkbox
 } from '@material-ui/core';
+import { RadioGroup, TextField } from 'formik-material-ui';
 import { Rating } from '@material-ui/lab';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { includes } from 'lodash';
@@ -111,7 +110,8 @@ const RenderQuestionByInputTypes = ({
         case 'textarea':
           return (
             <div key={'textarea' + question.questionCode}>
-              <TextField
+              <Field
+                component={TextField}
                 color="primary"
                 disabled={visibility}
                 name={question.questionCode}
@@ -124,13 +124,13 @@ const RenderQuestionByInputTypes = ({
                     question.additionalConfig.rows) ||
                   4
                 }
-                onBlur={event =>
-                  handleChange(
-                    event,
-                    question.questionType,
-                    question.questionCode
-                  )
-                }
+                // onBlur={event =>
+                //   handleChange(
+                //     event,
+                //     question.questionType,
+                //     question.questionCode
+                //   )
+                // }
                 style={{ width: '100%' }}
               />
               <br />
@@ -184,7 +184,7 @@ const RenderQuestionByInputTypes = ({
           return (
             <div key={'radio' + question.questionCode}>
               <Typography>{question.question}</Typography>
-              <RadioGroup
+              {/* <RadioGroup
                 name={question.questionCode}
                 value={values[question.questionCode]}
                 onChange={event =>
@@ -194,7 +194,8 @@ const RenderQuestionByInputTypes = ({
                     question.questionCode
                   )
                 }
-              >
+              > */}
+              <Field component={RadioGroup} name={question.questionCode}>
                 <Grid
                   container
                   direction="row"
@@ -218,7 +219,7 @@ const RenderQuestionByInputTypes = ({
                     );
                   })}
                 </Grid>
-              </RadioGroup>
+              </Field>
             </div>
           );
         case 'select':
