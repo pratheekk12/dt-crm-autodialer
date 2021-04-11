@@ -69,9 +69,9 @@ export function getDispositionFormQuestions2() {
     //   ]
     // },
     {
-      questionName: 'languageChoosed',
+      questionCode: 'languageChoosed',
       question: 'Language',
-      questionCode: 'QA_5',
+      questionName: 'QA_5',
       option: [
         {
           label: 'English'
@@ -139,9 +139,9 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
-      questionName: 'mainDisposition',
+      questionCode: 'mainDisposition',
       question: 'Main Disposition',
-      questionCode: 'QA_6',
+      questionName: 'QA_6',
       option: [
         {
           label: 'Connected'
@@ -155,9 +155,9 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
-      questionName: 'requiredType',
+      questionCode: 'requiredType',
       question: 'Required Type',
-      questionCode: 'QA_7',
+      questionName: 'QA_7',
       option: [
         {
           label: 'Take away'
@@ -209,9 +209,9 @@ export function getDispositionFormQuestions2() {
       // ]
     },
     {
-      questionName: 'subDisposition',
+      questionCode: 'subDisposition',
       question: 'Sub disposition',
-      questionCode: 'QA_8',
+      questionName: 'QA_8',
       option: [
         {
           label: 'RNR'
@@ -246,9 +246,9 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
-      questionName: 'customerExperiences',
+      questionCode: 'customerExperiences',
       question: "Customer Experience's",
-      questionCode: 'QA_9',
+      questionName: 'QA_9',
       option: [
         {
           label: 'Happy'
@@ -257,17 +257,17 @@ export function getDispositionFormQuestions2() {
           label: 'Not Happy',
           dependentQuestion: [
             {
-              questionName: 'whatWereYouNotSatisfiedWith?',
+              questionCode: 'whatWereYouNotSatisfiedWith?',
               question: 'What were you not satisfied with ?',
-              questionCode: 'QA_14',
+              questionName: 'QA_14',
               option: [
                 {
                   label: 'Food',
                   dependentQuestion: [
                     {
-                      questionName: 'taste',
+                      questionCode: 'taste',
                       question: 'Are you satisfied with our food?',
-                      questionCode: 'QA_15',
+                      questionName: 'QA_15',
                       option: [
                         {
                           label: 'yes'
@@ -289,9 +289,9 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
-      questionName: 'issues',
+      questionCode: 'issues',
       question: 'Issues',
-      questionCode: 'QA_10',
+      questionName: 'QA_10',
       option: [
         {
           label: 'Wrong item / delivery'
@@ -335,9 +335,9 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
-      questionName: 'Rating',
+      questionCode: 'Rating',
       question: 'Rating',
-      questionCode: 'QA_11',
+      questionName: 'QA_11',
       option: [
         {
           label: 'Given by customer'
@@ -349,9 +349,9 @@ export function getDispositionFormQuestions2() {
     },
 
     {
-      questionName: 'overallCustomerRating',
+      questionCode: 'overallCustomerRating',
       question: 'Overall customer rating given in call',
-      questionCode: 'QA_12',
+      questionName: 'QA_12',
       questionType: 'radio',
       option: [
         {
@@ -372,9 +372,9 @@ export function getDispositionFormQuestions2() {
       ]
     },
     {
-      questionName: 'remarks_feedback',
+      questionCode: 'remarks_feedback',
       question: 'Remarks/feedback',
-      questionCode: 'QA_13',
+      questionName: 'QA_13',
       questionType: 'textarea',
       additionalConfig: {
         rows: 4

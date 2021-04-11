@@ -306,7 +306,8 @@ const DispositionForm = ({ visibility, customer }) => {
   };
 
   const resetQuestions = () => {
-    setQuestions(defaultQuestions);
+    const defaultState = getDispositionFormQuestions2();
+    setQuestions(defaultState);
   };
 
   async function saveDispositionForm(formValue) {
@@ -316,20 +317,19 @@ const DispositionForm = ({ visibility, customer }) => {
     formValue.customerPhoneNumber = customer.phoneNumber;
     formValue.agentName = userData.username;
     formValue.guestName = customer.guestName;
-    formValue.languageChoosed = formValue['QA_5'];
-    formValue.customerExperiences = formValue['QA_9'];
-    formValue.mainDisposition = formValue['QA_6'];
-    formValue.requiredType = formValue['QA_7'];
-    formValue.subDisposition = formValue['QA_8'];
-    formValue.remarks_feedback = formValue['QA_13'];
-    formValue.overallCustomerRating = formValue['QA_12'];
-    formValue.Rating = formValue['QA_11'];
-    formValue.issues = formValue['QA_10'];
+    // console.log(formValue)
+    // formValue.languageChoosed = formValue['QA_5'];
+    // formValue.customerExperiences = formValue['QA_9'];
+    // formValue.mainDisposition = formValue['QA_6'];
+    // formValue.requiredType = formValue['QA_7'];
+    // formValue.subDisposition = formValue['QA_8'];
+    // formValue.remarks_feedback = formValue['QA_13'];
+    // formValue.overallCustomerRating = formValue['QA_12'];
+    // formValue.Rating = formValue['QA_11'];
+    // formValue.issues = formValue['QA_10'];
     console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
-
-
       setSnackbarMessage({
         severity: 'success',
         message: 'Form submitted successfully !'
@@ -384,7 +384,8 @@ const DispositionForm = ({ visibility, customer }) => {
             console.log(values);
             await saveDispositionForm(values);
             setSubmitting(false);
-            // resetForm();
+            resetQuestions();
+            resetForm();
           }}
           innerRef={formRef}
         >

@@ -71,10 +71,10 @@ const RenderQuestionByInputTypes = ({
       switch (question.questionType) {
         case 'rating':
           return (
-            <span key={'rating' + question.questionName}>
+            <span key={'rating' + question.questionCode}>
               <Typography component="legend">{question.question}</Typography>
               <Rating
-                name={question.questionName}
+                name={question.questionCode}
                 id="rating"
                 precision={0.5}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
@@ -185,7 +185,7 @@ const RenderQuestionByInputTypes = ({
             <div key={'radio' + question.questionCode}>
               <Typography>{question.question}</Typography>
               <RadioGroup
-                name={question.question}
+                name={question.questionCode}
                 value={values[question.questionCode]}
                 onChange={event =>
                   handleChange(
