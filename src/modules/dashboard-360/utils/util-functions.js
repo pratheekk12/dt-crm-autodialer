@@ -7,12 +7,9 @@ export function getAddressFromObj(obj) {
 export function getDependentQuestionsCodes(options, dependentQuesCodes) {
   for (let opt of options) {
     if (opt.dependentQuestion) {
-      dependentQuesCodes = [
-        ...dependentQuesCodes,
-        ...map(opt.dependentQuestion, 'questionCode')
-      ];
+      dependentQuesCodes.push(...map(opt.dependentQuestion, 'questionCode'));
       for (let depQue of opt.dependentQuestion) {
-        return getDependentQuestionsCodes(depQue.option, dependentQuesCodes);
+        getDependentQuestionsCodes(depQue.option, dependentQuesCodes);
       }
     }
   }
@@ -258,7 +255,7 @@ export function getDispositionFormQuestions2() {
           dependentQuestion: [
             {
               questionCode: 'whatWereYouNotSatisfiedWith?',
-              question: 'What were you not satisfied with ?',
+              question: 'What were you not satisfied with',
               questionName: 'QA_14',
               option: [
                 {
@@ -964,7 +961,7 @@ export function getDispositionFormQuestions3() {
                   label: 'Not interested',
                   dependentQuestion: [
                     {
-                      questionCode: 'remarks_feedback',
+                      questionCode: 'remarks_feedback5',
                       question: 'Remarks/feedback',
                       questionName: 'QA_4',
                       questionType: 'textarea',
