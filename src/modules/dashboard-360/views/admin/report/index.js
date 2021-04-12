@@ -4,6 +4,7 @@ import ReportChart from './ReportChart';
 import { Grid } from '@material-ui/core';
 import AgentName from './AgentName';
 import StartEndDates from './StartEndDates';
+import DispositionTable from './DispositionTable';
 
 const Report = () => {
   const [agentName, setAgentName] = useState('');
@@ -32,6 +33,9 @@ const Report = () => {
             {agentName !== null && agentName !== '' ? (
               <ReportChart agentName={agentName} />
             ) : null}
+          </Grid>
+          <Grid item xs={12}>
+            <DispositionTable />
           </Grid>
         </Grid>
       </div>
