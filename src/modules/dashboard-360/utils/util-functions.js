@@ -461,9 +461,190 @@ export function getDispositionFormQuestions3() {
                               ]
                             },
                             {
+                              questionCode: 'taste',
+                              question: 'Food Taste',
+                              questionName: 'QA_8',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Good'
+                                },
+                                {
+                                  label: 'Bad'
+                                },
+                                {
+                                  label: 'Different taste from other DT'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'foodFreshness',
+                              question: 'Food Freshness',
+                              questionName: 'QA_9',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Yes'
+                                },
+                                {
+                                  label: 'No'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'spicy',
+                              question: 'Spicy',
+                              questionName: 'QA_10',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Yes'
+                                },
+                                {
+                                  label: 'No'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'serverService',
+                              question:
+                                'Was the server attentive, friendly & knowledgeable?',
+                              questionName: 'QA_11',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Yes'
+                                },
+                                {
+                                  label: 'No'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'waitTimeAttended',
+                              question: 'Wait time to be attended to',
+                              questionName: 'QA_12',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'On Time'
+                                },
+                                {
+                                  label: '<5 mts'
+                                },
+                                {
+                                  label: '5-10 mts'
+                                },
+                                {
+                                  label: '10-20 mts'
+                                },
+                                {
+                                  label: '20-30 mts'
+                                },
+                                {
+                                  label: '>30 mts'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'waitTimeForOrder',
+                              question:
+                                'Wait time for order to be served to the customer',
+                              questionName: 'QA_13',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'On Time'
+                                },
+                                {
+                                  label: '<5 mts'
+                                },
+                                {
+                                  label: '5-10 mts'
+                                },
+                                {
+                                  label: '10-20 mts'
+                                },
+                                {
+                                  label: '20-30 mts'
+                                },
+                                {
+                                  label: '>30 mts'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'cleanliness',
+                              question: 'Cleanliness',
+                              questionName: 'QA_14',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Good'
+                                },
+                                {
+                                  label: 'Bad'
+                                },
+                                {
+                                  label: 'Need Improvement'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'seating',
+                              question: 'Seating',
+                              questionName: 'QA_15',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Good'
+                                },
+                                {
+                                  label: 'Bad'
+                                },
+                                {
+                                  label: 'Need Improvement'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'quantity',
+                              question: 'Quantity',
+                              questionName: 'QA_16',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'More'
+                                },
+                                {
+                                  label: 'Less'
+                                },
+                                {
+                                  label: 'Adequate'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'price',
+                              question: 'Price',
+                              questionName: 'QA_17',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'High'
+                                },
+                                {
+                                  label: 'Average'
+                                },
+                                {
+                                  label: 'Low'
+                                }
+                              ]
+                            },
+                            {
                               questionCode: 'remarks_feedback',
                               question: 'Remarks/feedback',
-                              questionName: 'QA_8',
+                              questionName: 'QA_18',
                               questionType: 'textarea',
                               additionalConfig: {
                                 rows: 4
@@ -473,10 +654,307 @@ export function getDispositionFormQuestions3() {
                           ]
                         },
                         {
-                          label: 'Not Happy'
+                          label: 'Not Happy',
+                          dependentQuestion: [
+                            {
+                              questionCode: 'issues',
+                              question: 'Issues',
+                              questionName: 'QA_19',
+                              option: [
+                                {
+                                  label: 'Wrong item / delivery'
+                                },
+                                {
+                                  label: 'Not happy with the Ambience'
+                                },
+                                {
+                                  label: 'Not happy with service'
+                                },
+                                {
+                                  label: 'No much variety'
+                                },
+                                {
+                                  label: 'Issue with quality_uncooked food'
+                                },
+                                {
+                                  label: 'Issue with quality_Stable food'
+                                },
+                                {
+                                  label: 'Issue with quality_Spice food'
+                                },
+                                {
+                                  label: 'Issue with quality_Over cooked food'
+                                },
+                                {
+                                  label: 'Issue with quality_Oily'
+                                },
+                                {
+                                  label: 'Issue with quality_Cold food'
+                                },
+                                {
+                                  label: 'Issue with quality_Bland'
+                                },
+                                {
+                                  label: 'Happy with the Service/Food/Overall'
+                                },
+                                {
+                                  label: 'Delay in service'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'overallCustomerRating',
+                              question: 'Overall customer rating given in call',
+                              questionName: 'QA_20',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: '1'
+                                },
+                                {
+                                  label: '2'
+                                },
+                                {
+                                  label: '3'
+                                },
+                                {
+                                  label: '4'
+                                },
+                                {
+                                  label: '5'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'remarks_feedback',
+                              question: 'Remarks/feedback',
+                              questionName: 'QA_21',
+                              questionType: 'textarea',
+                              additionalConfig: {
+                                rows: 4
+                              },
+                              option: [{}]
+                            }
+                          ]
                         },
                         {
-                          label: 'Average'
+                          label: 'Average',
+                          dependentQuestion: [
+                            {
+                              questionCode: 'overallCustomerRating',
+                              question: 'Overall customer rating given in call',
+                              questionName: 'QA_22',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: '1'
+                                },
+                                {
+                                  label: '2'
+                                },
+                                {
+                                  label: '3'
+                                },
+                                {
+                                  label: '4'
+                                },
+                                {
+                                  label: '5'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'taste',
+                              question: 'Food Taste',
+                              questionName: 'QA_23',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Good'
+                                },
+                                {
+                                  label: 'Bad'
+                                },
+                                {
+                                  label: 'Different taste from other DT'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'foodFreshness',
+                              question: 'Food Freshness',
+                              questionName: 'QA_24',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Yes'
+                                },
+                                {
+                                  label: 'No'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'spicy',
+                              question: 'Spicy',
+                              questionName: 'QA_25',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Yes'
+                                },
+                                {
+                                  label: 'No'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'serverService',
+                              question:
+                                'Was the server attentive, friendly & knowledgeable?',
+                              questionName: 'QA_26',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Yes'
+                                },
+                                {
+                                  label: 'No'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'waitTimeAttended',
+                              question: 'Wait time to be attended to',
+                              questionName: 'QA_27',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'On Time'
+                                },
+                                {
+                                  label: '<5 mts'
+                                },
+                                {
+                                  label: '5-10 mts'
+                                },
+                                {
+                                  label: '10-20 mts'
+                                },
+                                {
+                                  label: '20-30 mts'
+                                },
+                                {
+                                  label: '>30 mts'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'waitTimeForOrder',
+                              question:
+                                'Wait time for order to be served to the customer',
+                              questionName: 'QA_28',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'On Time'
+                                },
+                                {
+                                  label: '<5 mts'
+                                },
+                                {
+                                  label: '5-10 mts'
+                                },
+                                {
+                                  label: '10-20 mts'
+                                },
+                                {
+                                  label: '20-30 mts'
+                                },
+                                {
+                                  label: '>30 mts'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'cleanliness',
+                              question: 'Cleanliness',
+                              questionName: 'QA_29',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Good'
+                                },
+                                {
+                                  label: 'Bad'
+                                },
+                                {
+                                  label: 'Need Improvement'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'seating',
+                              question: 'Seating',
+                              questionName: 'QA_30',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'Good'
+                                },
+                                {
+                                  label: 'Bad'
+                                },
+                                {
+                                  label: 'Need Improvement'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'quantity',
+                              question: 'Quantity',
+                              questionName: 'QA_31',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'More'
+                                },
+                                {
+                                  label: 'Less'
+                                },
+                                {
+                                  label: 'Adequate'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'price',
+                              question: 'Price',
+                              questionName: 'QA_32',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: 'High'
+                                },
+                                {
+                                  label: 'Average'
+                                },
+                                {
+                                  label: 'Low'
+                                }
+                              ]
+                            },
+                            {
+                              questionCode: 'remarks_feedback',
+                              question: 'Remarks/feedback',
+                              questionName: 'QA_33',
+                              questionType: 'textarea',
+                              additionalConfig: {
+                                rows: 4
+                              },
+                              option: [{}]
+                            }
+                          ]
                         }
                       ]
                     }
