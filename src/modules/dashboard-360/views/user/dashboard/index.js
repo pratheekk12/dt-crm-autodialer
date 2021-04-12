@@ -23,9 +23,9 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
 
   const dail = async () => {
-    await axios.get('/ami/actions/originatecall', {
+    await axios.get('http://192.168.4.44:42002/ami/actions/originatecall', {
       params: {
-        sipAgentID: 'sip/9999',
+        sipAgentID: userData.sip_id,
         NumbertobeCalled: '2' + customer.phoneNumber.slice(2)
       }
     });
