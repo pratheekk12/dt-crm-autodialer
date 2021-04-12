@@ -58,7 +58,7 @@ export default function StartEndDates({ date }) {
         </Grid>
         <Grid item xs={12} lg={4}>
           <Button variant="contained" color="primary" onClick={saveTime}>
-            Save
+            Fetch
           </Button>
         </Grid>
       </Grid>

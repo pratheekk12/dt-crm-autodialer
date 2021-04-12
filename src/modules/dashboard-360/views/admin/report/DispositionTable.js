@@ -1,53 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Card, CardHeader } from '@material-ui/core';
+import axios from 'axios';
 
-const DispositionTable = () => {
+const DispositionTable = ({ date }) => {
+  const [reportsData, setReportsData] = useState(null);
+
+  const getDispositionData = async () => {
+    const tableStartDate = new Date();
+    tableStartDate.setHours(0, 0, 0);
+    const tableEndDate = new Date();
+    tableEndDate.setHours(11, 59, 59);
+    await axios
+      .get('/crm-route/dispositionreports', {
+        params: {
+          startDate: tableStartDate.toISOString(),
+          endDate: tableEndDate.toISOString()
+        }
+      })
+      .then(res => {
+        setReportsData(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getDispositionData();
+  }, []);
+
   const columns = [
-    { field: 'agentName', headerName: 'Agent Name', flex: 1 },
-    { field: 'mainDisposition', headerName: 'Main Disposition', flex: 1 },
-    { field: 'subDisposition', headerName: 'Sub Disposition', flex: 1 },
-    { field: 'rating', headerName: 'Rating', flex: 1 }
-  ];
-
-  const rows = [
     {
-      id: 1,
-      agentName: 'Bhuvneshwari',
-      mainDisposition: 'Connected',
-      subDisposition: '',
-      rating: '5'
+      field: 'agentName',
+      headerName: 'Agent Name',
+      flex: 1,
+      renderCell: rowData => rowData.row.agentName
     },
     {
-      id: 2,
-      agentName: 'Nandani',
-      mainDisposition: 'Not Connected',
-      subDisposition: 'RNR',
-      rating: ''
+      field: 'guestName',
+      headerName: 'Customer Name',
+      flex: 1,
+      renderCell: rowData => rowData.row.guestName
     },
     {
-      id: 3,
-      agentName: 'Nandani',
-      mainDisposition: 'Not Connected',
-      subDisposition: 'Not Reachable',
-      rating: ''
+      field: 'mainDisposition',
+      headerName: 'Main Disposition',
+      flex: 1,
+      renderCell: rowData => rowData.row.mainDisposition
     },
     {
-      id: 4,
-      agentName: 'Bhuvneshwari',
-      mainDisposition: 'Connected',
-      subDisposition: '',
-      rating: '4'
+      field: 'subDisposition',
+      headerName: 'Sub Disposition',
+      flex: 1,
+      renderCell: rowData => rowData.row.subDisposition
     },
     {
-      id: 5,
-      agentName: 'Bhuvneshwari',
-      mainDisposition: 'Connected',
-      subDisposition: '',
-      rating: '4'
+      field: 'overallCustomerRating',
+      headerName: 'Rating',
+      flex: 1,
+      renderCell: rowData => rowData.row.overallCustomerRating
     }
   ];
-
   return (
     <>
       <Card style={{ display: 'flex', justifyContent: 'center' }}>
@@ -56,10 +70,14 @@ const DispositionTable = () => {
       <Card style={{ height: 420, width: '100%', padding: '1rem' }}>
         <DataGrid
           columns={columns}
-          rows={rows.map(row => ({
-            ...row,
-            id: row.id
-          }))}
+          rows={
+            reportsData !== null
+              ? reportsData.map(data => ({
+                  ...data,
+                  id: data._id
+                }))
+              : []
+          }
           pageSize={5}
           pagination
           autoHeight

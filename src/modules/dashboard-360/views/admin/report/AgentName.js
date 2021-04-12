@@ -10,7 +10,6 @@ const AgentName = ({ name }) => {
     await axios
       .get('/crm-route/agents')
       .then(res => {
-        console.log('agent res', res);
         setAgentNames(res.data);
       })
       .catch(err => {
