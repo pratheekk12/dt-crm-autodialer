@@ -124,6 +124,17 @@ const DispositionForm = () => {
                               setFieldValue(ques.questionCode, value.label);
                             }
                           }}
+                          renderOption={(option, value) => {
+                            if(values[ques.questionCode] === ""){
+                              if(value.selected){
+                                setFieldValue(ques.questionCode, value.inputValue)
+                                if(value.inputValue === option.label){
+                                  addAnotherQues(option, index, ques, setFieldValue, values);
+                                }
+                              }
+                            }
+                            return option.label;
+                          }}
                           renderInput={params => {
                             console.log(`values------->`,values)
                             const inputObj = {id: `id-${index}-${ques.questionCode}`}
