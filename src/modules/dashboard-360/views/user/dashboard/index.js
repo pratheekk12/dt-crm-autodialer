@@ -45,12 +45,11 @@ const Dashboard = () => {
           .get(`/crm-route/agentinteraction`, {
             params: {
               phonenumber: customer.phoneNumber
-              // agent_id: userData.userId
             }
           })
 
           // .get(
-          //   `/crm-route/agentinteraction?phonenumber=${customer.phoneNumber}&agent_id=${userData.userId}`
+          //   `/crm-route/agentinteraction?phonenumber=${customer.phoneNumber}`
           // )
           // .get(
           //   `/crm-route/agentinteraction?phonenumber=${919600920380}&agent_id=${

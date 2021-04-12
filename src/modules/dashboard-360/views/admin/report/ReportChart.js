@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import {
   Card,
@@ -8,8 +8,31 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
+import axios from 'axios';
 
-const ReportChart = ({ agentName }) => {
+const ReportChart = ({ reportParams }) => {
+  const getReportChart = async () => {
+    await axios
+      .get('/crm-route/agentreports', {
+        params: {
+          startDate: reportParams.startDate,
+          endDate: reportParams.endDate,
+          agentId: reportParams.agentId
+        }
+      })
+      .then(res => {
+        console.log('report res', res);
+        // setAgentNames(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getReportChart();
+  }, []);
+
   const series = [65, 45, 20];
 
   const options = {
@@ -36,7 +59,7 @@ const ReportChart = ({ agentName }) => {
     <>
       <div id="chart">
         <Card style={{ textAlign: 'center' }}>
-          <CardHeader title={agentName.name} />
+          <CardHeader title={reportParams.agentName} />
           <Divider />
           <CardContent>
             <ReactApexChart

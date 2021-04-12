@@ -1,36 +1,42 @@
 import { TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const AgentName = ({ name }) => {
-  const names = [
-    {
-      name: 'Pavithra'
-    },
-    {
-      name: 'Nandini'
-    },
-    {
-      name: 'Bhuvaneshwari'
-    },
-    {
-      name: 'Maria'
-    }
-  ];
+  const [agentNames, setAgentNames] = useState(null);
+
+  const getAgentName = async () => {
+    await axios
+      .get('/crm-route/agents')
+      .then(res => {
+        console.log('agent res', res);
+        setAgentNames(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAgentName();
+  }, []);
   return (
     <>
-      <Autocomplete
-        id="agentName"
-        options={names}
-        onChange={(event, newValue) => {
-          name(newValue);
-        }}
-        style={{ width: '100%', backgroundColor: 'white' }}
-        getOptionLabel={option => option.name}
-        renderInput={params => (
-          <TextField {...params} label="Agent Name" variant="outlined" />
-        )}
-      />
+      {agentNames !== null && (
+        <Autocomplete
+          id="agentName"
+          options={agentNames}
+          onChange={(event, newValue) => {
+            name(newValue);
+          }}
+          style={{ width: '100%', backgroundColor: 'white' }}
+          getOptionLabel={option => option.username}
+          renderInput={params => (
+            <TextField {...params} label="Agent Name" variant="outlined" />
+          )}
+        />
+      )}
     </>
   );
 };
