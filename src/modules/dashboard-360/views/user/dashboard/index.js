@@ -22,11 +22,21 @@ const Dashboard = () => {
   const [open, setOpen] = React.useState(false);
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
 
+  const dail = async () => {
+    await axios.get('/ami/actions/originatecall', {
+      params: {
+        sipAgentID: 'sip/9999',
+        NumbertobeCalled: '2' + customer.phoneNumber.slice(2)
+      }
+    });
+  };
+
   const getData = async () => {
     await axios
       .get('/channel/getdata')
       .then(res => {
         setCustomer(res.data);
+
         setFormDisabled(false);
         setOpen(true);
       })
@@ -39,6 +49,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (customer !== null) {
+      dail();
       const getLastFiveRecords = async () => {
         await axios
 
