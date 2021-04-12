@@ -58,7 +58,7 @@ const Report = () => {
           <Grid item xs={12} lg={6}>
             <StartEndDates date={setDate} />
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12}>
             {reportParams.endDate !== null && reportParams.agentId !== null ? (
               <ReportChart reportParams={reportParams} />
             ) : null}
