@@ -31,6 +31,7 @@ export function getDispositionFormQuestions2() {
               questionCode: 'response',
               question: 'Response',
               questionName: 'QA_3',
+              questionType: 'checkbox',
               option: [
                 {
                   label: 'Interested',
@@ -64,6 +65,7 @@ export function getDispositionFormQuestions2() {
                       questionCode: 'customerExperiences',
                       question: "Customer Experience's",
                       questionName: 'QA_6',
+                      questionType: 'radio',
                       option: [
                         {
                           label: 'Happy',
@@ -592,13 +594,28 @@ export function getDispositionFormQuestions2() {
                   ]
                 },
                 {
-                  label: 'Not interested4',
+                  label: 'Not interested',
                   dependentQuestion: [
                     {
                       questionCode: 'remarks_feedback',
                       question: 'Remarks/feedback',
                       questionName: 'QA_4',
                       questionType: 'textarea',
+                      additionalConfig: {
+                        rows: 4
+                      },
+                      option: [{}]
+                    }
+                  ]
+                },
+                {
+                  label: 'Not interested4',
+                  dependentQuestion: [
+                    {
+                      questionCode: 'remarks_feedback4',
+                      question: 'Remarks/feedback4',
+                      questionName: 'QA_4',
+                      questionType: 'text',
                       additionalConfig: {
                         rows: 4
                       },

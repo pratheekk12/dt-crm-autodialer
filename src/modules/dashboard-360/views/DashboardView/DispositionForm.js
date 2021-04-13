@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
 import { Button, FormControl, Grid, makeStyles } from '@material-ui/core';
-import { isEmpty, includes, map, find } from 'lodash';
+import { isEmpty, includes, map, find, difference, intersection } from 'lodash';
 import { getDispositionFormQuestions2, getDependentQuestionsCodes } from './../../utils/util-functions';
 import Axios from 'axios';
 import { SAVE_DISPOSITION } from '../../utils/endpoints';
@@ -28,7 +28,9 @@ const DispositionForm = () => {
     const dependentQuesCodesArr = getDependentQuestionsCodes(parentQuestion.option, dependentQuesCodes)
     let filteredQues = questions
     if(!isEmpty(dependentQuesCodesArr)){
-      filteredQues = questions.filter(currentObj => !includes(dependentQuesCodesArr, currentObj.questionCode));
+      if(!ques.skipFilter){
+        filteredQues = questions.filter(currentObj => !includes(dependentQuesCodesArr, currentObj.questionCode));
+      }
       for(let queCode of dependentQuesCodesArr){
         if(values[queCode]){
           setFieldValue(queCode, '');
@@ -67,11 +69,42 @@ const DispositionForm = () => {
     if(inputValue){
       if(ques.questionType === 'checkbox'){
         if(!isEmpty(inputValue)){
-          for(let cbValue of inputValue){
-            const selectedOption = find(ques.option, {label : cbValue})
-            addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+          //let cbValue = inputValue[inputValue.length - 1]
+          console.log(`inputValue------->`,inputValue)
+          const checkBoxValues = (values[ques.questionCode] && values[ques.questionCode].split(',')) || []
+          console.log(`checkBoxValues------>`,checkBoxValues)
+          const addQuestionOption = difference(inputValue, checkBoxValues)
+          console.log(`adddQuestionOption------>`,addQuestionOption)
+          const removedOption = difference(checkBoxValues , inputValue)
+          console.log(`removedOption------>`,removedOption)
+          if(!isEmpty(addQuestionOption)){
+            for(let cbValue of addQuestionOption){
+              const selectedOption = find(ques.option, {label : cbValue})
+              addAnotherQues({...selectedOption, skipFilter: true}, index, ques, setFieldValue, values);
+            }
             setFieldValue(ques.questionCode, inputValue.join());
           }
+          if(!isEmpty(removedOption)){
+
+            /** to do, need to add new logic to remove only dependent questions. */
+            /** start -> here we are reset the whole questions cause it was repeating the questions for checkbox */
+            console.log(`questions---->>>>${index}`,questions)
+            questions.length = index + 1
+            console.log(`questions---->>>>222`,questions)
+            /** end */
+
+            setQuestions(questions);
+
+            const remainingOptions = intersection(inputValue , checkBoxValues)
+            for(let cbValue of remainingOptions){
+              const selectedOption = find(ques.option, {label : cbValue})
+              addAnotherQues({...selectedOption, skipFilter: true}, index, ques, setFieldValue, values);
+            }
+            setFieldValue(ques.questionCode, inputValue.join())
+          }
+        }else{
+          addAnotherQues({}, index, ques, setFieldValue, values);
+          setFieldValue(ques.questionCode, inputValue.join());
         }
       }else{
         const selectedOption = find(ques.option, {label : inputValue})
