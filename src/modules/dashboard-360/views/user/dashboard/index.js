@@ -23,7 +23,7 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
 
   const dail = async () => {
-    await axios.get('https://dt.granalytics.in/ami/actions/originatecall', {
+    await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
       params: {
         sipAgentID: userData.sip_id,
         NumbertobeCalled: '2' + customer.phoneNumber.slice(2)
