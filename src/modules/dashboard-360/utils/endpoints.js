@@ -17,5 +17,5 @@ export const ORIGINATE_CALL_WITH_SIP_ID =
 export const UPDATE_CALL_STATUS = '/agentservice/crm/interactions/';
 export const GET_INBOUND_DASHBOARD_DATA =
   '/gpreport/service/dashboardcount?AccessKeys=123';
-const prefix = process.env.NODE_ENV === 'production' ? '/auth/' : '/';
+const prefix = process.env.NODE_ENV === 'production' ? '/' : '/';
 export const SAVE_DISPOSITION = prefix + 'crm-route/adddisposition';
