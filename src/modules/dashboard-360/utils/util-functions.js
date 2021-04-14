@@ -670,6 +670,19 @@ export function getDispositionFormQuestions2() {
           ]
         }
       ]
+    },
+    {
+      questionCode: 'mainDisposition1',
+      question: 'Main Disposition1',
+      questionName: 'QA_1',
+      option: [
+        {
+          label: 'Connected',
+        },
+        {
+          label: 'Not Connected',
+        }
+      ]
     }
   ];
 

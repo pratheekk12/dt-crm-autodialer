@@ -21,7 +21,7 @@ const DispositionForm = () => {
   const formRef = useRef({});
   const defaultQuestions = getDispositionFormQuestions2();
   const allQuestions = [...defaultQuestions];
-  const [questions, setQuestions] = useState(allQuestions);
+  let [questions, setQuestions] = useState(allQuestions);
 
   const addAnotherQues = (ques, index, parentQuestion, setFieldValue, values) => {
     let dependentQuesCodes = []
@@ -69,14 +69,9 @@ const DispositionForm = () => {
     if(inputValue){
       if(ques.questionType === 'checkbox'){
         if(!isEmpty(inputValue)){
-          //let cbValue = inputValue[inputValue.length - 1]
-          console.log(`inputValue------->`,inputValue)
           const checkBoxValues = (values[ques.questionCode] && values[ques.questionCode].split(',')) || []
-          console.log(`checkBoxValues------>`,checkBoxValues)
           const addQuestionOption = difference(inputValue, checkBoxValues)
-          console.log(`adddQuestionOption------>`,addQuestionOption)
           const removedOption = difference(checkBoxValues , inputValue)
-          console.log(`removedOption------>`,removedOption)
           if(!isEmpty(addQuestionOption)){
             for(let cbValue of addQuestionOption){
               const selectedOption = find(ques.option, {label : cbValue})
@@ -86,16 +81,19 @@ const DispositionForm = () => {
           }
           if(!isEmpty(removedOption)){
 
-            /** to do, need to add new logic to remove only dependent questions. */
-            /** start -> here we are reset the whole questions cause it was repeating the questions for checkbox */
-            console.log(`questions---->>>>${index}`,questions)
-            questions.length = index + 1
-            console.log(`questions---->>>>222`,questions)
+            /** reset the question when any value removed from checkbox. because it was re-adding the question when not resetting it. */
+            let dependentQuesCodes = []
+            const dependentQuesCodesArr = getDependentQuestionsCodes(ques.option, dependentQuesCodes)
+            if(!isEmpty(dependentQuesCodesArr)){
+              let filteredQues = questions.filter(currentObj => !includes(dependentQuesCodesArr, currentObj.questionCode));
+              questions = filteredQues
+              setQuestions([...filteredQues]);
+            }
             /** end */
 
-            setQuestions(questions);
-
             const remainingOptions = intersection(inputValue , checkBoxValues)
+
+            /** adding the questions after reset, which is selected in checkbox*/
             for(let cbValue of remainingOptions){
               const selectedOption = find(ques.option, {label : cbValue})
               addAnotherQues({...selectedOption, skipFilter: true}, index, ques, setFieldValue, values);
@@ -169,17 +167,12 @@ const DispositionForm = () => {
                             return option.label;
                           }}
                           renderInput={params => {
-                            console.log(`values------->`,values)
                             const inputObj = {id: `id-${index}-${ques.questionCode}`}
                             if(values[ques.questionCode]){
                               inputObj.value = values[ques.questionCode]
                             }else{
                               inputObj.value = ""
                             }
-                            console.log(`params----->`,{
-                              ...params.inputProps,
-                              ...{inputObj}
-                            })
                            return <Field
                              component={TextField}
                              {...params}
