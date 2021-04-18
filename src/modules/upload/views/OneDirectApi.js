@@ -86,17 +86,13 @@ const OneDirectApi = () => {
         console.log(Err);
         setError(Err);
       }
-
-      // finally {
-      //   setLoading(false);
-      // }
     })();
   }, []);
 
   return (
     <div
       className={classes.root}
-      style={{ marginTop: '1rem', height: 690, width: '100%' }}
+      style={{ marginTop: '1rem', height: 650, width: '100%' }}
     >
       {/* <Box marginBottom={2}>
         <ButtonGroup color="primary" aria-label="outlined primary button group">
@@ -114,7 +110,7 @@ const OneDirectApi = () => {
           id: user._id
         }))}
         columns={colConfig}
-        autoHeight="true"
+        autoHeight
         rowsPerPageOptions={[10, 15, 20]}
         pageSize={10}
         autoHeight
