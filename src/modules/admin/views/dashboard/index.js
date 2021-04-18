@@ -256,14 +256,14 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                               type="checkbox"
                               Label={{ label: 'Admin' }}
                             />
-                            <Field
+                            {/* <Field
                               component={CheckboxWithLabel}
                               value="disposition"
                               name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Disposition' }}
-                            />
+                            /> */}
                             <Field
                               component={CheckboxWithLabel}
                               value="disposition"
@@ -454,7 +454,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                         </FormGroup>
                       </Grid>
                     </Grid>
-                    <Grid container item>
+                    {/* <Grid container item>
                       <Grid item xs={6}>
                         <Typography variant="body1">Resource Access</Typography>
                       </Grid>
@@ -479,7 +479,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                           </Grid>
                         </Field>
                       </Grid>
-                    </Grid>
+                    </Grid>*/}
                   </Grid>
                 </div>
                 <Divider />

@@ -4,9 +4,6 @@ import { Button, Box, ButtonGroup, makeStyles } from '@material-ui/core';
 import Axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    margin: '0.5rem 1rem 1rem 1rem'
-  },
   dataGrid: {
     backgroundColor: theme.palette.background.paper
   }
@@ -97,7 +94,10 @@ const OneDirectApi = () => {
   }, []);
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{ marginTop: '1rem', height: 690, width: '100%' }}
+    >
       {/* <Box marginBottom={2}>
         <ButtonGroup color="primary" aria-label="outlined primary button group">
           <Button>
@@ -108,21 +108,20 @@ const OneDirectApi = () => {
           </Button>
         </ButtonGroup>
       </Box> */}
-      <Box style={{ marginTop: '1rem', height: 690, width: 1200 }}>
-        <DataGrid
-          rows={userData.map(user => ({
-            ...user,
-            id: user._id
-          }))}
-          columns={colConfig}
-          autoHeight="true"
-          pageSize={10}
-          autoHeight
-          // autoPageSize
-          className={classes.dataGrid}
-          loading={loading}
-        />
-      </Box>
+      <DataGrid
+        rows={userData.map(user => ({
+          ...user,
+          id: user._id
+        }))}
+        columns={colConfig}
+        autoHeight="true"
+        rowsPerPageOptions={[10, 15, 20]}
+        pageSize={10}
+        autoHeight
+        // autoPageSize
+        className={classes.dataGrid}
+        loading={loading}
+      />
     </div>
   );
 };
