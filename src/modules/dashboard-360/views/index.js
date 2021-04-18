@@ -21,17 +21,7 @@ function View({ accountType, routes }) {
   };
   return (
     <DynamicModuleLoader modules={[getDashboardModule()]}>
-      <RouteSwitch
-        routes={routes}
-        redirectPath={
-          // accountType === ADMIN
-          //   ? '/dash360/admin/report'
-          //   : accountType === MANAGER
-          //   ? '/dash360/restaurant-manager-dashboard'
-          //   : '/dash360/agent'
-          roleDefined(accountType)
-        }
-      />
+      <RouteSwitch routes={routes} redirectPath={roleDefined(accountType)} />
     </DynamicModuleLoader>
   );
 }

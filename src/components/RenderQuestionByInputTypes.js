@@ -70,10 +70,11 @@ const RenderQuestionByInputTypes = ({
       switch (question.questionType) {
         case 'rating':
           return (
-            <span key={'rating' + question.questionCode}>
+            <span key={'rating' + question.questionName}>
               <Typography component="legend">{question.question}</Typography>
               <Rating
-                name={question.questionCode}
+                name={question.questionName}
+                disabled={visibility}
                 id="rating"
                 precision={0.5}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
@@ -93,6 +94,7 @@ const RenderQuestionByInputTypes = ({
               <TextField
                 color="primary"
                 name={question.questionCode}
+                disabled={visibility}
                 id={question.questionCode}
                 label={question.question}
                 variant="outlined"
@@ -152,6 +154,7 @@ const RenderQuestionByInputTypes = ({
                     return (
                       <Grid item key={`checkbox-${index}`}>
                         <FormControlLabel
+                          disabled={visibility}
                           control={
                             <Checkbox
                               name={option.label}
@@ -233,6 +236,7 @@ const RenderQuestionByInputTypes = ({
                   name={question.questionName}
                   id={question.questionName}
                   select={true}
+                  disabled={visibility}
                   placeholder="Select"
                   variant="outlined"
                   size="medium"

@@ -9,7 +9,7 @@ import {
   makeStyles,
   Snackbar
 } from '@material-ui/core';
-import { isEmpty, includes, map, find } from 'lodash';
+import { isEmpty, includes, map, find, difference, intersection } from 'lodash';
 import Axios from 'axios';
 import MuiAlert from '@material-ui/lab/Alert';
 import RenderQuestionByInputTypes from 'src/components/RenderQuestionByInputTypes';
@@ -98,16 +98,6 @@ const DispositionForm = ({ visibility, customer }) => {
     formValue.customerPhoneNumber = customer.phoneNumber;
     formValue.agentName = userData.username;
     formValue.guestName = customer.guestName;
-    // console.log(formValue)
-    // formValue.languageChoosed = formValue['QA_5'];
-    // formValue.customerExperiences = formValue['QA_9'];
-    // formValue.mainDisposition = formValue['QA_6'];
-    // formValue.requiredType = formValue['QA_7'];
-    // formValue.subDisposition = formValue['QA_8'];
-    // formValue.remarks_feedback = formValue['QA_13'];
-    // formValue.overallCustomerRating = formValue['QA_12'];
-    // formValue.Rating = formValue['QA_11'];
-    // formValue.issues = formValue['QA_10'];
     console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
@@ -139,11 +129,60 @@ const DispositionForm = ({ visibility, customer }) => {
     if (inputValue) {
       if (ques.questionType === 'checkbox') {
         if (!isEmpty(inputValue)) {
-          for (let cbValue of inputValue) {
-            const selectedOption = find(ques.option, { label: cbValue });
-            addAnotherQues(selectedOption, index, ques, setFieldValue, values);
+          const checkBoxValues =
+            (values[ques.questionCode] &&
+              values[ques.questionCode].split(',')) ||
+            [];
+          const addQuestionOption = difference(inputValue, checkBoxValues);
+          const removedOption = difference(checkBoxValues, inputValue);
+          if (!isEmpty(addQuestionOption)) {
+            for (let cbValue of addQuestionOption) {
+              const selectedOption = find(ques.option, { label: cbValue });
+              addAnotherQues(
+                { ...selectedOption, skipFilter: true },
+                index,
+                ques,
+                setFieldValue,
+                values
+              );
+            }
             setFieldValue(ques.questionCode, inputValue.join());
           }
+          if (!isEmpty(removedOption)) {
+            /** reset the question when any value removed from checkbox. because it was re-adding the question when not resetting it. */
+            let dependentQuesCodes = [];
+            const dependentQuesCodesArr = getDependentQuestionsCodes(
+              ques.option,
+              dependentQuesCodes
+            );
+            if (!isEmpty(dependentQuesCodesArr)) {
+              let filteredQues = questions.filter(
+                currentObj =>
+                  !includes(dependentQuesCodesArr, currentObj.questionCode)
+              );
+              questions = filteredQues;
+              setQuestions([...filteredQues]);
+            }
+            /** end */
+
+            const remainingOptions = intersection(inputValue, checkBoxValues);
+
+            /** adding the questions after reset, which is selected in checkbox*/
+            for (let cbValue of remainingOptions) {
+              const selectedOption = find(ques.option, { label: cbValue });
+              addAnotherQues(
+                { ...selectedOption, skipFilter: true },
+                index,
+                ques,
+                setFieldValue,
+                values
+              );
+            }
+            setFieldValue(ques.questionCode, inputValue.join());
+          }
+        } else {
+          addAnotherQues({}, index, ques, setFieldValue, values);
+          setFieldValue(ques.questionCode, inputValue.join());
         }
       } else {
         const selectedOption = find(ques.option, { label: inputValue });
@@ -157,8 +196,6 @@ const DispositionForm = ({ visibility, customer }) => {
   questions.map(question => {
     initialValuesObj[question.questionCode] = '';
   });
-
-  console.log('Initial values', initialValuesObj);
 
   return (
     <>
@@ -223,8 +260,27 @@ const DispositionForm = ({ visibility, customer }) => {
                               setFieldValue(ques.questionCode, value.label);
                             }
                           }}
+                          renderOption={(option, value) => {
+                            if (values[ques.questionCode] === '') {
+                              if (value.selected) {
+                                setFieldValue(
+                                  ques.questionCode,
+                                  value.inputValue
+                                );
+                                if (value.inputValue === option.label) {
+                                  addAnotherQues(
+                                    option,
+                                    index,
+                                    ques,
+                                    setFieldValue,
+                                    values
+                                  );
+                                }
+                              }
+                            }
+                            return option.label;
+                          }}
                           renderInput={params => {
-                            // console.log(`values------->`, values);
                             const inputObj = {
                               id: `id-${index}-${ques.questionCode}`
                             };
@@ -233,10 +289,6 @@ const DispositionForm = ({ visibility, customer }) => {
                             } else {
                               inputObj.value = '';
                             }
-                            // console.log(`params----->`, {
-                            //   ...params.inputProps,
-                            //   ...{ inputObj }
-                            // });
                             return (
                               <Field
                                 component={TextField}
