@@ -17,12 +17,12 @@ export default (permissions, userRole) => [
   {
     isVisible: permissions.dashboard.canViewManagerDashboard,
     link: '/dash360/restaurant-manager-dashboard',
-    title: 'Dashboard'
+    title: 'Manager Dashboard'
   },
   {
     isVisible: permissions.dashboard.canViewAreaManagerDashboard,
     link: '/dash360/area-manager-dashboard',
-    title: 'Dashboard'
+    title: 'Area-Manager Dashboard'
   },
   {
     isVisible: permissions.dashboard.canViewAdminDashboard,

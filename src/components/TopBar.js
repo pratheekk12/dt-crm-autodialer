@@ -226,7 +226,7 @@ const TopBar = ({
             <AccountBoxRoundedIcon />
           </IconButton> */}
           {userData.role === 'user' && (
-            <Typography variant="h5">{`${userData.role}-L1`}</Typography>
+            <Typography variant="h5">{`User-L1`}</Typography>
           )}
           <Tooltip title="Logout">
             <IconButton color="inherit" onClick={() => logoutUser()}>

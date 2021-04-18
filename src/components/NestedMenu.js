@@ -50,11 +50,11 @@ export default function NestedMenu(props) {
         keepMounted
         open={!!menuPosition}
       >
-        <MenuItem
+        {/* <MenuItem
           onClick={() => handleItemClick('/ticketing/ticket-dashboard')}
         >
           Ticketing
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={() => handleItemClick('/telephony/dashboard')}>
           Telephony
         </MenuItem>
@@ -64,12 +64,12 @@ export default function NestedMenu(props) {
         <MenuItem onClick={() => handleItemClick('/upload/home')}>
           Upload
         </MenuItem>
-        <MenuItem onClick={() => handleItemClick('/surveys/home')}>
+        {/* <MenuItem onClick={() => handleItemClick('/surveys/home')}>
           Surveys
         </MenuItem>
         <MenuItem onClick={() => handleItemClick('/campaign/dashboard')}>
           Campaign
-        </MenuItem>
+        </MenuItem> */}
         {/* <NestedMenuItem
           label="Button 3"
           parentMenuOpen={!!menuPosition}

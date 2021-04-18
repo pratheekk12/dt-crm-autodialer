@@ -208,6 +208,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
           <Formik
             initialValues={{ resources: '', ...selectedTab.permissions }}
             onSubmit={(values, { setSubmitting }) => {
+              console.log('submit value', values);
               setSubmitting(false);
               updatePermissions(values);
             }}
@@ -266,24 +267,24 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                             /> */}
                             <Field
                               component={CheckboxWithLabel}
-                              value="disposition"
-                              name="Agent"
+                              value="agent"
+                              name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Agent' }}
                             />
                             <Field
                               component={CheckboxWithLabel}
-                              value="disposition"
-                              name="manager"
+                              value="manager"
+                              name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Manager' }}
                             />
                             <Field
                               component={CheckboxWithLabel}
-                              value="disposition"
-                              name="areaManager"
+                              value="areaManager"
+                              name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Area Manager' }}
