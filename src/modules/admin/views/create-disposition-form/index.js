@@ -10,11 +10,7 @@ const initialValues = {
   dispositionQuestions: [
     {
       question: '',
-      option: [
-        {
-          label: ''
-        }
-      ]
+      option: []
     }
   ]
 };
@@ -36,16 +32,19 @@ function CreateDispositionForm() {
             <Formik
               initialValues={initialValues}
               onSubmit={async values => {
+                console.log(`values------>`,JSON.stringify(values))
                 createNodeForSortableTree(values.dispositionQuestions);
                 setSTree(values.dispositionQuestions);
               }}
               validateOnChange={false}
             >
-              {({ values }) => (
+              {({ values, setFieldValue, errors }) => (
                 <Form>
                   <DispositionQuestions
                     questions={values.dispositionQuestions}
                     name={'dispositionQuestions'}
+                    setFieldValue={setFieldValue}
+                    errors={errors}
                   />
                   <Button variant="contained" color="primary" type="submit">
                     {'Save'}
