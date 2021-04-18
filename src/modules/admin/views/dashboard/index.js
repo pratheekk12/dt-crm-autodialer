@@ -251,10 +251,10 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                             <Field
                               component={CheckboxWithLabel}
                               name="dashboard"
-                              value="all"
+                              value="admin"
                               color="primary"
                               type="checkbox"
-                              Label={{ label: 'All' }}
+                              Label={{ label: 'Admin' }}
                             />
                             <Field
                               component={CheckboxWithLabel}
@@ -263,6 +263,30 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Disposition' }}
+                            />
+                            <Field
+                              component={CheckboxWithLabel}
+                              value="disposition"
+                              name="Agent"
+                              color="primary"
+                              type="checkbox"
+                              Label={{ label: 'Agent' }}
+                            />
+                            <Field
+                              component={CheckboxWithLabel}
+                              value="disposition"
+                              name="manager"
+                              color="primary"
+                              type="checkbox"
+                              Label={{ label: 'Manager' }}
+                            />
+                            <Field
+                              component={CheckboxWithLabel}
+                              value="disposition"
+                              name="areaManager"
+                              color="primary"
+                              type="checkbox"
+                              Label={{ label: 'Area Manager' }}
                             />
                           </FormGroup>
                         </Grid>
@@ -295,7 +319,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                         </FormGroup>
                       </Grid>
                     </Grid>
-                    <Grid container item>
+                    {/* <Grid container item>
                       <Grid item xs={6}>
                         <Typography variant="body1">Tickets General</Typography>
                       </Grid>
@@ -412,7 +436,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                           />
                         </FormGroup>
                       </Grid>
-                    </Grid>
+                    </Grid> */}
                     <Grid container item>
                       <Grid item xs={6}>
                         <Typography variant="body1">Admin</Typography>

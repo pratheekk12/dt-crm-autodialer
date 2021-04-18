@@ -110,6 +110,7 @@ const RenderQuestionByInputTypes = ({ question, onInputChange }) => {
                   justify="flex-start"
                   alignItems="flex-start"
                 >
+
                   {question.option.map((option, index) =>
                     {
                       return <Grid item key={`checkbox-${index}`}>

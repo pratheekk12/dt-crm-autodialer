@@ -120,8 +120,8 @@ function RegistrationForm({
                 phone: '',
                 role: '',
                 password: '',
-                AgentSIPID: '',
-                AgentType: ''
+                sip_id: '',
+                agent_type: ''
               }
         }
         validationSchema={RegistrationSchema(admin)}
@@ -180,18 +180,18 @@ function RegistrationForm({
                 disabled={false}
                 autoComplete="off"
               />
-              <Field
+              {/* <Field
                 name="role"
                 component={TextField}
                 style={{ width: 400 }}
                 className={classes.textField}
                 label="Role"
                 variant="outlined"
-                disabled={false}
+                disabled={!!isEdit}
                 autoComplete="off"
-              />
+              /> */}
               <Field
-                name="AgentType"
+                name="agent_type"
                 component={TextField}
                 style={{ width: 400 }}
                 className={classes.textField}
@@ -201,11 +201,11 @@ function RegistrationForm({
                 autoComplete="off"
               />
               <Field
-                name="AgentSIPID"
+                name="sip_id"
                 component={TextField}
                 style={{ width: 400 }}
                 className={classes.textField}
-                label="Agent SIPID"
+                label="Agent SIP ID"
                 variant="outlined"
                 disabled={false}
                 autoComplete="off"

@@ -108,10 +108,6 @@ const permissions = {
   telephony: ['callReceiving', 'callPlacing'],
   dashboard: ['agent'],
   telephonyDashboard: ['inboundDashboard', 'outboundDashboard'],
-  ticketing: ['user', 'team', 'all'],
-  ticketingDashboard: ['user', 'team', 'all'],
-  survey: ['dashboard', 'admin'],
-  campaign: ['dashboard', 'admin'],
   admin: ['all']
 };
 export const accessAccToRole = (state = getAccessObj(permissions), action) => {
@@ -151,6 +147,9 @@ function getAccessObj(permissions) {
     );
     obj.dashboard.canViewAdminDashboard = permissions.dashboard?.includes(
       'admin'
+    );
+    obj.dashboard.canViewAreaManagerDashboard = permissions.dashboard?.includes(
+      'areaManager'
     );
     obj.dashboard.canAccessDisposition = permissions.dashboard?.includes(
       'disposition'

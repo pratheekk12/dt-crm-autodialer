@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DispositionForm from './DispositionForm';
 import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 // import PendingCallList from './PendingCallList';
@@ -17,19 +17,70 @@ function Alert(props) {
 
 const Dashboard = () => {
   const userData = useSelector(state => state.userData);
-  console.log('user data', userData);
-  const [customer, setCustomer] = useState('');
+  const [formDisabled, setFormDisabled] = useState(true);
+  const [customer, setCustomer] = useState(null);
   const [open, setOpen] = React.useState(false);
+  const [lastFiveRecords, setLastFiveRecords] = useState(null);
+
+  const dail = async () => {
+    await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
+      params: {
+        sipAgentID: userData.sip_id,
+        NumbertobeCalled: '2' + customer.phoneNumber.slice(2)
+      }
+    });
+  };
 
   const getData = async () => {
-    const res = await axios.get('/channel/getdata');
-    setCustomer(res.data);
-    console.log(res.data);
+    await axios
+      .get('/channel/getdata')
+      .then(res => {
+        setCustomer(res.data);
+
+        setFormDisabled(false);
+        setOpen(true);
+      })
+      .catch(err => {
+        setFormDisabled(true);
+        console.log(err);
+        setOpen(true);
+      });
   };
+
+  useEffect(() => {
+    if (customer !== null) {
+      dail();
+      const getLastFiveRecords = async () => {
+        await axios
+
+          .get(`/crm-route/agentinteraction`, {
+            params: {
+              phonenumber: customer.phoneNumber
+            }
+          })
+
+          // .get(
+          //   `/crm-route/agentinteraction?phonenumber=${customer.phoneNumber}`
+          // )
+          // .get(
+          //   `/crm-route/agentinteraction?phonenumber=${919600920380}&agent_id=${
+          //     userData.userId
+          //   }`
+          // )
+          .then(res => {
+            setLastFiveRecords(res.data);
+            console.log('res', res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      };
+      getLastFiveRecords();
+    }
+  }, [customer]);
 
   const handleClick = () => {
     getData();
-    setOpen(true);
   };
 
   const handleClose = (event, reason) => {
@@ -52,9 +103,15 @@ const Dashboard = () => {
               Fetch New Customer
             </Button>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="success">
-                Call is connecting !
-              </Alert>
+              {formDisabled ? (
+                <Alert onClose={handleClose} severity="error">
+                  Some error occur please try again !
+                </Alert>
+              ) : (
+                <Alert onClose={handleClose} severity="success">
+                  Fetch new customer successfully !
+                </Alert>
+              )}
             </Snackbar>
           </Grid>
         </Grid>
@@ -69,18 +126,28 @@ const Dashboard = () => {
               <CardHeader title={'Disposition Form'} />
             </Card>
             <Card style={{ padding: '1rem' }}>
-              <DispositionForm />
+              <DispositionForm
+                visibility={formDisabled}
+                customer={customer !== null && customer}
+              />
             </Card>
           </Grid>
           <Grid container item lg={6} xs={12}>
             <Grid item xs={12}>
-              <CustomerDetails customer={customer} />
+              <Card style={{ display: 'flex', justifyContent: 'center' }}>
+                <CardHeader title={'Customer Details'} />
+              </Card>
+              <Card style={{ padding: '1rem' }}>
+                <CustomerDetails customer={customer} />
+              </Card>
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentCustomerOrderDetails />
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
-              <RecentFiveRecords />
+              <RecentFiveRecords
+                records={lastFiveRecords !== null && lastFiveRecords}
+              />
             </Grid>
           </Grid>
         </Grid>

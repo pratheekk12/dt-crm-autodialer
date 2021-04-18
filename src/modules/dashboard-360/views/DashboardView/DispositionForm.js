@@ -43,6 +43,7 @@ const DispositionForm = () => {
       }
       filteredQues.splice(index + 1, 0, ...ques.dependentQuestion);
     }else{
+
       filteredQues.splice(index + 1, 0, ...[]);
     }
     setQuestions(filteredQues);
@@ -56,9 +57,10 @@ const DispositionForm = () => {
     console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
-
-      return <CommonAlert text={'Form submitted successfully'} />;
+      alert('Form submitted successfully')
+      //return <CommonAlert text={'Form submitted successfully'} />;
     } catch (err) {
+      alert('Form submission failed')
       console.log(err);
     }
   }
@@ -110,7 +112,7 @@ const DispositionForm = () => {
         setFieldValue(ques.questionCode, inputValue);
       }
     }
-  }
+  };
 
   return (
     <>

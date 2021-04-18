@@ -27,6 +27,8 @@ import Axios from 'axios';
 import { LOGOUT_URL } from 'src/modules/auth/utils/endpoints';
 import NavBar from './Navbar';
 import navBarRoutes from 'src/utils/navBarRoutes';
+import { useSelector } from 'react-redux';
+
 const useStyles = makeStyles(theme => ({
   root: {},
   avatar: {
@@ -97,6 +99,8 @@ const TopBar = ({
   // const [reportsAccess, setReportsAccess] = useState(-1);
   // const [editAccess, setEditAccess] = useState(-1);
   // const [role, setRole] = useState(-1);
+  const userData = useSelector(state => state.userData);
+
   const classes = useStyles();
   const [notifications] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -209,7 +213,7 @@ const TopBar = ({
                 </Link>
               </Typography>
             ))}
-          <IconButton color="inherit">
+          {/* <IconButton color="inherit">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -220,7 +224,10 @@ const TopBar = ({
           </IconButton>
           <IconButton color="inherit" onClick={() => history.push('/user')}>
             <AccountBoxRoundedIcon />
-          </IconButton>
+          </IconButton> */}
+          {userData.role === 'user' && (
+            <Typography variant="h5">{`${userData.role}-L1`}</Typography>
+          )}
           <Tooltip title="Logout">
             <IconButton color="inherit" onClick={() => logoutUser()}>
               <ExitToAppIcon />

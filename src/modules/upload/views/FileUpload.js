@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { DropzoneDialog } from 'material-ui-dropzone';
@@ -11,10 +11,32 @@ function Alert(props) {
 const FileUpload = () => {
   const [open, setOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState({
+    severity: '',
+    message: ''
+  });
 
-  const handleSnackbarOpen = () => {
-    snackbarOpen(true);
-  };
+  function uploadFile(file) {
+    axios
+      .post('/channel/uploadfile', file)
+      .then(res => {
+        setOpen(false);
+        setSnackbarOpen(true);
+        setSnackbarMessage({
+          severity: 'success',
+          message: `${res.data.recordInserted} records submitted successfully !`
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        setOpen(false);
+        setSnackbarMessage({
+          severity: 'error',
+          message: 'Something went wrong. Please try again !'
+        });
+        setSnackbarOpen(true);
+      });
+  }
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -49,8 +71,11 @@ const FileUpload = () => {
           onClose={handleSnackbarClose}
           style={{ width: '100%' }}
         >
-          <Alert onClose={handleSnackbarClose} severity="success">
-            File added successfully
+          <Alert
+            onClose={handleSnackbarClose}
+            severity={snackbarMessage.severity}
+          >
+            {snackbarMessage.message}
           </Alert>
         </Snackbar>
 
@@ -71,9 +96,10 @@ const FileUpload = () => {
 
             // Request made to the backend api
             // Send formData object
-            axios.post('/channel/uploadfile', formData);
-            setOpen(false);
-            setSnackbarOpen(true);
+            // axios.post('/channel/uploadfile', formData);
+            // setOpen(false);
+            // setSnackbarOpen(true);
+            uploadFile(formData);
           }}
           showPreviews={true}
           showFileNamesInPreview={true}
