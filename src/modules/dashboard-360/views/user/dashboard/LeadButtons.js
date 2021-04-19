@@ -2,7 +2,7 @@ import { Button, Grid } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
-const LeadButtons = () => {
+const LeadButtons = ({ customer }) => {
   const [allLeads, setAllLeads] = useState(0);
   const [allLeadsInProgress, setAllLeadsInProgress] = useState(0);
   const [allLeadsComplete, setAllLeadsComplete] = useState(0);
@@ -22,7 +22,7 @@ const LeadButtons = () => {
   }
   useEffect(() => {
     leads();
-  }, []);
+  }, [customer]);
   return (
     <>
       <Grid

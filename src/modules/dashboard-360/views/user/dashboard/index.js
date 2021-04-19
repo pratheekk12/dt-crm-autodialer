@@ -69,7 +69,6 @@ const Dashboard = () => {
           // )
           .then(res => {
             setLastFiveRecords(res.data);
-            console.log('res', res.data);
           })
           .catch(err => {
             console.log(err);
@@ -96,7 +95,7 @@ const Dashboard = () => {
       <div style={{ padding: '1rem 2rem 2rem' }}>
         <Grid container spacing={5}>
           <Grid item lg={9} xs={12}>
-            <LeadButtons />
+            <LeadButtons customer={customer} />
           </Grid>
           <Grid container item justify="flex-end" lg={3} xs={12}>
             <Button variant="contained" color="primary" onClick={handleClick}>
