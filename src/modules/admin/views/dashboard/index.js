@@ -208,6 +208,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
           <Formik
             initialValues={{ resources: '', ...selectedTab.permissions }}
             onSubmit={(values, { setSubmitting }) => {
+              console.log('submit value', values);
               setSubmitting(false);
               updatePermissions(values);
             }}
@@ -256,34 +257,34 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                               type="checkbox"
                               Label={{ label: 'Admin' }}
                             />
-                            <Field
+                            {/* <Field
                               component={CheckboxWithLabel}
                               value="disposition"
                               name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Disposition' }}
-                            />
+                            /> */}
                             <Field
                               component={CheckboxWithLabel}
-                              value="disposition"
-                              name="Agent"
+                              value="agent"
+                              name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Agent' }}
                             />
                             <Field
                               component={CheckboxWithLabel}
-                              value="disposition"
-                              name="manager"
+                              value="manager"
+                              name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Manager' }}
                             />
                             <Field
                               component={CheckboxWithLabel}
-                              value="disposition"
-                              name="areaManager"
+                              value="areaManager"
+                              name="dashboard"
                               color="primary"
                               type="checkbox"
                               Label={{ label: 'Area Manager' }}
@@ -454,7 +455,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                         </FormGroup>
                       </Grid>
                     </Grid>
-                    <Grid container item>
+                    {/* <Grid container item>
                       <Grid item xs={6}>
                         <Typography variant="body1">Resource Access</Typography>
                       </Grid>
@@ -479,7 +480,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
                           </Grid>
                         </Field>
                       </Grid>
-                    </Grid>
+                    </Grid>*/}
                   </Grid>
                 </div>
                 <Divider />

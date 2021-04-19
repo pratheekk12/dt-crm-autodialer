@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
-import ReportChart from './ReportChart';
 import { Grid } from '@material-ui/core';
 import AgentName from './AgentName';
 import StartEndDates from './StartEndDates';
 import DispositionTable from './DispositionTable';
+import AgentProgressDetails from './agent-progress-details';
 
 const Report = () => {
   const [date, setDate] = React.useState({
@@ -59,8 +59,8 @@ const Report = () => {
             <StartEndDates date={setDate} />
           </Grid>
           <Grid item xs={12}>
-            {reportParams.endDate !== null && reportParams.agentId !== null ? (
-              <ReportChart reportParams={reportParams} />
+            {reportParams.endDate && reportParams.agentId ? (
+              <AgentProgressDetails reportParams={reportParams} />
             ) : null}
           </Grid>
           <Grid item xs={12}>

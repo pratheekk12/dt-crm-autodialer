@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 
 const RecentFiveRecords = ({ records }) => {
   const userData = useSelector(state => state.userData);
-  console.log(records);
   const columns = [
     {
       field: 'languageChoosed',

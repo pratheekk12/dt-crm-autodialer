@@ -75,7 +75,6 @@ function createData(key, value) {
 }
 
 const CustomerDetails = ({ customer }) => {
-  console.log('Customer', customer);
   let rows = [];
   if (customer !== null) {
     rows = [
