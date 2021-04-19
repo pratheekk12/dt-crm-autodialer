@@ -9,9 +9,9 @@ import { Provider } from 'react-redux';
 import rootStore from './redux/store';
 import MainLoader from './components/MainLoader';
 import Main from './Main';
-// import Axios from 'axios';
+import Axios from 'axios';
 
-// Axios.defaults.baseURL = '/ui';
+Axios.defaults.baseURL = '/api';
 // Axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles(theme => ({

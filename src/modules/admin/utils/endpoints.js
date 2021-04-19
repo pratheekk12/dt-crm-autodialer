@@ -1,4 +1,4 @@
-const prefix = process.env.NODE_ENV === 'production' ? '/auth/' : '/';
+const prefix = process.env.NODE_ENV === 'production' ? '/' : '/';
 export const CRUD_ROLES = prefix + 'roles';
 export const GET_USERS = prefix + 'users';
 export const CRUD_USER = prefix + 'user';
