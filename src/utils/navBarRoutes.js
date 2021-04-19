@@ -25,12 +25,12 @@ export default (permissions, userRole) => [
     title: 'Area-Manager Dashboard'
   },
   {
-    isVisible: permissions.dashboard.canViewAdminDashboard,
+    isVisible: permissions.admin.canAccessAdminUploadPanel,
     link: '/upload/home',
     title: 'Upload'
   },
   {
-    isVisible: permissions.dashboard.canViewAdminDashboard, // to be updated by person working on telephony
+    isVisible: permissions.admin.canAccessAdminReports, // to be updated by person working on telephony
     link: '/dash360/admin/report',
     title: 'Report'
   },
@@ -41,8 +41,9 @@ export default (permissions, userRole) => [
   //   title: 'Telephony'
   // },
   {
-    isVisible: permissions.dashboard.canViewAdminDashboard,
+    isVisible:
+      userRole === 'admin' || permissions.admin.canAccessAdminPrivileges,
     link: '/admin',
     title: ' Admin'
   }
-];
+]

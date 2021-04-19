@@ -8,6 +8,6 @@ export default [
     crumb: 'Report',
     key: 'report',
     component: Report,
-    selector: 'dashboard.canViewAdminDashboard'
+    selector: 'admin.canAccessAdminReports'
   }
 ];

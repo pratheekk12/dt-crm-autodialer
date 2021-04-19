@@ -13,6 +13,14 @@ function RouteSwitch({ routes, redirectPath, isRoot, setCrumb, permissions }) {
     routes.map(route => setCrumb({ key: route.path, value: route.crumb }));
   }, []);
 
+  function getRedirectPath() {
+    const item = routes.find(route =>
+      route.selector ? utils.getObjKeyValue(permissions, route.selector) : true
+    );
+    return redirectPath || (item ? item.path : '/404');
+    // return redirectPath ||  item.path;
+  }
+
   return (
     <Switch>
       {isRoot && (
@@ -28,16 +36,7 @@ function RouteSwitch({ routes, redirectPath, isRoot, setCrumb, permissions }) {
           return <RouteWithSubRoutes {...route} key={route} />;
         })}
       <Route path="*">
-        <Redirect
-          to={
-            redirectPath ||
-            routes.find(route =>
-              route.selector
-                ? utils.getObjKeyValue(permissions, route.selector)
-                : true
-            ).path
-          }
-        />
+        <Redirect to={getRedirectPath()} />
       </Route>
     </Switch>
   );

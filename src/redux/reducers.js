@@ -191,6 +191,8 @@ function getAccessObj(permissions) {
       'admin'
     );
     obj.admin.canAccessAdminPrivileges = permissions.admin?.includes('all');
+    obj.admin.canAccessAdminReports = permissions.admin?.includes('reports');
+    obj.admin.canAccessAdminUploadPanel = permissions.admin?.includes('uploads');
     obj.resources.canAccessResourceType = permissions.resources;
   }
   return obj;

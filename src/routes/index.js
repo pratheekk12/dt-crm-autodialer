@@ -7,7 +7,7 @@ import telephonyRoutes from '../modules/telephony/routes';
 import adminRoutes from '../modules/admin/routes';
 import authRoutes from '../modules/auth/routes';
 import userRoutes from '../modules/user/routes';
-import EmptyRouteContainer from 'src/components/EmptyRouteContainer';
+import CommonAlert from 'src/components/CommonAlert';
 
 export const dash360 = React.lazy(() =>
   import('src/modules/dashboard-360/views')
@@ -71,6 +71,13 @@ export default [
     routes: userRoutes,
     key: 'user',
     component: user,
+    requiresAuth: true
+  },
+  {
+    path: '/404',
+    routes: [],
+    key: '404',
+    component: CommonAlert,
     requiresAuth: true
   }
 ];

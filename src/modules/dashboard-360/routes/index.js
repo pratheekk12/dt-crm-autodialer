@@ -6,13 +6,6 @@ import areaManagerDashboard from '../views/area-manager/dashboard';
 
 export default [
   {
-    path: '/admin',
-    routes: adminRoutes,
-    // exact: true,
-    key: 'admin',
-    component: EmptyRouteContainer
-  },
-  {
     path: '/agent',
     exact: true,
     key: 'agentDashboard',
@@ -32,7 +25,15 @@ export default [
     key: 'areaManagerDashboard',
     component: areaManagerDashboard,
     selector: 'dashboard.canViewAreaManagerDashboard'
-  }
+  },
+  
+  {
+    path: '/admin',
+    routes: adminRoutes,
+    // exact: true,
+    key: 'admin',
+    component: EmptyRouteContainer
+  },
 
   // {
   //   path: '/manager/dashboard',

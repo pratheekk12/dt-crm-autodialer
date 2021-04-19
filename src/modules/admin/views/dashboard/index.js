@@ -3,8 +3,6 @@ import {
   Typography,
   Divider,
   Grid,
-  FormControlLabel,
-  Radio,
   makeStyles,
   Button,
   FormGroup,
@@ -16,7 +14,7 @@ import React, { useState, useEffect } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 import { grey } from '@material-ui/core/colors';
 import { Formik, Form, Field } from 'formik';
-import { CheckboxWithLabel, RadioGroup } from 'formik-material-ui';
+import { CheckboxWithLabel } from 'formik-material-ui';
 import * as Yup from 'yup';
 import Axios from 'axios';
 import Spinner from 'src/components/Spinner';
@@ -25,6 +23,7 @@ import { connect } from 'react-redux';
 import CreateRole from './CreateRole';
 import { CRUD_ROLES } from '../../utils/endpoints';
 import { setRolesAction } from '../../redux/actions';
+import { PERMISSIONS_CONFIG } from '../../utils/permissionsConfig';
 
 const useStyles = makeStyles(theme => ({
   listItem: {
@@ -91,6 +90,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
         permissions: val
       });
       const newObj = { ...selectedTab, permissions: val };
+      console.log('Permissions Value', val)
       const newRolesArray = rolesArray.map(role =>
         role.roleId === selectedTab.roleId ? newObj : role
       );
@@ -129,6 +129,35 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
     setShowLoader(true);
     setSelectedTab(null);
     getRoles();
+  }
+
+  function renderPermissionsForm() {
+    return (
+      <Grid container>
+        {PERMISSIONS_CONFIG.map(item => (
+          <Grid container item key={item.value}>
+            <Grid item xs={6}>
+              <Typography variant="body1">{item.label}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <FormGroup row>
+                {item.permissions.map(subItem => (
+                  <Field
+                    component={CheckboxWithLabel}
+                    value={subItem.value}
+                    name={item.value}
+                    color="primary"
+                    type="checkbox"
+                    Label={{ label: subItem.label }}
+                    key={subItem.value}
+                  />
+                ))}
+              </FormGroup>
+            </Grid>
+          </Grid>
+        ))}
+      </Grid>
+    );
   }
   return showLoader ? (
     <Spinner />
@@ -206,7 +235,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
           {/* Form */}
 
           <Formik
-            initialValues={{ resources: '', ...selectedTab.permissions }}
+            initialValues={{...selectedTab.permissions }}
             onSubmit={(values, { setSubmitting }) => {
               console.log('submit value', values);
               setSubmitting(false);
@@ -218,270 +247,7 @@ const AdminDashboard = ({ history, roles, setRoles }) => {
             {() => (
               <Form>
                 <div style={{ marginLeft: '1rem' }}>
-                  <Grid container>
-                    <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">Telephony</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FormGroup row>
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="telephony"
-                            value="callReceiving"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Call Receiving' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            value="callPlacing"
-                            name="telephony"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Call Placing' }}
-                          />
-                        </FormGroup>
-                      </Grid>
-                      <Grid container item>
-                        <Grid item xs={6}>
-                          <Typography variant="body1">Dash 360</Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <FormGroup row>
-                            <Field
-                              component={CheckboxWithLabel}
-                              name="dashboard"
-                              value="admin"
-                              color="primary"
-                              type="checkbox"
-                              Label={{ label: 'Admin' }}
-                            />
-                            {/* <Field
-                              component={CheckboxWithLabel}
-                              value="disposition"
-                              name="dashboard"
-                              color="primary"
-                              type="checkbox"
-                              Label={{ label: 'Disposition' }}
-                            /> */}
-                            <Field
-                              component={CheckboxWithLabel}
-                              value="agent"
-                              name="dashboard"
-                              color="primary"
-                              type="checkbox"
-                              Label={{ label: 'Agent' }}
-                            />
-                            <Field
-                              component={CheckboxWithLabel}
-                              value="manager"
-                              name="dashboard"
-                              color="primary"
-                              type="checkbox"
-                              Label={{ label: 'Manager' }}
-                            />
-                            <Field
-                              component={CheckboxWithLabel}
-                              value="areaManager"
-                              name="dashboard"
-                              color="primary"
-                              type="checkbox"
-                              Label={{ label: 'Area Manager' }}
-                            />
-                          </FormGroup>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">
-                          Telephony Dashboard
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FormGroup row>
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="telephonyDashboard"
-                            value="inboundDashboard"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Inbound Dashboard' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="telephonyDashboard"
-                            value="outboundDashboard"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Outbound Dashboard' }}
-                          />
-                        </FormGroup>
-                      </Grid>
-                    </Grid>
-                    {/* <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">Tickets General</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FormGroup row>
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="ticketing"
-                            value="user"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'User' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="ticketing"
-                            value="team"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Team' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="ticketing"
-                            value="all"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'All' }}
-                          />
-                        </FormGroup>
-                      </Grid>
-                    </Grid>
-                    <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">
-                          Tickets Dashboard
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FormGroup row>
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="ticketingDashboard"
-                            value="user"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'User' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="ticketingDashboard"
-                            value="team"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Team' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="ticketingDashboard"
-                            value="all"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'All' }}
-                          />
-                        </FormGroup>
-                      </Grid>
-                    </Grid>
-                    <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">Survey</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FormGroup row>
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="survey"
-                            value="dashboard"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Dashboard' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="survey"
-                            value="admin"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Admin' }}
-                          />
-                        </FormGroup>
-                      </Grid>
-                    </Grid>
-                    <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">Campaign</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FormGroup row>
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="campaign"
-                            value="dashboard"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Dashboard' }}
-                          />
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="campaign"
-                            value="admin"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'Admin' }}
-                          />
-                        </FormGroup>
-                      </Grid>
-                    </Grid> */}
-                    <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">Admin</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FormGroup row>
-                          <Field
-                            component={CheckboxWithLabel}
-                            name="admin"
-                            value="all"
-                            color="primary"
-                            type="checkbox"
-                            Label={{ label: 'All' }}
-                          />
-                        </FormGroup>
-                      </Grid>
-                    </Grid>
-                    {/* <Grid container item>
-                      <Grid item xs={6}>
-                        <Typography variant="body1">Resource Access</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Field component={RadioGroup} name="resources">
-                          <Grid
-                            container
-                            direction="row"
-                            justify="flex-start"
-                            alignItems="flex-start"
-                          >
-                            <FormControlLabel
-                              value="CR"
-                              control={<Radio color="primary" />}
-                              label="CR"
-                            />
-                            <FormControlLabel
-                              control={<Radio color="primary" />}
-                              value="CRU"
-                              label="CRU"
-                            />
-                          </Grid>
-                        </Field>
-                      </Grid>
-                    </Grid>*/}
-                  </Grid>
+                  {renderPermissionsForm()}
                 </div>
                 <Divider />
                 <div>

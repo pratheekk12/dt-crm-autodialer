@@ -3,31 +3,17 @@ import PropTypes from 'prop-types';
 import RouteSwitch from 'src/components/RouteSwitch';
 import { connect } from 'react-redux';
 import { DynamicModuleLoader } from 'redux-dynamic-modules';
-import { ADMIN, COMMON, MANAGER, USER } from '../../../redux/constants';
 import getDashboardModule from '../redux/module';
 
-function View({ accountType, routes }) {
-  routes = routes.filter(
-    route =>
-      (route.accountType ? route.accountType === accountType : true) ||
-      route.accountType === COMMON
-  );
-  console.log('account type :', accountType);
-  const roleDefined = accountType => {
-    if (accountType === ADMIN) return '/dash360/admin/report';
-    if (accountType === MANAGER) return '/dash360/restaurant-manager-dashboard';
-    if (accountType === USER) return '/dash360/agent';
-    return '/dash360/area-manager-dashboard';
-  };
+function View({ routes }) {
   return (
     <DynamicModuleLoader modules={[getDashboardModule()]}>
-      <RouteSwitch routes={routes} redirectPath={roleDefined(accountType)} />
+      <RouteSwitch routes={routes} />
     </DynamicModuleLoader>
   );
 }
 
 View.propTypes = {
-  accountType: PropTypes.string,
   routes: PropTypes.array
 };
 

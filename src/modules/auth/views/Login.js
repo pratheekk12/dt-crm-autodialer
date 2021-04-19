@@ -108,19 +108,6 @@ function Login(props) {
       const obj = res.data.userObj || res.data.userDetails;
 
       setUserDetailsMain(obj);
-      console.log({ obj }, 'login');
-      const roleDefined = obj => {
-        if (obj.role === 'admin') return ADMIN;
-        if (obj.role === 'manager') return MANAGER;
-        if (obj.role === 'areaManager') return AREAMANAGER;
-        return USER;
-      };
-      setAccountTypeMain(
-        // obj.role === 'admin' ? ADMIN : obj.role === 'manager' ? MANAGER : USER
-        roleDefined(obj)
-      );
-
-      // TODO: Uncomment for build
       setAccess(obj.permissions);
       setLoggedInMain(true);
       setError(false);
