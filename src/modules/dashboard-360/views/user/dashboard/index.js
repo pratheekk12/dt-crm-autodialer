@@ -20,7 +20,9 @@ const Dashboard = () => {
   const [formDisabled, setFormDisabled] = useState(true);
   const [customer, setCustomer] = useState(null);
   const [open, setOpen] = React.useState(false);
+  const [timer, setTimer] = useState(0);
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
+  const [secondsLeft, setSecondsLeft] = useState(0);
 
   const dail = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
@@ -36,7 +38,7 @@ const Dashboard = () => {
       .get('/channel/getdata')
       .then(res => {
         setCustomer(res.data);
-
+        setSecondsLeft(15);
         setFormDisabled(false);
         setOpen(true);
       })
@@ -47,9 +49,30 @@ const Dashboard = () => {
       });
   };
 
+  const dialTimer = () => {
+    setTimer(
+      setInterval(() => {
+        console.log('Interval');
+        let remSecond;
+        setSecondsLeft(prev => {
+          remSecond = prev;
+          return prev;
+        });
+        if (remSecond !== 0) {
+          setSecondsLeft(remSecond - 1);
+          console.log(remSecond);
+        } else {
+          dail();
+          setSecondsLeft(0);
+          setTimer(prev => clearInterval(prev));
+        }
+      }, 1000)
+    );
+  };
+
   useEffect(() => {
     if (customer !== null) {
-      dail();
+      dialTimer();
       const getLastFiveRecords = async () => {
         await axios
 
@@ -91,6 +114,15 @@ const Dashboard = () => {
 
   return (
     <>
+      {!!secondsLeft && (
+        <Button
+          style={{ float: 'right', marginRight: '4rem', color: 'white' }}
+          variant="contained"
+          color="secondary"
+        >
+          {secondsLeft}
+        </Button>
+      )}
       <CustomBreadcrumbs />
       <div style={{ padding: '1rem 2rem 2rem' }}>
         <Grid container spacing={5}>

@@ -10,6 +10,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import DispositionTable from './DispositionTable';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -21,6 +22,8 @@ const Dashboard = () => {
   const [customer, setCustomer] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
+  const [timer, setTimer] = useState(0);
+  const [secondsLeft, setSecondsLeft] = useState(0);
 
   const dail = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
@@ -36,7 +39,7 @@ const Dashboard = () => {
       .get('/crm-route/tlleads')
       .then(res => {
         setCustomer(res.data);
-
+        setSecondsLeft(15);
         setFormDisabled(false);
         setOpen(true);
       })
@@ -47,9 +50,30 @@ const Dashboard = () => {
       });
   };
 
+  const dialTimer = () => {
+    setTimer(
+      setInterval(() => {
+        console.log('Interval');
+        let remSecond;
+        setSecondsLeft(prev => {
+          remSecond = prev;
+          return prev;
+        });
+        if (remSecond !== 0) {
+          setSecondsLeft(remSecond - 1);
+          console.log(remSecond);
+        } else {
+          dail();
+          setSecondsLeft(0);
+          setTimer(prev => clearInterval(prev));
+        }
+      }, 1000)
+    );
+  };
+
   useEffect(() => {
     if (customer !== null) {
-      dail();
+      dialTimer();
       const getLastFiveRecords = async () => {
         await axios
 
@@ -91,6 +115,15 @@ const Dashboard = () => {
 
   return (
     <>
+      {!!secondsLeft && (
+        <Button
+          style={{ float: 'right', marginRight: '4rem', color: 'white' }}
+          variant="contained"
+          color="secondary"
+        >
+          {secondsLeft}
+        </Button>
+      )}
       <CustomBreadcrumbs />
       <div style={{ padding: '1rem 2rem 2rem' }}>
         <Grid container spacing={5}>
@@ -148,6 +181,9 @@ const Dashboard = () => {
                 records={lastFiveRecords !== null && lastFiveRecords}
               />
             </Grid>
+          </Grid>
+          <Grid item xs={12} style={{ marginTop: '2rem' }}>
+            <DispositionTable />
           </Grid>
         </Grid>
       </div>

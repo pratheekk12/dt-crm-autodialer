@@ -64,7 +64,7 @@ const Report = () => {
             ) : null}
           </Grid>
           <Grid item xs={12}>
-            <DispositionTable date={date} />
+            <DispositionTable />
           </Grid>
         </Grid>
       </div>
