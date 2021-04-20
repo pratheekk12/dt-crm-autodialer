@@ -20,16 +20,14 @@ const FileUpload = () => {
     axios
       .post('/channel/uploadfile', file)
       .then(res => {
-        setOpen(false);
         setSnackbarOpen(true);
         setSnackbarMessage({
           severity: 'success',
-          message: `${res.data.recordInserted} records submitted successfully !`
+          message: `${res.data.recordsAdded} records submitted successfully !`
         });
       })
       .catch(err => {
         console.log(err);
-        setOpen(false);
         setSnackbarMessage({
           severity: 'error',
           message: 'Something went wrong. Please try again !'
@@ -67,7 +65,7 @@ const FileUpload = () => {
 
         <Snackbar
           open={snackbarOpen}
-          autoHideDuration={6000}
+          autoHideDuration={12000}
           onClose={handleSnackbarClose}
           style={{ width: '100%' }}
         >
@@ -100,6 +98,13 @@ const FileUpload = () => {
             // setOpen(false);
             // setSnackbarOpen(true);
             uploadFile(formData);
+            setOpen(false);
+            setSnackbarOpen(true);
+
+            setSnackbarMessage({
+              severity: 'warning',
+              message: `Uploading the File, Kindly do not close the window !`
+            });
           }}
           showPreviews={true}
           showFileNamesInPreview={true}
