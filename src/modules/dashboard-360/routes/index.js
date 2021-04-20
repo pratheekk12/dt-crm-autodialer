@@ -3,6 +3,7 @@ import adminRoutes from './adminRoutes';
 import agentDashboard from '../views/user/dashboard';
 import managerDashboard from '../views/manager/dashboard';
 import areaManagerDashboard from '../views/area-manager/dashboard';
+import teamLeadsDashboard from '../views/team-leads/dashboard';
 
 export default [
   {
@@ -26,20 +27,18 @@ export default [
     component: areaManagerDashboard,
     selector: 'dashboard.canViewAreaManagerDashboard'
   },
-  
+  {
+    path: '/team-leads-dashboard',
+    exact: true,
+    key: 'teamLeadsDashboard',
+    component: teamLeadsDashboard,
+    selector: 'dashboard.canViewTeamLeadsDashboard'
+  },
   {
     path: '/admin',
     routes: adminRoutes,
     // exact: true,
     key: 'admin',
     component: EmptyRouteContainer
-  },
-
-  // {
-  //   path: '/manager/dashboard',
-  //   exact: true,
-  //   key: 'managerDashboard',
-  //   component: ManagerDashboard,
-  //   selector: 'dashboard.canViewManagerDashboard'
-  // }
+  }
 ];

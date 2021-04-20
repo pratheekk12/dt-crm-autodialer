@@ -17,10 +17,10 @@ export const PERMISSIONS_CONFIG = [
     value: 'dashboard',
     label: 'Dashboard',
     permissions: [
-      {
-        label: 'Admin',
-        value: 'admin'
-      },
+      // {
+      //   label: 'Admin',
+      //   value: 'admin'
+      // },
       {
         label: 'Agent',
         value: 'agent'
@@ -32,6 +32,10 @@ export const PERMISSIONS_CONFIG = [
       {
         label: 'Area Manager',
         value: 'areaManager'
+      },
+      {
+        label: 'Team Leads',
+        value: 'teamLeads'
       }
     ]
   },
