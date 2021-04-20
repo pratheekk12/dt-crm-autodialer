@@ -1,11 +1,6 @@
 export default (permissions, userRole) => [
   // {
   //   isVisible: permissions.dashboard.canViewAdminDashboard,
-  //   link: '/dash360/admin/dashboard',
-  //   title: 'Dashboard'
-  // },
-  // {
-  //   isVisible: permissions.dashboard.canViewAdminDashboard,
   //   link: '/dash360/admin/admin-dashboard',
   //   title: 'Dashboard'
   // },
@@ -17,12 +12,17 @@ export default (permissions, userRole) => [
   {
     isVisible: permissions.dashboard.canViewManagerDashboard,
     link: '/dash360/restaurant-manager-dashboard',
-    title: 'Manager Dashboard'
+    title: 'Dashboard'
   },
   {
     isVisible: permissions.dashboard.canViewAreaManagerDashboard,
     link: '/dash360/area-manager-dashboard',
-    title: 'Area-Manager Dashboard'
+    title: 'Dashboard'
+  },
+  {
+    isVisible: permissions.dashboard.canViewTeamLeadsDashboard,
+    link: '/dash360/team-leads-dashboard',
+    title: 'Dashboard'
   },
   {
     isVisible: permissions.admin.canAccessAdminUploadPanel,
@@ -46,4 +46,4 @@ export default (permissions, userRole) => [
     link: '/admin',
     title: ' Admin'
   }
-]
+];
