@@ -11,6 +11,8 @@ import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import DispositionTable from './DispositionTable';
+import StartEndDates from './StartEndDates';
+import CallInteractionTable from './CallInteractionTable';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -24,6 +26,10 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
   const [timer, setTimer] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(0);
+  const [tableParams, setTableParams] = useState({
+    startDate: null,
+    endDate: null
+  });
 
   const dail = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
@@ -33,6 +39,10 @@ const Dashboard = () => {
       }
     });
   };
+
+  useEffect(() => {
+    console.log(tableParams);
+  });
 
   const getData = async () => {
     await axios
@@ -53,7 +63,7 @@ const Dashboard = () => {
   const dialTimer = () => {
     setTimer(
       setInterval(() => {
-        console.log('Interval');
+        // console.log('Interval');
         let remSecond;
         setSecondsLeft(prev => {
           remSecond = prev;
@@ -61,7 +71,7 @@ const Dashboard = () => {
         });
         if (remSecond !== 0) {
           setSecondsLeft(remSecond - 1);
-          console.log(remSecond);
+          // console.log(remSecond);
         } else {
           dail();
           setSecondsLeft(0);
@@ -115,13 +125,13 @@ const Dashboard = () => {
 
   return (
     <>
-      {!!secondsLeft && (
+      {!!secondsLeft && customer !== null && (
         <Button
           style={{ float: 'right', marginRight: '4rem', color: 'white' }}
           variant="contained"
           color="secondary"
         >
-          {secondsLeft}
+          Call Connecting in {secondsLeft}
         </Button>
       )}
       <CustomBreadcrumbs />
@@ -134,7 +144,7 @@ const Dashboard = () => {
             <Button variant="contained" color="primary" onClick={handleClick}>
               Fetch New Customer
             </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
               {formDisabled ? (
                 <Alert onClose={handleClose} severity="error">
                   Some error occur please try again !
@@ -182,7 +192,13 @@ const Dashboard = () => {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: '2rem' }}>
+          <Grid item xs={12}>
+            <StartEndDates tableParams={setTableParams} />
+          </Grid>
+          <Grid item xs={12}>
+            <CallInteractionTable tableParams={tableParams} />
+          </Grid>
+          <Grid item xs={12} style={{ marginTop: '1rem' }}>
             <DispositionTable />
           </Grid>
         </Grid>

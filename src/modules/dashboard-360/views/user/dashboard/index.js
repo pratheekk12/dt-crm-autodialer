@@ -52,7 +52,7 @@ const Dashboard = () => {
   const dialTimer = () => {
     setTimer(
       setInterval(() => {
-        console.log('Interval');
+        // console.log('Interval');
         let remSecond;
         setSecondsLeft(prev => {
           remSecond = prev;
@@ -60,7 +60,7 @@ const Dashboard = () => {
         });
         if (remSecond !== 0) {
           setSecondsLeft(remSecond - 1);
-          console.log(remSecond);
+          // console.log(remSecond);
         } else {
           dail();
           setSecondsLeft(0);
@@ -120,7 +120,7 @@ const Dashboard = () => {
           variant="contained"
           color="secondary"
         >
-          {secondsLeft}
+          Call Connecting in {secondsLeft}
         </Button>
       )}
       <CustomBreadcrumbs />
@@ -133,7 +133,7 @@ const Dashboard = () => {
             <Button variant="contained" color="primary" onClick={handleClick}>
               Fetch New Customer
             </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
               {formDisabled ? (
                 <Alert onClose={handleClose} severity="error">
                   Some error occur please try again !

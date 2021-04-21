@@ -1,21 +1,20 @@
-import map from "lodash/map"
+import map from 'lodash/map';
 
 export function getAddressFromObj(obj) {
   return `${obj.address1}, ${obj.address2}, ${obj.BillingTownArea}, ${obj.BillingCityName}, ${obj.BillingStateName}, ${obj.BillingCountryName}, ${obj.BillingPin}`;
 }
 
 export function getDependentQuestionsCodes(options, dependentQuesCodes) {
-  for(let opt of options){
-    if(opt.dependentQuestion){
+  for (let opt of options) {
+    if (opt.dependentQuestion) {
       //dependentQuesCodes = [...dependentQuesCodes, ...map(opt.dependentQuestion,'questionCode')]
-      dependentQuesCodes.push(...map(opt.dependentQuestion,'questionCode'))
-      for(let depQue of opt.dependentQuestion){
-        getDependentQuestionsCodes(depQue.option, dependentQuesCodes)
+      dependentQuesCodes.push(...map(opt.dependentQuestion, 'questionCode'));
+      for (let depQue of opt.dependentQuestion) {
+        getDependentQuestionsCodes(depQue.option, dependentQuesCodes);
       }
     }
   }
-  return dependentQuesCodes
-
+  return dependentQuesCodes;
 }
 
 export function getDispositionFormQuestions2() {
@@ -689,6 +688,18 @@ export function getDispositionFormQuestions2() {
 
 export function getDispositionFormQuestions3() {
   const questionArr = [
+    {
+      questionCode: 'escalated',
+      question: 'Escalated to L2',
+      questionType: 'checkbox',
+      questionName: 'QA_34',
+      option: [
+        {
+          label: 'Yes',
+          name: 'escalated'
+        }
+      ]
+    },
     {
       questionCode: 'mainDisposition',
       question: 'Main Disposition',
