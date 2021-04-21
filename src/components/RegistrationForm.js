@@ -6,15 +6,17 @@ import {
   Typography
 } from '@material-ui/core';
 import axios from 'axios';
+import { Autocomplete } from '@material-ui/lab';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { CRUD_USER } from 'src/modules/admin/utils/endpoints';
 import { setUserDetails } from 'src/redux/action';
 import { PasswordSchema, RegistrationSchema } from 'src/utils/schemas';
 import CommonAlert from './CommonAlert';
 import Spinner from './Spinner';
+import withRestaurants from './withRestaurants';
 const useStyles = makeStyles(theme => ({
   textField: {
     display: 'flex',
@@ -32,22 +34,26 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'underline'
   }
 }));
+
 function RegistrationForm({
   admin,
   onSuccess,
   isEdit,
   userData,
   setUserData,
-  roles
+  roles,
+  restaurants
 }) {
   const [showLoader, setShowLoader] = useState(false);
   const [errorText, setErrorText] = useState('');
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
+  const ref = useRef(null)
   async function sendCreateUserRequest(val, resetForm) {
     try {
       setShowLoader(true);
       setErrorText('');
+      
       await axios.post(CRUD_USER + '/register', {
         ...val
         // password: 'Indusviva@123' // temporary default password for new user
@@ -121,7 +127,8 @@ function RegistrationForm({
                 role: '',
                 password: '',
                 sip_id: '',
-                agent_type: ''
+                agent_type: '',
+                restaurants: []
               }
         }
         validationSchema={RegistrationSchema(admin)}
@@ -134,53 +141,54 @@ function RegistrationForm({
           }
         }}
       >
-        {() => (
-          <Form>
-            {showLoader && <Spinner className={classes.spinnerWrapper} />}
-            <Box padding={2} display="block" position="relative">
-              {errorText && <CommonAlert text={errorText} />}
-              <Field
-                name="username"
-                component={TextField}
-                style={{ width: 400 }}
-                className={classes.textField}
-                label="Enter Username"
-                variant="outlined"
-                disabled={!!isEdit}
-                autoComplete="off"
-              />
-              <Field
-                name="email"
-                component={TextField}
-                className={classes.textField}
-                style={{ width: 400 }}
-                label="Enter Email"
-                variant="outlined"
-                disabled={!!isEdit}
-                autoComplete="off"
-              />
-              <Field
-                name="password"
-                component={TextField}
-                className={classes.textField}
-                type="password"
-                style={{ width: 400 }}
-                label="Enter password"
-                variant="outlined"
-                disabled={!!isEdit}
-                autoComplete="off"
-              />
-              <Field
-                name="phone"
-                component={TextField}
-                style={{ width: 400 }}
-                className={classes.textField}
-                label="Enter Mobile Number"
-                variant="outlined"
-                disabled={false}
-                autoComplete="off"
-              />
-              {/* <Field
+        {props => {
+          return (
+            <Form>
+              {showLoader && <Spinner className={classes.spinnerWrapper} />}
+              <Box padding={2} display="block" position="relative">
+                {errorText && <CommonAlert text={errorText} />}
+                <Field
+                  name="username"
+                  component={TextField}
+                  style={{ width: 400 }}
+                  className={classes.textField}
+                  label="Enter Username"
+                  variant="outlined"
+                  disabled={!!isEdit}
+                  autoComplete="off"
+                />
+                <Field
+                  name="email"
+                  component={TextField}
+                  className={classes.textField}
+                  style={{ width: 400 }}
+                  label="Enter Email"
+                  variant="outlined"
+                  disabled={!!isEdit}
+                  autoComplete="off"
+                />
+                <Field
+                  name="password"
+                  component={TextField}
+                  className={classes.textField}
+                  type="password"
+                  style={{ width: 400 }}
+                  label="Enter password"
+                  variant="outlined"
+                  disabled={!!isEdit}
+                  autoComplete="off"
+                />
+                <Field
+                  name="phone"
+                  component={TextField}
+                  style={{ width: 400 }}
+                  className={classes.textField}
+                  label="Enter Mobile Number"
+                  variant="outlined"
+                  disabled={false}
+                  autoComplete="off"
+                />
+                {/* <Field
                 name="role"
                 component={TextField}
                 style={{ width: 400 }}
@@ -190,47 +198,84 @@ function RegistrationForm({
                 disabled={!!isEdit}
                 autoComplete="off"
               /> */}
-              <Field
-                name="agent_type"
-                component={TextField}
-                style={{ width: 400 }}
-                className={classes.textField}
-                label="Agent Type"
-                variant="outlined"
-                disabled={false}
-                autoComplete="off"
-              />
-              <Field
-                name="sip_id"
-                component={TextField}
-                style={{ width: 400 }}
-                className={classes.textField}
-                label="Agent SIP ID"
-                variant="outlined"
-                disabled={false}
-                autoComplete="off"
-              />
-              {admin && (
                 <Field
-                  name="role"
+                  name="agent_type"
                   component={TextField}
                   style={{ width: 400 }}
                   className={classes.textField}
-                  select
-                  label="Select a Role"
+                  label="Agent Type"
                   variant="outlined"
                   disabled={false}
                   autoComplete="off"
-                >
-                  {getRoles()}
-                </Field>
-              )}
-              <Button variant="contained" color="primary" type="submit">
-                {isEdit ? 'Edit' : 'Create Account'}
-              </Button>
-            </Box>
-          </Form>
-        )}
+                />
+                <Field
+                  name="sip_id"
+                  component={TextField}
+                  style={{ width: 400 }}
+                  className={classes.textField}
+                  label="Agent SIP ID"
+                  variant="outlined"
+                  disabled={false}
+                  autoComplete="off"
+                />
+                {admin && (
+                  <>
+                    <Field
+                      name="role"
+                      component={TextField}
+                      style={{ width: 400 }}
+                      className={classes.textField}
+                      select
+                      label="Select a Role"
+                      variant="outlined"
+                      disabled={false}
+                      onChange={e => {
+                        props.setFieldValue(e.target.name, e.target.value);
+                        if(ref && ref.current) {
+                          const clear = ref.current.getElementsByClassName('MuiAutocomplete-clearIndicator')[0];
+                          clear && clear.click();
+                        }
+                        // props.setFieldValue('restaurants', e.target.value === 'manager' ? []: '');
+                      }}
+                      autoComplete="off"
+                    >
+                      {getRoles()}
+                    </Field>
+                   { props.values.role && props.values.role !== 'DTL1' && <Autocomplete
+                      options={restaurants}
+                      multiple
+                      getOptionLabel={option => option.name}
+                      style={{ width: 400, marginBottom: 16 }}
+                      getOptionSelected={(option, value) =>
+                        value.id === option.id
+                      }
+                      ref={ref}
+                      onChange={(event, value) => {
+                        props.setFieldValue('restaurants', value.map(v => v.id));
+                      }}
+                      renderInput={params => (
+                        <Field
+                          component={TextField}
+                          {...params}
+                          label="Choose a restaurant"
+                          variant="outlined"
+                          name="restaurants"
+                          onChange={(e) => {
+                            // props.setFieldValue('restaurants', e.target.value);
+                          }}
+                        />
+                      )}
+                      // name="restaurants"
+                    />}
+                  </>
+                )}
+                <Button variant="contained" color="primary" type="submit">
+                  {isEdit ? 'Edit' : 'Create Account'}
+                </Button>
+              </Box>
+            </Form>
+          );
+        }}
       </Formik>
       {isEdit && (
         <Box padding={2}>
@@ -290,4 +335,6 @@ const mapDispatchToProps = dispatch => ({
   setUserData: updatedData => dispatch(setUserDetails(updatedData))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
+export default withRestaurants(
+  connect(mapStateToProps, mapDispatchToProps)(RegistrationForm)
+);
