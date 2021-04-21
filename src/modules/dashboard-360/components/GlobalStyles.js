@@ -75,6 +75,10 @@ const useStyles = makeStyles(() =>
       },
       '.MuiAlert-standardSuccess': {
         backgroundColor: 'rgb(180 237 168) !important'
+      },
+      '.MuiChip-root': {
+        backgroundColor: 'gray',
+        color: 'white'
       }
     }
   })
