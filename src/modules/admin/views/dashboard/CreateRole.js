@@ -58,15 +58,15 @@ export default function CreateRole({ onSuccess, onCancel, role }) {
               .min(3, 'Role Label must be minimum 3 characters')
               .required('Role Label is required'),
             role: Yup.string()
-              .min(3, 'Role Identifier must be minimum 3 characters')
-              .matches(/^[a-z]+[A-Za-z]*$/, 'Please use only camel case')
+              .min(2, 'Role Identifier must be minimum 3 characters')
+              // .matches(/^[a-z]+[A-Za-z]*$/, 'Please use only camel case')
               .required('Role Identifier is required')
           })}
           onSubmit={val =>
             editMode ? createPatchRequest(val) : createPostRequest(val)
           }
         >
-          {() => (
+          {(props) => (
             <Form>
               <Field
                 name="label"
@@ -74,6 +74,11 @@ export default function CreateRole({ onSuccess, onCancel, role }) {
                 style={{ width: 400 }}
                 label="Enter Role Label"
                 variant="outlined"
+                onBlur={(e) => {
+                  if(!props.touched.role) {
+                    props.setFieldValue('role', props.values.label)
+                  }
+                }}
                 disabled={false}
                 autoComplete="off"
               />

@@ -241,17 +241,17 @@ function RegistrationForm({
                     >
                       {getRoles()}
                     </Field>
-                   { props.values.role && props.values.role !== 'DTL1' && <Autocomplete
+                   { props.values.role && props.values.role !== 'DTL1' && props.values.role !== 'admin' && <Autocomplete
                       options={restaurants}
                       multiple
-                      getOptionLabel={option => option.name}
+                      getOptionLabel={option => option.restaurantName}
                       style={{ width: 400, marginBottom: 16 }}
                       getOptionSelected={(option, value) =>
-                        value.id === option.id
+                        value._id === option._id
                       }
                       ref={ref}
                       onChange={(event, value) => {
-                        props.setFieldValue('restaurants', value.map(v => v.id));
+                        props.setFieldValue('restaurants', value.map(v => v._id));
                       }}
                       renderInput={params => (
                         <Field
@@ -260,12 +260,9 @@ function RegistrationForm({
                           label="Choose a restaurant"
                           variant="outlined"
                           name="restaurants"
-                          onChange={(e) => {
-                            // props.setFieldValue('restaurants', e.target.value);
-                          }}
+                          
                         />
                       )}
-                      // name="restaurants"
                     />}
                   </>
                 )}
