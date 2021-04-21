@@ -151,6 +151,9 @@ function getAccessObj(permissions) {
     obj.dashboard.canViewAreaManagerDashboard = permissions.dashboard?.includes(
       'areaManager'
     );
+    obj.dashboard.canViewTeamLeadsDashboard = permissions.dashboard?.includes(
+      'teamLeads'
+    );
     obj.dashboard.canAccessDisposition = permissions.dashboard?.includes(
       'disposition'
     );
@@ -178,21 +181,23 @@ function getAccessObj(permissions) {
     obj.ticketingDashboard.canAccessAllTicketsDashboard = permissions.ticketingDashboard?.includes(
       'all'
     );
-    obj.survey.canAccessSurveyDashboard = permissions.survey?.includes(
-      'dashboard'
-    );
-    obj.survey.canAccessSurveyAdminPrivileges = permissions.survey?.includes(
-      'admin'
-    );
-    obj.campaign.canAccessCampaignDashboard = permissions.campaign?.includes(
-      'dashboard'
-    );
-    obj.campaign.canAccessCampaignAdminPrivileges = permissions.campaign?.includes(
-      'admin'
-    );
+    // obj.survey.canAccessSurveyDashboard = permissions.survey?.includes(
+    //   'dashboard'
+    // );
+    // obj.survey.canAccessSurveyAdminPrivileges = permissions.survey?.includes(
+    //   'admin'
+    // );
+    // obj.campaign.canAccessCampaignDashboard = permissions.campaign?.includes(
+    //   'dashboard'
+    // );
+    // obj.campaign.canAccessCampaignAdminPrivileges = permissions.campaign?.includes(
+    //   'admin'
+    // );
     obj.admin.canAccessAdminPrivileges = permissions.admin?.includes('all');
     obj.admin.canAccessAdminReports = permissions.admin?.includes('reports');
-    obj.admin.canAccessAdminUploadPanel = permissions.admin?.includes('uploads');
+    obj.admin.canAccessAdminUploadPanel = permissions.admin?.includes(
+      'uploads'
+    );
     obj.resources.canAccessResourceType = permissions.resources;
   }
   return obj;
