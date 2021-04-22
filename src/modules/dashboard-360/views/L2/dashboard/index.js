@@ -11,7 +11,7 @@ import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import DispositionTable from './DispositionTable';
-import StartEndDates from './StartEndDates';
+import SelectDates from './SelectDates';
 import CallInteractionTable from './CallInteractionTable';
 
 function Alert(props) {
@@ -26,9 +26,8 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
   const [timer, setTimer] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(0);
-  const [tableParams, setTableParams] = useState({
-    startDate: null,
-    endDate: null
+  const [interactionTableParams, setInteractionTableParams] = useState({
+    selectDate: null
   });
 
   const dail = async () => {
@@ -41,7 +40,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    console.log(tableParams);
+    console.log(interactionTableParams);
   });
 
   const getData = async () => {
@@ -61,24 +60,26 @@ const Dashboard = () => {
   };
 
   const dialTimer = () => {
-    setTimer(
-      setInterval(() => {
-        // console.log('Interval');
-        let remSecond;
-        setSecondsLeft(prev => {
-          remSecond = prev;
-          return prev;
-        });
-        if (remSecond !== 0) {
-          setSecondsLeft(remSecond - 1);
-          // console.log(remSecond);
-        } else {
-          dail();
-          setSecondsLeft(0);
-          setTimer(prev => clearInterval(prev));
-        }
-      }, 1000)
-    );
+    if (customer) {
+      setTimer(
+        setInterval(() => {
+          // console.log('Interval');
+          let remSecond;
+          setSecondsLeft(prev => {
+            remSecond = prev;
+            return prev;
+          });
+          if (remSecond !== 0) {
+            setSecondsLeft(remSecond - 1);
+            // console.log(remSecond);
+          } else {
+            dail();
+            setSecondsLeft(0);
+            setTimer(prev => clearInterval(prev));
+          }
+        }, 1000)
+      );
+    }
   };
 
   useEffect(() => {
@@ -192,12 +193,12 @@ const Dashboard = () => {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <StartEndDates tableParams={setTableParams} />
+          {/* <Grid item xs={12}>
+            <SelectDates tableParams={setInteractionTableParams} />
           </Grid>
           <Grid item xs={12}>
-            <CallInteractionTable tableParams={tableParams} />
-          </Grid>
+            <CallInteractionTable tableParams={interactionTableParams} />
+          </Grid> */}
           <Grid item xs={12} style={{ marginTop: '1rem' }}>
             <DispositionTable />
           </Grid>

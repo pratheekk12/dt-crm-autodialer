@@ -140,18 +140,18 @@ function getAccessObj(permissions) {
     );
     obj.telephony.canPlaceCall = permissions.telephony?.includes('callPlacing');
     obj.dashboard.canViewAgentDashboard = permissions.dashboard?.includes(
-      'agent'
+      'DTL1'
     );
     obj.dashboard.canViewManagerDashboard = permissions.dashboard?.includes(
-      'manager'
+      'DTRestaurantManager'
     );
     obj.dashboard.canViewAdminDashboard = permissions.dashboard?.includes(
       'admin'
     );
     obj.dashboard.canViewAreaManagerDashboard = permissions.dashboard?.includes(
-      'areaManager'
+      'DTAreaManager'
     );
-    obj.dashboard.canViewL2Dashboard = permissions.dashboard?.includes('L2');
+    obj.dashboard.canViewL2Dashboard = permissions.dashboard?.includes('DTL2');
     obj.dashboard.canAccessDisposition = permissions.dashboard?.includes(
       'disposition'
     );

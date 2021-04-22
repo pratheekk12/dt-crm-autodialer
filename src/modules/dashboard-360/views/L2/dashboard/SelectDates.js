@@ -8,24 +8,18 @@ import {
 } from '@material-ui/pickers';
 import { Button } from '@material-ui/core';
 
-export default function StartEndDates({ tableParams }) {
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
+export default function SelectDates({ tableParams }) {
+  const [selectDate, setSelectDate] = React.useState(new Date());
 
-  const handleStartDateChange = date => {
-    setStartDate(date);
-  };
-  const handleEndDateChange = date => {
-    setEndDate(date);
+  const handleSelectDateChange = date => {
+    setSelectDate(date);
   };
 
   const saveTime = () => {
     tableParams({
-      startDate,
-      endDate
+      selectDate
     });
-    setStartDate(new Date());
-    setEndDate(new Date());
+    setSelectDate(new Date());
   };
 
   return (
@@ -41,24 +35,11 @@ export default function StartEndDates({ tableParams }) {
           <KeyboardDatePicker
             format="yyyy/MM/dd"
             id="date-picker-inline"
-            label="Start Date"
-            value={startDate}
-            onChange={handleStartDateChange}
+            label="Select Date"
+            value={selectDate}
+            onChange={handleSelectDateChange}
             KeyboardButtonProps={{
-              'aria-label': 'start date'
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} lg={3}>
-          <KeyboardDatePicker
-            id="date-picker-dialog"
-            variant="contained"
-            label="End Date"
-            format="yyyy/MM/dd"
-            value={endDate}
-            onChange={handleEndDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'end date'
+              'aria-label': 'select date'
             }}
           />
         </Grid>

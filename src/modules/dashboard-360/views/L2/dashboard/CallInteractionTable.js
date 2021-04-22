@@ -1,41 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Card, CardHeader } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
 import axios from 'axios';
 
 const CallInteractionTable = ({ tableParams }) => {
   const [interactionData, setInteractionData] = useState(null);
+  let defaultDate = new Date();
+  defaultDate.setHours(0, 0, 0);
+  console.log(defaultDate);
+  const getInteractionData = async () => {
+    await axios
+      .get('/ami/cdr', {
+        params: {
+          date: tableParams.selectDate
+            ? tableParams.selectDate.toISOString()
+            : defaultDate.toISOString()
+        }
+      })
+      .then(res => setInteractionData(res.date))
+      .catch(err => console.log(err));
+  };
 
+  useEffect(() => {
+    getInteractionData();
+  }, [tableParams]);
   const columns = [
     {
-      field: 'agentName',
-      headerName: 'Agent Name',
+      field: 'calldate',
+      headerName: 'Call Date',
       flex: 1,
-      renderCell: rowData => rowData.row.agentName
+      renderCell: rowData => rowData.row.calldate
     },
     {
-      field: 'guestName',
-      headerName: 'Customer Name',
+      field: 'duration',
+      headerName: 'Call Duration',
       flex: 1,
-      renderCell: rowData => rowData.row.guestName
+      renderCell: rowData => rowData.row.duration
     },
     {
-      field: 'mainDisposition',
-      headerName: 'Call Start',
+      field: 'disposition',
+      headerName: 'Disposition Status',
       flex: 1,
-      renderCell: rowData => rowData.row.mainDisposition
+      renderCell: rowData => rowData.row.disposition
     },
     {
-      field: 'subDisposition',
+      field: 'recordingfile',
       headerName: 'Call End',
       flex: 1,
-      renderCell: rowData => rowData.row.subDisposition
-    },
-    {
-      field: 'overallCustomerRating',
-      headerName: 'Download',
-      flex: 1,
-      renderCell: rowData => rowData.row.overallCustomerRating
+      renderCell: rowData => (
+        <Chip
+          label="Download Recording"
+          clickable
+          color="primary"
+          onClick={() => rowData.row.recordingfile}
+        />
+      )
     }
   ];
   return (
@@ -50,7 +70,7 @@ const CallInteractionTable = ({ tableParams }) => {
             interactionData !== null
               ? interactionData.map(data => ({
                   ...data,
-                  id: data._id
+                  id: interactionData.uniqueid
                 }))
               : []
           }

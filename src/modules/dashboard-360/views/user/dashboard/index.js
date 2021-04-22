@@ -50,25 +50,29 @@ const Dashboard = () => {
   };
 
   const dialTimer = () => {
-    setTimer(
-      setInterval(() => {
-        // console.log('Interval');
-        let remSecond;
-        setSecondsLeft(prev => {
-          remSecond = prev;
-          return prev;
-        });
-        if (remSecond !== 0) {
-          setSecondsLeft(remSecond - 1);
-          // console.log(remSecond);
-        } else {
-          dail();
-          setSecondsLeft(0);
-          setTimer(prev => clearInterval(prev));
-        }
-      }, 1000)
-    );
+    if (customer) {
+      setTimer(
+        setInterval(() => {
+          // console.log('Interval');
+          let remSecond;
+          setSecondsLeft(prev => {
+            remSecond = prev;
+            return prev;
+          });
+          if (remSecond !== 0) {
+            setSecondsLeft(remSecond - 1);
+            // console.log(remSecond);
+          } else {
+            dail();
+            setSecondsLeft(0);
+            setTimer(prev => clearInterval(prev));
+          }
+        }, 1000)
+      );
+    }
   };
+
+  console.log('custojmerew', customer);
 
   useEffect(() => {
     if (customer !== null) {

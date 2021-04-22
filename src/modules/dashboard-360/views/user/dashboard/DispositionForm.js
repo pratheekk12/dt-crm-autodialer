@@ -97,6 +97,8 @@ const DispositionForm = ({ visibility, customer }) => {
     formValue.customerPhoneNumber = customer.phoneNumber;
     formValue.agentName = userData.username;
     formValue.guestName = customer.guestName;
+    formValue.restaurantId = customer.restaurantId;
+    formValue.customerId = customer.customerId;
     console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
