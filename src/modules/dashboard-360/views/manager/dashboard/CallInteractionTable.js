@@ -45,15 +45,12 @@ const CallInteractionTable = ({ tableParams }) => {
     },
     {
       field: 'recordingfile',
-      headerName: 'Call End',
+      headerName: 'Call Recording',
       flex: 1,
       renderCell: rowData => (
-        <Chip
-          label="Download Recording"
-          clickable
-          color="primary"
-          onClick={() => rowData.row.recordingfile}
-        />
+        <a target="_blank" href={rowData.row.recordingfile}>
+          <Chip label="Download" clickable color="primary" />
+        </a>
       )
     }
   ];
@@ -76,6 +73,7 @@ const CallInteractionTable = ({ tableParams }) => {
           pageSize={5}
           pagination
           autoHeight
+          rowsPerPageOptions={[5, 10, 20]}
         />
       </Card>
     </>

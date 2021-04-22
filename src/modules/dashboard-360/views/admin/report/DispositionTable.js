@@ -95,6 +95,7 @@ const DispositionTable = ({ dispositionParams }) => {
               : []
           }
           pageSize={5}
+          rowsPerPageOptions={[5, 10, 20]}
           pagination
           autoHeight
         />
