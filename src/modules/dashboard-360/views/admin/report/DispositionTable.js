@@ -8,7 +8,7 @@ const DispositionTable = ({ dispositionParams }) => {
   tableStartDate.setHours(0, 0, 0);
   const tableEndDate = new Date();
   tableEndDate.setHours(23, 59, 59);
-console.log("tableStartDate",tableStartDate,"tableEndDate",tableEndDate)
+  console.log('tableStartDate', tableStartDate, 'tableEndDate', tableEndDate);
   const [date, setDate] = useState({
     startDate: tableStartDate,
     endDate: tableEndDate
@@ -95,6 +95,7 @@ console.log("tableStartDate",tableStartDate,"tableEndDate",tableEndDate)
               : []
           }
           pageSize={5}
+          rowsPerPageOptions={[5, 10, 20]}
           pagination
           autoHeight
         />

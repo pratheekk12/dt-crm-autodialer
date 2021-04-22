@@ -39,9 +39,7 @@ const Dashboard = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(interactionTableParams);
-  });
+  useEffect(() => {});
 
   const getData = async () => {
     await axios
