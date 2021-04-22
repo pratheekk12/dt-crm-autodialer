@@ -1,34 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { Card, CardHeader } from '@material-ui/core';
 import axios from 'axios';
 
-const DispositionTable = () => {
-  const [reportsData, setReportsData] = useState(null);
-
-  const getDispositionData = async () => {
-    const tableStartDate = new Date();
-    tableStartDate.setHours(0, 0, 0);
-    const tableEndDate = new Date();
-    tableEndDate.setHours(11, 59, 59);
-    await axios
-      .get('/crm-route/dispositionreports', {
-        params: {
-          startDate: tableStartDate.toISOString(),
-          endDate: tableEndDate.toISOString()
-        }
-      })
-      .then(res => {
-        setReportsData(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getDispositionData();
-  }, []);
+const CallInteractionTable = ({ tableParams }) => {
+  const [interactionData, setInteractionData] = useState(null);
 
   const columns = [
     {
@@ -45,19 +21,19 @@ const DispositionTable = () => {
     },
     {
       field: 'mainDisposition',
-      headerName: 'Main Disposition',
+      headerName: 'Call Start',
       flex: 1,
       renderCell: rowData => rowData.row.mainDisposition
     },
     {
       field: 'subDisposition',
-      headerName: 'Sub Disposition',
+      headerName: 'Call End',
       flex: 1,
       renderCell: rowData => rowData.row.subDisposition
     },
     {
       field: 'overallCustomerRating',
-      headerName: 'Rating',
+      headerName: 'Download',
       flex: 1,
       renderCell: rowData => rowData.row.overallCustomerRating
     }
@@ -65,14 +41,14 @@ const DispositionTable = () => {
   return (
     <>
       <Card style={{ display: 'flex', justifyContent: 'center' }}>
-        <CardHeader title={'Disposition Table'} />
+        <CardHeader title={'Call Interactions Table'} />
       </Card>
       <Card style={{ height: 420, width: '100%', padding: '1rem' }}>
         <DataGrid
           columns={columns}
           rows={
-            reportsData !== null
-              ? reportsData.map(data => ({
+            interactionData !== null
+              ? interactionData.map(data => ({
                   ...data,
                   id: data._id
                 }))
@@ -87,4 +63,4 @@ const DispositionTable = () => {
   );
 };
 
-export default DispositionTable;
+export default CallInteractionTable;

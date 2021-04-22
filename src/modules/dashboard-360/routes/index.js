@@ -3,7 +3,7 @@ import adminRoutes from './adminRoutes';
 import agentDashboard from '../views/user/dashboard';
 import managerDashboard from '../views/manager/dashboard';
 import areaManagerDashboard from '../views/area-manager/dashboard';
-import teamLeadsDashboard from '../views/team-leads/dashboard';
+import L2Dashboard from '../views/L2/dashboard';
 
 export default [
   {
@@ -28,11 +28,11 @@ export default [
     selector: 'dashboard.canViewAreaManagerDashboard'
   },
   {
-    path: '/team-leads-dashboard',
+    path: '/L2-dashboard',
     exact: true,
-    key: 'teamLeadsDashboard',
-    component: teamLeadsDashboard,
-    selector: 'dashboard.canViewTeamLeadsDashboard'
+    key: 'L2Dashboard',
+    component: L2Dashboard,
+    selector: 'dashboard.canViewL2Dashboard'
   },
   {
     path: '/admin',

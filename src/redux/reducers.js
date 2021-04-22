@@ -151,9 +151,7 @@ function getAccessObj(permissions) {
     obj.dashboard.canViewAreaManagerDashboard = permissions.dashboard?.includes(
       'areaManager'
     );
-    obj.dashboard.canViewTeamLeadsDashboard = permissions.dashboard?.includes(
-      'teamLeads'
-    );
+    obj.dashboard.canViewL2Dashboard = permissions.dashboard?.includes('L2');
     obj.dashboard.canAccessDisposition = permissions.dashboard?.includes(
       'disposition'
     );

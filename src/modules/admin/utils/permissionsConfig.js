@@ -34,8 +34,8 @@ export const PERMISSIONS_CONFIG = [
         value: 'areaManager'
       },
       {
-        label: 'Team Leads',
-        value: 'teamLeads'
+        label: 'L2',
+        value: 'L2'
       }
     ]
   },

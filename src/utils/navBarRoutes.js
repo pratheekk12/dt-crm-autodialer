@@ -15,8 +15,8 @@ export default (permissions, userRole) => [
     title: 'Dashboard'
   },
   {
-    isVisible: permissions.dashboard.canViewTeamLeadsDashboard,
-    link: '/dash360/team-leads-dashboard',
+    isVisible: permissions.dashboard.canViewL2Dashboard,
+    link: '/dash360/L2-dashboard',
     title: 'Dashboard'
   },
   {

@@ -32,7 +32,6 @@ function Alert(props) {
 
 const DispositionForm = ({ visibility, customer }) => {
   const userData = useSelector(state => state.userData);
-  console.log('user data', userData);
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const handleClose = (event, reason) => {
@@ -200,7 +199,12 @@ const DispositionForm = ({ visibility, customer }) => {
   return (
     <>
       <div
-        style={{ maxHeight: '330px', overflowY: 'auto', overflowX: 'hidden' }}
+        style={{
+          maxHeight: '330px',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          padding: '0.5rem 0'
+        }}
       >
         <Formik
           validateOnBlur={false}

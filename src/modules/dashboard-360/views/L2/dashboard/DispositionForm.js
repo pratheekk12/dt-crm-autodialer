@@ -200,7 +200,12 @@ const DispositionForm = ({ visibility, customer }) => {
   return (
     <>
       <div
-        style={{ maxHeight: '330px', overflowY: 'auto', overflowX: 'hidden' }}
+        style={{
+          maxHeight: 350,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          padding: '0.5rem 0'
+        }}
       >
         <Formik
           validateOnBlur={false}
