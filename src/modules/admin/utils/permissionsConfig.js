@@ -30,10 +30,6 @@ export const PERMISSIONS_CONFIG = [
         value: 'DTL2'
       },
       {
-        label: 'DTL3',
-        value: 'DTL3'
-      },
-      {
         label: 'DT Restaurant Manager',
         value: 'DTRestaurantManager'
       },
