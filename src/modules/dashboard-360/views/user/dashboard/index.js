@@ -75,21 +75,12 @@ const Dashboard = () => {
       dialTimer();
       const getLastFiveRecords = async () => {
         await axios
-
-          .get(`/crm-route/agentinteraction`, {
+          .get(`/crm-route/interactions`, {
             params: {
-              phonenumber: customer.phoneNumber
+              customerId: customer.customerId,
+              interactionCount: 5
             }
           })
-
-          // .get(
-          //   `/crm-route/agentinteraction?phonenumber=${customer.phoneNumber}`
-          // )
-          // .get(
-          //   `/crm-route/agentinteraction?phonenumber=${919600920380}&agent_id=${
-          //     userData.userId
-          //   }`
-          // )
           .then(res => {
             setLastFiveRecords(res.data);
           })
@@ -120,7 +111,7 @@ const Dashboard = () => {
           variant="contained"
           color="secondary"
         >
-          Call Connecting in {secondsLeft}
+          Call Connecting in {secondsLeft}s
         </Button>
       )}
       <CustomBreadcrumbs />

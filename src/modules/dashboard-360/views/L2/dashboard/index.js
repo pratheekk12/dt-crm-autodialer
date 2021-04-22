@@ -34,7 +34,7 @@ const Dashboard = () => {
   const dail = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
       params: {
-        sipAgentID: userData.sip_id,
+        // sipAgentID: `Local/2${agentNumber.slice(2)}@from-internal`,
         NumbertobeCalled: '2' + customer.phoneNumber.slice(2)
       }
     });
@@ -131,7 +131,7 @@ const Dashboard = () => {
           variant="contained"
           color="secondary"
         >
-          Call Connecting in {secondsLeft}
+          Call Connecting in {secondsLeft}s
         </Button>
       )}
       <CustomBreadcrumbs />
