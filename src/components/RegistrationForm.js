@@ -48,12 +48,12 @@ function RegistrationForm({
   const [errorText, setErrorText] = useState('');
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
-  const ref = useRef(null)
+  const ref = useRef(null);
   async function sendCreateUserRequest(val, resetForm) {
     try {
       setShowLoader(true);
       setErrorText('');
-      
+
       await axios.post(CRUD_USER + '/register', {
         ...val
         // password: 'Indusviva@123' // temporary default password for new user
@@ -231,8 +231,10 @@ function RegistrationForm({
                       disabled={false}
                       onChange={e => {
                         props.setFieldValue(e.target.name, e.target.value);
-                        if(ref && ref.current) {
-                          const clear = ref.current.getElementsByClassName('MuiAutocomplete-clearIndicator')[0];
+                        if (ref && ref.current) {
+                          const clear = ref.current.getElementsByClassName(
+                            'MuiAutocomplete-clearIndicator'
+                          )[0];
                           clear && clear.click();
                         }
                         // props.setFieldValue('restaurants', e.target.value === 'manager' ? []: '');
@@ -241,29 +243,35 @@ function RegistrationForm({
                     >
                       {getRoles()}
                     </Field>
-                   { props.values.role && props.values.role !== 'DTL1' && props.values.role !== 'admin' && <Autocomplete
-                      options={restaurants}
-                      multiple
-                      getOptionLabel={option => option.restaurantName}
-                      style={{ width: 400, marginBottom: 16 }}
-                      getOptionSelected={(option, value) =>
-                        value._id === option._id
-                      }
-                      ref={ref}
-                      onChange={(event, value) => {
-                        props.setFieldValue('restaurants', value.map(v => v._id));
-                      }}
-                      renderInput={params => (
-                        <Field
-                          component={TextField}
-                          {...params}
-                          label="Choose a restaurant"
-                          variant="outlined"
-                          name="restaurants"
-                          
+                    {props.values.role &&
+                      props.values.role !== 'DTL1' &&
+                      props.values.role !== 'admin' && (
+                        <Autocomplete
+                          options={restaurants}
+                          multiple
+                          getOptionLabel={option => option.restaurantName}
+                          style={{ width: 400, marginBottom: 16 }}
+                          getOptionSelected={(option, value) =>
+                            value._id === option._id
+                          }
+                          ref={ref}
+                          onChange={(event, value) => {
+                            props.setFieldValue(
+                              'restaurants',
+                              value.map(v => v._id)
+                            );
+                          }}
+                          renderInput={params => (
+                            <Field
+                              component={TextField}
+                              {...params}
+                              label="Choose a restaurant"
+                              variant="outlined"
+                              name="restaurants"
+                            />
+                          )}
                         />
                       )}
-                    />}
                   </>
                 )}
                 <Button variant="contained" color="primary" type="submit">

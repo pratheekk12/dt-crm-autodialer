@@ -22,20 +22,24 @@ export const PERMISSIONS_CONFIG = [
       //   value: 'admin'
       // },
       {
-        label: 'Agent',
-        value: 'agent'
+        label: 'DTL1',
+        value: 'DTL1'
       },
       {
-        label: 'Manager',
-        value: 'manager'
+        label: 'DTL2',
+        value: 'DTL2'
       },
       {
-        label: 'Area Manager',
-        value: 'areaManager'
+        label: 'DTL3',
+        value: 'DTL3'
       },
       {
-        label: 'L2',
-        value: 'L2'
+        label: 'DT Restaurant Manager',
+        value: 'DTRestaurantManager'
+      },
+      {
+        label: 'DT Area Manager',
+        value: 'DTAreaManager'
       }
     ]
   },

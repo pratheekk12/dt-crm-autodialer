@@ -1,6 +1,5 @@
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { makeStyles, ThemeProvider } from '@material-ui/core';
 import GlobalStyles from 'src/modules/dashboard-360/components/GlobalStyles';
 import 'src/modules/dashboard-360/mixins/chartjs';
@@ -11,7 +10,7 @@ import MainLoader from './components/MainLoader';
 import Main from './Main';
 import Axios from 'axios';
 
-Axios.defaults.baseURL = '/api';
+// Axios.defaults.baseURL = '/api';
 // Axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles(theme => ({

@@ -11,8 +11,8 @@ import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import DispositionTable from './DispositionTable';
-import StartEndDates from './StartEndDates';
-import CallInteractionTable from './CallInteractionTable';
+// import SelectDates from './SelectDates';
+// import CallInteractionTable from './CallInteractionTable';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -26,22 +26,21 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
   const [timer, setTimer] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(0);
-  const [tableParams, setTableParams] = useState({
-    startDate: null,
-    endDate: null
+  const [interactionTableParams, setInteractionTableParams] = useState({
+    selectDate: null
   });
 
   const dail = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
       params: {
-        // sipAgentID: `Local/2${agentNumber.slice(2)}@from-internal`,
+        sipAgentID: `Local/2${userData.phone}@from-internal`,
         NumbertobeCalled: '2' + customer.phoneNumber.slice(2)
       }
     });
   };
 
   useEffect(() => {
-    console.log(tableParams);
+    console.log(interactionTableParams);
   });
 
   const getData = async () => {
@@ -49,7 +48,6 @@ const Dashboard = () => {
       .get('/crm-route/tlleads')
       .then(res => {
         setCustomer(res.data);
-        setSecondsLeft(15);
         setFormDisabled(false);
         setOpen(true);
       })
@@ -61,28 +59,31 @@ const Dashboard = () => {
   };
 
   const dialTimer = () => {
-    setTimer(
-      setInterval(() => {
-        // console.log('Interval');
-        let remSecond;
-        setSecondsLeft(prev => {
-          remSecond = prev;
-          return prev;
-        });
-        if (remSecond !== 0) {
-          setSecondsLeft(remSecond - 1);
-          // console.log(remSecond);
-        } else {
-          dail();
-          setSecondsLeft(0);
-          setTimer(prev => clearInterval(prev));
-        }
-      }, 1000)
-    );
+    if (customer) {
+      setTimer(
+        setInterval(() => {
+          // console.log('Interval');
+          let remSecond;
+          setSecondsLeft(prev => {
+            remSecond = prev;
+            return prev;
+          });
+          if (remSecond !== 0) {
+            setSecondsLeft(remSecond - 1);
+            // console.log(remSecond);
+          } else {
+            dail();
+            setSecondsLeft(0);
+            setTimer(prev => clearInterval(prev));
+          }
+        }, 1000)
+      );
+    }
   };
 
   useEffect(() => {
-    if (customer !== null) {
+    if (customer) {
+      setSecondsLeft(15);
       dialTimer();
       const getLastFiveRecords = async () => {
         await axios
@@ -92,15 +93,6 @@ const Dashboard = () => {
               phonenumber: customer.phoneNumber
             }
           })
-
-          // .get(
-          //   `/crm-route/agentinteraction?phonenumber=${customer.phoneNumber}`
-          // )
-          // .get(
-          //   `/crm-route/agentinteraction?phonenumber=${919600920380}&agent_id=${
-          //     userData.userId
-          //   }`
-          // )
           .then(res => {
             setLastFiveRecords(res.data);
           })
@@ -141,7 +133,12 @@ const Dashboard = () => {
             <LeadButtons customer={customer} />
           </Grid>
           <Grid container item justify="flex-end" lg={3} xs={12}>
-            <Button variant="contained" color="primary" onClick={handleClick}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={secondsLeft}
+              onClick={handleClick}
+            >
               Fetch New Customer
             </Button>
             <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
@@ -192,12 +189,12 @@ const Dashboard = () => {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <StartEndDates tableParams={setTableParams} />
+          {/* <Grid item xs={12}>
+            <SelectDates tableParams={setInteractionTableParams} />
           </Grid>
           <Grid item xs={12}>
-            <CallInteractionTable tableParams={tableParams} />
-          </Grid>
+            <CallInteractionTable tableParams={interactionTableParams} />
+          </Grid> */}
           <Grid item xs={12} style={{ marginTop: '1rem' }}>
             <DispositionTable />
           </Grid>

@@ -1,5 +1,5 @@
-import 'date-fns';
 import React from 'react';
+import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -8,7 +8,7 @@ import {
 } from '@material-ui/pickers';
 import { Button } from '@material-ui/core';
 
-export default function StartEndDates({ tableParams }) {
+const DateRangeForDispostion = ({ date }) => {
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
 
@@ -20,7 +20,7 @@ export default function StartEndDates({ tableParams }) {
   };
 
   const saveTime = () => {
-    tableParams({
+    date({
       startDate,
       endDate
     });
@@ -34,13 +34,13 @@ export default function StartEndDates({ tableParams }) {
         container
         direction="row"
         justify="flex-start"
-        alignItems="flex-start"
+        align="flex-start"
         spacing={3}
       >
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={4}>
           <KeyboardDatePicker
             format="yyyy/MM/dd"
-            id="date-picker-inline"
+            id="disposition-start-date"
             label="Start Date"
             value={startDate}
             onChange={handleStartDateChange}
@@ -49,9 +49,9 @@ export default function StartEndDates({ tableParams }) {
             }}
           />
         </Grid>
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={4}>
           <KeyboardDatePicker
-            id="date-picker-dialog"
+            id="disposition-end-date"
             variant="contained"
             label="End Date"
             format="yyyy/MM/dd"
@@ -62,7 +62,7 @@ export default function StartEndDates({ tableParams }) {
             }}
           />
         </Grid>
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={4}>
           <Button variant="contained" color="primary" onClick={saveTime}>
             Fetch
           </Button>
@@ -70,4 +70,6 @@ export default function StartEndDates({ tableParams }) {
       </Grid>
     </MuiPickersUtilsProvider>
   );
-}
+};
+
+export default DateRangeForDispostion;

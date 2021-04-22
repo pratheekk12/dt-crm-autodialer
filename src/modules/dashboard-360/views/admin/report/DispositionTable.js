@@ -3,19 +3,35 @@ import { DataGrid } from '@material-ui/data-grid';
 import { Card, CardHeader } from '@material-ui/core';
 import axios from 'axios';
 
-const DispositionTable = () => {
+const DispositionTable = ({ dispositionParams }) => {
+  const tableStartDate = new Date();
+  tableStartDate.setHours(0, 0, 0);
+  const tableEndDate = new Date();
+  tableEndDate.setHours(23, 59, 59);
+console.log("tableStartDate",tableStartDate,"tableEndDate",tableEndDate)
+  const [date, setDate] = useState({
+    startDate: tableStartDate,
+    endDate: tableEndDate
+  });
   const [reportsData, setReportsData] = useState(null);
 
+  useEffect(() => {
+    if (dispositionParams.startDate !== null) {
+      setDate({
+        startDate: dispositionParams.startDate,
+        endDate: dispositionParams.endDate
+      });
+    }
+  }, [dispositionParams]);
+
+  console.log('Datehjfdl', date);
+
   const getDispositionData = async () => {
-    const tableStartDate = new Date();
-    tableStartDate.setHours(0, 0, 0);
-    const tableEndDate = new Date();
-    tableEndDate.setHours(11, 59, 59);
     await axios
       .get('/crm-route/dispositionreports', {
         params: {
-          startDate: tableStartDate.toISOString(),
-          endDate: tableEndDate.toISOString()
+          startDate: date.startDate.toISOString(),
+          endDate: date.endDate.toISOString()
         }
       })
       .then(res => {
@@ -28,7 +44,7 @@ const DispositionTable = () => {
 
   useEffect(() => {
     getDispositionData();
-  }, []);
+  }, [date]);
 
   const columns = [
     {

@@ -28,7 +28,7 @@ const AgentProgressDetails = ({ reportParams }) => {
   }, [reportParams]);
   return (
     <>
-      <div id="chart" style={{ marginTop: '1.5rem' }}>
+      <div id="chart" style={{ marginTop: '0.5rem' }}>
         <Card style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
           <CardHeader title={reportParams.agentName} />
         </Card>
@@ -40,10 +40,10 @@ const AgentProgressDetails = ({ reportParams }) => {
             alignItems="center"
             spacing={3}
           >
-            <Grid item xs={12} lg={5}>
+            {/* <Grid item xs={12} lg={5}>
               <ReportChart leadsClosed={reportsData.length} />
-            </Grid>
-            <Grid item xs={12} lg={7}>
+            </Grid> */}
+            <Grid item xs={12}>
               <UserDisposition reportsData={reportsData} />
             </Grid>
           </Grid>

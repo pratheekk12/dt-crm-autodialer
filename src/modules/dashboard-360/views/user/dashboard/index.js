@@ -38,7 +38,6 @@ const Dashboard = () => {
       .get('/channel/getdata')
       .then(res => {
         setCustomer(res.data);
-        setSecondsLeft(15);
         setFormDisabled(false);
         setOpen(true);
       })
@@ -50,28 +49,33 @@ const Dashboard = () => {
   };
 
   const dialTimer = () => {
-    setTimer(
-      setInterval(() => {
-        // console.log('Interval');
-        let remSecond;
-        setSecondsLeft(prev => {
-          remSecond = prev;
-          return prev;
-        });
-        if (remSecond !== 0) {
-          setSecondsLeft(remSecond - 1);
-          // console.log(remSecond);
-        } else {
-          dail();
-          setSecondsLeft(0);
-          setTimer(prev => clearInterval(prev));
-        }
-      }, 1000)
-    );
+    if (customer) {
+      setTimer(
+        setInterval(() => {
+          // console.log('Interval');
+          let remSecond;
+          setSecondsLeft(prev => {
+            remSecond = prev;
+            return prev;
+          });
+          if (remSecond !== 0) {
+            setSecondsLeft(remSecond - 1);
+            // console.log(remSecond);
+          } else {
+            dail();
+            setSecondsLeft(0);
+            setTimer(prev => clearInterval(prev));
+          }
+        }, 1000)
+      );
+    }
   };
+
+  console.log('custojmerew', customer);
 
   useEffect(() => {
     if (customer !== null) {
+      setSecondsLeft(15);
       dialTimer();
       const getLastFiveRecords = async () => {
         await axios
@@ -89,6 +93,8 @@ const Dashboard = () => {
           });
       };
       getLastFiveRecords();
+    } else {
+      setSecondsLeft(0);
     }
   }, [customer]);
 
@@ -121,7 +127,12 @@ const Dashboard = () => {
             <LeadButtons customer={customer} />
           </Grid>
           <Grid container item justify="flex-end" lg={3} xs={12}>
-            <Button variant="contained" color="primary" onClick={handleClick}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={secondsLeft}
+              onClick={handleClick}
+            >
               Fetch New Customer
             </Button>
             <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
