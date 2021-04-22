@@ -33,7 +33,7 @@ const Dashboard = () => {
   const dail = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
       params: {
-        // sipAgentID: `Local/2${agentNumber.slice(2)}@from-internal`,
+        sipAgentID: `Local/2${userData.phone}@from-internal`,
         NumbertobeCalled: '2' + customer.phoneNumber.slice(2)
       }
     });
@@ -48,7 +48,6 @@ const Dashboard = () => {
       .get('/crm-route/tlleads')
       .then(res => {
         setCustomer(res.data);
-        setSecondsLeft(15);
         setFormDisabled(false);
         setOpen(true);
       })
@@ -83,7 +82,8 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (customer !== null) {
+    if (customer) {
+      setSecondsLeft(15);
       dialTimer();
       const getLastFiveRecords = async () => {
         await axios
@@ -93,15 +93,6 @@ const Dashboard = () => {
               phonenumber: customer.phoneNumber
             }
           })
-
-          // .get(
-          //   `/crm-route/agentinteraction?phonenumber=${customer.phoneNumber}`
-          // )
-          // .get(
-          //   `/crm-route/agentinteraction?phonenumber=${919600920380}&agent_id=${
-          //     userData.userId
-          //   }`
-          // )
           .then(res => {
             setLastFiveRecords(res.data);
           })

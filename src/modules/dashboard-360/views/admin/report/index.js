@@ -5,9 +5,15 @@ import AgentName from './AgentName';
 import StartEndDates from './StartEndDates';
 import DispositionTable from './DispositionTable';
 import AgentProgressDetails from './agent-progress-details';
+import DateRangeForDispostion from './DateRangeForDispostion';
 
 const Report = () => {
   const [date, setDate] = React.useState({
+    startDate: null,
+    endDate: null
+  });
+
+  const [dispositionDate, setDispositionDate] = React.useState({
     startDate: null,
     endDate: null
   });
@@ -47,7 +53,7 @@ const Report = () => {
         <Grid
           container
           direction="row"
-          justify="center"
+          justify="flex-start"
           direction="row"
           alignItems="flex-start"
           spacing={3}
@@ -63,8 +69,11 @@ const Report = () => {
               <AgentProgressDetails reportParams={reportParams} />
             ) : null}
           </Grid>
+          <Grid item xs={12} lg={6}>
+            <DateRangeForDispostion date={setDispositionDate} />
+          </Grid>
           <Grid item xs={12}>
-            <DispositionTable />
+            <DispositionTable dispositionParams={dispositionDate} />
           </Grid>
         </Grid>
       </div>

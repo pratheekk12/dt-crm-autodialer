@@ -38,7 +38,6 @@ const Dashboard = () => {
       .get('/channel/getdata')
       .then(res => {
         setCustomer(res.data);
-        setSecondsLeft(15);
         setFormDisabled(false);
         setOpen(true);
       })
@@ -76,6 +75,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (customer !== null) {
+      setSecondsLeft(15);
       dialTimer();
       const getLastFiveRecords = async () => {
         await axios
@@ -93,6 +93,8 @@ const Dashboard = () => {
           });
       };
       getLastFiveRecords();
+    } else {
+      setSecondsLeft(0);
     }
   }, [customer]);
 
