@@ -34,7 +34,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://thalappakatti.com/">
         Thalappakatti
       </Link>{' '}
       {2021}
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     height: '100vh'
   },
   image: {
-    backgroundImage: 'url(/static/images/indusviva.png)',
+    backgroundImage: 'url(/static/images/thalappakatti.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light'
