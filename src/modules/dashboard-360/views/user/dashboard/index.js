@@ -125,7 +125,12 @@ const Dashboard = () => {
             <LeadButtons customer={customer} />
           </Grid>
           <Grid container item justify="flex-end" lg={3} xs={12}>
-            <Button variant="contained" color="primary" onClick={handleClick}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={secondsLeft}
+              onClick={handleClick}
+            >
               Fetch New Customer
             </Button>
             <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
