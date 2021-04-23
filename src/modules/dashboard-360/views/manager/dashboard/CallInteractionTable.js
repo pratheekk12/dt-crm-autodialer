@@ -10,7 +10,7 @@ const CallInteractionTable = ({ tableParams }) => {
   defaultDate.setHours(0, 0, 0);
   const getInteractionData = async () => {
     await axios
-      .get('http://192.168.4.44:42002/ami/cdr', {
+      .get('https://dt.granalytics.in/ami/cdr', {
         params: {
           date: tableParams.selectDate
             ? tableParams.selectDate.toISOString().slice(0, 10)
