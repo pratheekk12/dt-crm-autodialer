@@ -69,7 +69,7 @@ const DispositionTable = () => {
               paddingRight: '2rem'
             }}
           >
-            {reportsData && reportsData.length && (
+            {reportsData && reportsData.length > 0 && (
               <ExcelReport
                 data={reportsData}
                 fileName={'Manager Disposition Table'}

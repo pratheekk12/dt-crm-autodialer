@@ -20,9 +20,9 @@ const Dashbaord = () => {
             <SelectDates tableParams={setInteractionTableParams} />
           </Grid>
           <Grid item xs={12}>
-            {/* {interactionTableParams.selectDate && ( */}
-            <CallInteractionTable tableParams={interactionTableParams} />
-            {/* )} */}
+            {interactionTableParams.selectDate && (
+              <CallInteractionTable tableParams={interactionTableParams} />
+            )}
           </Grid>
         </Grid>
       </div>

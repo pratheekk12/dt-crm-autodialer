@@ -67,7 +67,7 @@ const DispositionTable = () => {
     <>
       <Card>
         <Grid container direction="row" justify="flex-end">
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <CardHeader title={'Disposition Table'} />
           </Grid>
           <div
@@ -78,7 +78,7 @@ const DispositionTable = () => {
               paddingRight: '2rem'
             }}
           >
-            {reportsData && reportsData.length && (
+            {reportsData && reportsData.length > 0 && (
               <ExcelReport data={reportsData} fileName={'Manager CDR Table'} />
             )}
           </div>

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import { Card, CardHeader } from '@material-ui/core';
+import { Card, CardHeader, Grid } from '@material-ui/core';
 import axios from 'axios';
+import ExcelReport from 'src/components/ExcelReport';
 
 const DispositionTable = ({ dispositionParams }) => {
   const tableStartDate = new Date();
   tableStartDate.setHours(0, 0, 0);
   const tableEndDate = new Date();
   tableEndDate.setHours(23, 59, 59);
-  console.log('tableStartDate', tableStartDate, 'tableEndDate', tableEndDate);
   const [date, setDate] = useState({
     startDate: tableStartDate,
     endDate: tableEndDate
@@ -23,8 +23,6 @@ const DispositionTable = ({ dispositionParams }) => {
       });
     }
   }, [dispositionParams]);
-
-  console.log('Datehjfdl', date);
 
   const getDispositionData = async () => {
     await axios
@@ -80,8 +78,27 @@ const DispositionTable = ({ dispositionParams }) => {
   ];
   return (
     <>
-      <Card style={{ display: 'flex', justifyContent: 'center' }}>
-        <CardHeader title={'Disposition Table'} />
+      <Card>
+        <Grid container direction="row" justify="flex-end">
+          <Grid item xs={6}>
+            <CardHeader title={'Disposition Table'} />
+          </Grid>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              paddingRight: '2rem'
+            }}
+          >
+            {reportsData && reportsData.length > 0 && (
+              <ExcelReport
+                data={reportsData}
+                fileName={'Admin Disposition Table'}
+              />
+            )}
+          </div>
+        </Grid>
       </Card>
       <Card style={{ height: 420, width: '100%', padding: '1rem' }}>
         <DataGrid
