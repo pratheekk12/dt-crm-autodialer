@@ -56,20 +56,17 @@ const DispositionTable = () => {
   ];
   return (
     <>
-      <Card
-      // style={{
-      //   display: 'flex',
-      //   justifyContent: 'center',
-      //   alignItems: 'center'
-      // }}
-      >
+      <Card>
         <Grid container direction="row" justify="flex-end">
-          <CardHeader title={'Disposition Table'} />
+          <Grid item xs={6}>
+            <CardHeader title={'Disposition Table'} />
+          </Grid>
           <div
             style={{
               display: 'flex',
               justifyContent: 'flex-end',
-              alignItems: 'center'
+              alignItems: 'center',
+              paddingRight: '2rem'
             }}
           >
             {reportsData && reportsData.length && (
