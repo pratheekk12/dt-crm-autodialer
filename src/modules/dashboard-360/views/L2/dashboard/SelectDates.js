@@ -31,7 +31,7 @@ export default function SelectDates({ tableParams }) {
         alignItems="flex-start"
         spacing={3}
       >
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={6} lg={3}>
           <KeyboardDatePicker
             format="yyyy/MM/dd"
             id="date-picker-inline"
@@ -43,7 +43,7 @@ export default function SelectDates({ tableParams }) {
             }}
           />
         </Grid>
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={6} lg={3}>
           <Button variant="contained" color="primary" onClick={saveTime}>
             Fetch
           </Button>

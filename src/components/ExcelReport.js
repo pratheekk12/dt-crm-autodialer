@@ -7,7 +7,6 @@ const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const ExcelReport = ({ data, fileName }) => {
-  console.log('ecxport', data);
   return (
     <ExcelFile
       filename={fileName}
@@ -19,7 +18,6 @@ const ExcelReport = ({ data, fileName }) => {
     >
       <ExcelSheet data={data} name="Table">
         {Object.entries(data[0]).map(([key, value]) => {
-          console.log('Key', key, 'Value', value);
           return <ExcelColumn label={key} key={key} value={key} />;
         })}
       </ExcelSheet>
