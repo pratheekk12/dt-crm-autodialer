@@ -13,8 +13,8 @@ const CallInteractionTable = ({ tableParams }) => {
       .get('https://dt.granalytics.in/ami/cdr', {
         params: {
           date: tableParams.selectDate
-            ? tableParams.selectDate.toISOString().slice(0, 10)
-            : defaultDate.toISOString().slice(0, 10)
+            ? tableParams.selectDate.toISOString()
+            : defaultDate.toISOString()
         }
       })
       .then(res => setInteractionData(res.date))

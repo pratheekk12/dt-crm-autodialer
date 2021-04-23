@@ -10,8 +10,8 @@ import MainLoader from './components/MainLoader';
 import Main from './Main';
 import Axios from 'axios';
 
-//Axios.defaults.baseURL = '/api';
-// Axios.defaults.withCredentials = true;
+Axios.defaults.baseURL = '/api';
+ //Axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles(theme => ({
   root: {
