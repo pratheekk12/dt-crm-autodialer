@@ -13,8 +13,8 @@ const CallInteractionTable = ({ tableParams }) => {
       .get('https://dt.granalytics.in/ami/cdr', {
         params: {
           date: tableParams.selectDate
-            ? tableParams.selectDate.toISOString()
-            : defaultDate.toISOString()
+            ? tableParams.selectDate.toISOString().slice(0, 10)
+            : defaultDate.toISOString().slice(0, 10)
         }
       })
       .then(res => setInteractionData(res.date))
@@ -63,7 +63,7 @@ const CallInteractionTable = ({ tableParams }) => {
         <DataGrid
           columns={columns}
           rows={
-            interactionData !== null
+            interactionData && interactionData.length
               ? interactionData.map(data => ({
                   ...data,
                   id: interactionData.uniqueid
