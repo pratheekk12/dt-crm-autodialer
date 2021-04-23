@@ -30,7 +30,7 @@ const AgentProgressDetails = ({ reportParams }) => {
   return (
     <>
       <div id="chart" style={{ marginTop: '0.5rem' }}>
-        <Card>
+        <Card style={{ marginBottom: '0.5rem' }}>
           <Grid container direction="row" justify="flex-end">
             <Grid item xs={6}>
               <CardHeader title={reportParams.agentName} />
