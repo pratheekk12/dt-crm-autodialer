@@ -35,7 +35,6 @@ function Main({
         // localStorage.clear();
         const res = await Axios.post(CRUD_LOGIN, {});
         const obj = res.data.userObj;
-        console.log({ obj });
         setUserDetailsMain(obj);
         // const roleDefined = obj => {
         //   if (obj.role === 'admin') return ADMIN;

@@ -96,7 +96,6 @@ function Login(props) {
     setLoggedInMain,
     setAccountTypeMain
   } = props;
-  console.log('set access', props);
   const classes = useStyles();
   const [error, setError] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -187,7 +186,6 @@ function Login(props) {
                   .required('Password is required')
               })}
               onSubmit={values => {
-                console.log('values', values);
                 localStorage.setItem('AgentType', values.AgentType);
                 localStorage.setItem('role', values.role);
                 localStorage.setItem('AgentSIPID', values.AgentSIPID);
