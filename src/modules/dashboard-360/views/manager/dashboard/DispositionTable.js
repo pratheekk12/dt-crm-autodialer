@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import { Card, CardHeader } from '@material-ui/core';
+import { Card, CardHeader, Grid } from '@material-ui/core';
 import axios from 'axios';
 import ExcelReport from 'src/components/ExcelReport';
 
@@ -57,20 +57,29 @@ const DispositionTable = () => {
   return (
     <>
       <Card
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
+      // style={{
+      //   display: 'flex',
+      //   justifyContent: 'center',
+      //   alignItems: 'center'
+      // }}
       >
-        <CardHeader title={'Disposition Table'} />
-        {reportsData && reportsData.length && (
-          <ExcelReport
-            data={reportsData}
-            fileName={'Manager Disposition Table'}
-            style={{ paddingLef: '5rem' }}
-          />
-        )}
+        <Grid container direction="row" justify="flex-end">
+          <CardHeader title={'Disposition Table'} />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center'
+            }}
+          >
+            {reportsData && reportsData.length && (
+              <ExcelReport
+                data={reportsData}
+                fileName={'Manager Disposition Table'}
+              />
+            )}
+          </div>
+        </Grid>
       </Card>
       <Card style={{ height: 420, width: '100%', padding: '1rem' }}>
         <DataGrid
