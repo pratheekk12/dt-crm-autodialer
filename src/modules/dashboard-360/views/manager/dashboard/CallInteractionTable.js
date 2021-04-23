@@ -73,7 +73,7 @@ const CallInteractionTable = ({ tableParams }) => {
             {interactionData && interactionData.length && (
               <ExcelReport
                 data={interactionData}
-                fileName={'Manager Disposition Table'}
+                fileName={'Manager CDR Table'}
               />
             )}
           </div>
