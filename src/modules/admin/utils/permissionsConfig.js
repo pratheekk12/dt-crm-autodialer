@@ -1,18 +1,18 @@
 export const PERMISSIONS_CONFIG = [
-  {
-    value: 'telephony',
-    label: 'Telephony',
-    permissions: [
-      {
-        label: 'Call Placing',
-        value: 'callPlacing'
-      },
-      {
-        label: 'Call Receiving',
-        value: 'callReceiving'
-      }
-    ]
-  },
+  // {
+  //   value: 'telephony',
+  //   label: 'Telephony',
+  //   permissions: [
+  //     {
+  //       label: 'Call Placing',
+  //       value: 'callPlacing'
+  //     },
+  //     {
+  //       label: 'Call Receiving',
+  //       value: 'callReceiving'
+  //     }
+  //   ]
+  // },
   {
     value: 'dashboard',
     label: 'Dashboard',
@@ -43,20 +43,20 @@ export const PERMISSIONS_CONFIG = [
       }
     ]
   },
-  {
-    value: 'telephonyDashboard',
-    label: 'Telephony Dashboard',
-    permissions: [
-      {
-        label: 'Inbound Dashboard',
-        value: 'inboundDashboard'
-      },
-      {
-        label: 'Outbound Dashboard',
-        value: 'outboundDashboard'
-      }
-    ]
-  },
+  // {
+  //   value: 'telephonyDashboard',
+  //   label: 'Telephony Dashboard',
+  //   permissions: [
+  //     {
+  //       label: 'Inbound Dashboard',
+  //       value: 'inboundDashboard'
+  //     },
+  //     {
+  //       label: 'Outbound Dashboard',
+  //       value: 'outboundDashboard'
+  //     }
+  //   ]
+  // },
   {
     value: 'admin',
     label: 'Admin',
