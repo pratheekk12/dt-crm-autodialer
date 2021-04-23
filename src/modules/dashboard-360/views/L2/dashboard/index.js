@@ -85,10 +85,10 @@ const Dashboard = () => {
       dialTimer();
       const getLastFiveRecords = async () => {
         await axios
-
-          .get(`/crm-route/agentinteraction`, {
+          .get(`/crm-route/interactions`, {
             params: {
-              phonenumber: customer.phoneNumber
+              customerId: customer.customerId,
+              interactionCount: 5
             }
           })
           .then(res => {
