@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Link as RouterLink, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -28,6 +28,7 @@ import { LOGOUT_URL } from 'src/modules/auth/utils/endpoints';
 import NavBar from './Navbar';
 import navBarRoutes from 'src/utils/navBarRoutes';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -100,6 +101,7 @@ const TopBar = ({
   // const [editAccess, setEditAccess] = useState(-1);
   // const [role, setRole] = useState(-1);
   const userData = useSelector(state => state.userData);
+  const [restaurantName, setRestaurantName] = useState(null);
 
   const classes = useStyles();
   const [notifications] = useState([]);
@@ -175,6 +177,24 @@ const TopBar = ({
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    if (userData.role === 'DTL2' || userData.role === 'DTRestaurantManager') {
+      axios
+        .get('/crm-route/restaurant', {
+          params: {
+            id: userData.restaurants[0]
+          }
+        })
+        .then(res => {
+          setRestaurantName(res.data.restaurantName);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
       <Toolbar>
@@ -227,6 +247,9 @@ const TopBar = ({
           </IconButton> */}
           {userData.role === 'user' && (
             <Typography variant="h5">{`User-L1`}</Typography>
+          )}
+          {restaurantName !== null && (
+            <Typography variant="h5">{restaurantName}</Typography>
           )}
           <Tooltip title="Logout">
             <IconButton color="inherit" onClick={() => logoutUser()}>
