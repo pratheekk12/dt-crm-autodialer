@@ -11,6 +11,7 @@ import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import DispositionTable from './DispositionTable';
+import Dialpad from './Dialpad';
 // import SelectDates from './SelectDates';
 // import CallInteractionTable from './CallInteractionTable';
 
@@ -26,11 +27,11 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
   const [timer, setTimer] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(0);
-  const [interactionTableParams, setInteractionTableParams] = useState({
-    selectDate: null
-  });
+  // const [interactionTableParams, setInteractionTableParams] = useState({
+  //   selectDate: null
+  // });
 
-  const dail = async () => {
+  const dial = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
       params: {
         sipAgentID: `Local/2${userData.phone}@from-internal`,
@@ -60,7 +61,6 @@ const Dashboard = () => {
     if (customer) {
       setTimer(
         setInterval(() => {
-          // console.log('Interval');
           let remSecond;
           setSecondsLeft(prev => {
             remSecond = prev;
@@ -68,9 +68,8 @@ const Dashboard = () => {
           });
           if (remSecond !== 0) {
             setSecondsLeft(remSecond - 1);
-            // console.log(remSecond);
           } else {
-            dail();
+            dial();
             setSecondsLeft(0);
             setTimer(prev => clearInterval(prev));
           }
@@ -127,10 +126,13 @@ const Dashboard = () => {
       <CustomBreadcrumbs />
       <div style={{ padding: '1rem 2rem 2rem' }}>
         <Grid container spacing={5}>
-          <Grid item lg={9} xs={12}>
+          <Grid item lg={6} xs={12}>
             <LeadButtons customer={customer} />
           </Grid>
-          <Grid container item justify="flex-end" lg={3} xs={12}>
+          <Grid item container justify="flex-end" xs={3}>
+            <Dialpad agentPhoneNumber={userData.phone} />
+          </Grid>
+          <Grid container item justify="flex-end" lg={3} xs={10}>
             <Button
               variant="contained"
               color="primary"
