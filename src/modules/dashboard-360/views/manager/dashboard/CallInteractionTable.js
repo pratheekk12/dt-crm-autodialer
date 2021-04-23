@@ -17,7 +17,7 @@ const CallInteractionTable = ({ tableParams }) => {
             : defaultDate.toISOString().slice(0, 10)
         }
       })
-      .then(res => setInteractionData(res.date))
+      .then(res => setInteractionData(res.data.cdr))
       .catch(err => console.log(err));
   };
 
@@ -29,7 +29,13 @@ const CallInteractionTable = ({ tableParams }) => {
       field: 'calldate',
       headerName: 'Call Date',
       flex: 1,
-      renderCell: rowData => rowData.row.calldate
+      renderCell: rowData => rowData.row.calldate.slice(0, 10)
+    },
+    {
+      field: 'calltime',
+      headerName: 'Call Time',
+      flex: 1,
+      renderCell: rowData => rowData.row.calldate.slice(11, 19)
     },
     {
       field: 'duration',
