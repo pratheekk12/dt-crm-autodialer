@@ -10,11 +10,11 @@ const CallInteractionTable = ({ tableParams }) => {
   defaultDate.setHours(0, 0, 0);
   const getInteractionData = async () => {
     await axios
-      .get('/ami/cdr', {
+      .get('http://192.168.4.44:42002/ami/cdr', {
         params: {
           date: tableParams.selectDate
-            ? tableParams.selectDate.toISOString()
-            : defaultDate.toISOString()
+            ? tableParams.selectDate.toISOString().slice(0, 10)
+            : defaultDate.toISOString().slice(0, 10)
         }
       })
       .then(res => setInteractionData(res.date))
