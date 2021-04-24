@@ -4,7 +4,7 @@ import { Card, CardHeader, Grid } from '@material-ui/core';
 import axios from 'axios';
 import ExcelReport from 'src/components/ExcelReport';
 
-const FileHistoryTable = () => {
+const FileHistoryTable = ({ status }) => {
   const [fileHistoryList, setFileHistoryList] = useState(null);
 
   const getDispositionData = async () => {
@@ -12,6 +12,7 @@ const FileHistoryTable = () => {
       .get('/channel/excel-uploads')
       .then(res => {
         setFileHistoryList(res.data);
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -20,39 +21,39 @@ const FileHistoryTable = () => {
 
   useEffect(() => {
     getDispositionData();
-  }, []);
+  }, [status]);
 
   const columns = [
     {
-      field: 'agentName',
+      field: 'uploadedBy',
+      headerName: 'Uploaded By',
+      flex: 1,
+      renderCell: rowData => rowData.row.uploadedBy
+    },
+    {
+      field: 'fileName',
+      headerName: 'File Name',
+      flex: 1,
+      renderCell: rowData => rowData.row.fileName
+    },
+    {
+      field: 'createdAt',
       headerName: 'Date',
       flex: 1,
-      renderCell: rowData => rowData.row.agentName
+      renderCell: rowData => rowData.row.createdAt.slice(0, 10)
     },
     {
-      field: 'guestName',
-      headerName: 'Number of Records',
+      field: 'timeAt',
+      headerName: 'Time',
       flex: 1,
-      renderCell: rowData => rowData.row.guestName
+      renderCell: rowData => rowData.row.createdAt.slice(11, 19)
     },
     {
-      field: 'mainDisposition',
-      headerName: 'Status',
+      field: 'recordCount',
+      headerName: 'Records Count',
       flex: 1,
-      renderCell: rowData => rowData.row.mainDisposition
-    },
-    {
-      field: 'subDisposition',
-      headerName: 'Type',
-      flex: 1,
-      renderCell: rowData => rowData.row.subDisposition
+      renderCell: rowData => rowData.row.recordCount
     }
-    // {
-    //   field: 'overallCustomerRating',
-    //   headerName: 'Rating',
-    //   flex: 1,
-    //   renderCell: rowData => rowData.row.overallCustomerRating
-    // }
   ];
   return (
     <>

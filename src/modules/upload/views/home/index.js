@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -55,6 +55,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Home() {
   const classes = useStyles();
+  const [uploadFileStatus, setUploadFileStatus] = useState(null);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -92,8 +93,8 @@ export default function Home() {
         // style={{ display: 'flex', justifyContent: 'center' }}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <FileUpload />
-          <FileHistoryTable />
+          <FileUpload status={setUploadFileStatus} />
+          <FileHistoryTable status={uploadFileStatus} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <OneDirectApi />
