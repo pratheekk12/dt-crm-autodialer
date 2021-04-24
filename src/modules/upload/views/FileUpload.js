@@ -8,7 +8,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const FileUpload = () => {
+const FileUpload = ({ status }) => {
   const [open, setOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState({
@@ -25,6 +25,7 @@ const FileUpload = () => {
           severity: 'success',
           message: `${res.data.recordsAdded} records submitted successfully !`
         });
+        status(res);
       })
       .catch(err => {
         console.log(err);
