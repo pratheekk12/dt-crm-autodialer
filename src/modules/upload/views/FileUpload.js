@@ -47,8 +47,8 @@ const FileUpload = () => {
     <>
       <div
         style={{
-          minHeight: '300px',
-          minWidth: '300px',
+          height: 50,
+          width: '100%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'

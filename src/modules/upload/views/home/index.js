@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import FileUpload from '../FileUpload';
 import OneDirectApi from '../OneDirectApi';
+import FileHistoryTable from '../FileHistoryTable';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -72,6 +73,7 @@ export default function Home() {
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
+          style={{ backgroundColor: 'white' }}
           textColor="primary"
           variant="fullWidth"
           aria-label="full width tabs example"
@@ -83,6 +85,7 @@ export default function Home() {
         </Tabs>
       </AppBar>
       <SwipeableViews
+        style={{ backgroundColor: '#f4f6f8' }}
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
@@ -90,6 +93,7 @@ export default function Home() {
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <FileUpload />
+          <FileHistoryTable />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <OneDirectApi />

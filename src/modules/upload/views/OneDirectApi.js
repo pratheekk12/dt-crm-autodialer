@@ -92,7 +92,7 @@ const OneDirectApi = () => {
   return (
     <div
       className={classes.root}
-      style={{ marginTop: '1rem', height: 380, width: '100%' }}
+      style={{ marginTop: '1rem', height: 350, width: '100%' }}
     >
       {/* <DataGrid
         rows={userData.map(user => ({
