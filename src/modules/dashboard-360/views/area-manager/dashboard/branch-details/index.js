@@ -3,13 +3,14 @@ import React from 'react';
 import FeedbackList from './FeedbackList';
 import MostQuerryQuestion from './MostQuerryQuestion';
 import OverallRating from './OverallRating';
+import BranchDashboard from './dashboard';
 
 const BranchDetail = ({ branch }) => {
   return (
     <>
       <div id="chart" style={{ marginTop: '1.5rem' }}>
         <Card style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
-          <CardHeader title={branch.name} />
+          <CardHeader title={branch.restaurantName} />
         </Card>
         <Grid
           container
@@ -18,7 +19,10 @@ const BranchDetail = ({ branch }) => {
           alignItems="center"
           spacing={3}
         >
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12}>
+            <BranchDashboard />
+          </Grid>
+          {/* <Grid item xs={12} lg={6}>
             <OverallRating />
           </Grid>
           <Grid item xs={12} lg={6}>
@@ -26,7 +30,7 @@ const BranchDetail = ({ branch }) => {
           </Grid>
           <Grid item xs={12}>
             <FeedbackList />
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     </>

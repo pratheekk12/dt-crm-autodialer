@@ -8,17 +8,8 @@ const DispositionTable = () => {
   const [reportsData, setReportsData] = useState(null);
 
   const getDispositionData = async () => {
-    const tableStartDate = new Date();
-    tableStartDate.setHours(0, 0, 0);
-    const tableEndDate = new Date();
-    tableEndDate.setHours(11, 59, 59);
     await axios
-      .get('/crm-route/dispositionreports', {
-        params: {
-          startDate: tableStartDate.toISOString(),
-          endDate: tableEndDate.toISOString()
-        }
-      })
+      .get('/crm-route/dispositions')
       .then(res => {
         setReportsData(res.data);
       })
@@ -81,7 +72,7 @@ const DispositionTable = () => {
             {reportsData && reportsData.length > 0 && (
               <ExcelReport
                 data={reportsData}
-                fileName={'DTL2 Disposition Table'}
+                fileName={'Manager Disposition Table'}
               />
             )}
           </div>

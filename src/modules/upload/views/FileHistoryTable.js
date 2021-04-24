@@ -4,23 +4,14 @@ import { Card, CardHeader, Grid } from '@material-ui/core';
 import axios from 'axios';
 import ExcelReport from 'src/components/ExcelReport';
 
-const DispositionTable = () => {
-  const [reportsData, setReportsData] = useState(null);
+const FileHistoryTable = () => {
+  const [fileHistoryList, setFileHistoryList] = useState(null);
 
   const getDispositionData = async () => {
-    const tableStartDate = new Date();
-    tableStartDate.setHours(0, 0, 0);
-    const tableEndDate = new Date();
-    tableEndDate.setHours(11, 59, 59);
     await axios
-      .get('/crm-route/dispositionreports', {
-        params: {
-          startDate: tableStartDate.toISOString(),
-          endDate: tableEndDate.toISOString()
-        }
-      })
+      .get('/channel/excel-uploads')
       .then(res => {
-        setReportsData(res.data);
+        setFileHistoryList(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -34,41 +25,41 @@ const DispositionTable = () => {
   const columns = [
     {
       field: 'agentName',
-      headerName: 'Agent Name',
+      headerName: 'Date',
       flex: 1,
       renderCell: rowData => rowData.row.agentName
     },
     {
       field: 'guestName',
-      headerName: 'Customer Name',
+      headerName: 'Number of Records',
       flex: 1,
       renderCell: rowData => rowData.row.guestName
     },
     {
       field: 'mainDisposition',
-      headerName: 'Main Disposition',
+      headerName: 'Status',
       flex: 1,
       renderCell: rowData => rowData.row.mainDisposition
     },
     {
       field: 'subDisposition',
-      headerName: 'Sub Disposition',
+      headerName: 'Type',
       flex: 1,
       renderCell: rowData => rowData.row.subDisposition
-    },
-    {
-      field: 'overallCustomerRating',
-      headerName: 'Rating',
-      flex: 1,
-      renderCell: rowData => rowData.row.overallCustomerRating
     }
+    // {
+    //   field: 'overallCustomerRating',
+    //   headerName: 'Rating',
+    //   flex: 1,
+    //   renderCell: rowData => rowData.row.overallCustomerRating
+    // }
   ];
   return (
     <>
-      <Card>
+      <Card style={{ marginTop: '2rem' }}>
         <Grid container direction="row" justify="flex-end">
           <Grid item xs={6}>
-            <CardHeader title={'Disposition Table'} />
+            <CardHeader title={'File History Records'} />
           </Grid>
           <div
             style={{
@@ -78,10 +69,10 @@ const DispositionTable = () => {
               paddingRight: '2rem'
             }}
           >
-            {reportsData && reportsData.length > 0 && (
+            {fileHistoryList && fileHistoryList.length > 0 && (
               <ExcelReport
-                data={reportsData}
-                fileName={'DTL2 Disposition Table'}
+                data={fileHistoryList}
+                fileName={'File History Table'}
               />
             )}
           </div>
@@ -91,8 +82,8 @@ const DispositionTable = () => {
         <DataGrid
           columns={columns}
           rows={
-            reportsData !== null
-              ? reportsData.map(data => ({
+            fileHistoryList !== null && fileHistoryList.length > 0
+              ? fileHistoryList.map(data => ({
                   ...data,
                   id: data._id
                 }))
@@ -108,4 +99,4 @@ const DispositionTable = () => {
   );
 };
 
-export default DispositionTable;
+export default FileHistoryTable;

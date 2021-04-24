@@ -13,17 +13,17 @@ const AdminDashboard = () => {
   return (
     <>
       <CustomBreadcrumbs />
-      <div style={{ padding: '2rem', marginBottom: '1rem' }}>
+      <div style={{ padding: '1rem 1.5rem', marginBottom: '1rem' }}>
         <Grid
           container
           direction="row"
-          justify="center"
-          alignItems="flex-start"
+          justify="flex-start"
+          alignItems="center"
           spacing={3}
         >
-          <Grid item xs={12} lg={6}>
+          {/* <Grid item xs={12} lg={6}>
             <BranchesOverallRating />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} lg={6}>
             <Branches value={setValue} />
           </Grid>

@@ -92,19 +92,9 @@ const OneDirectApi = () => {
   return (
     <div
       className={classes.root}
-      style={{ marginTop: '1rem', height: 650, width: '100%' }}
+      style={{ marginTop: '1rem', height: 350, width: '100%' }}
     >
-      {/* <Box marginBottom={2}>
-        <ButtonGroup color="primary" aria-label="outlined primary button group">
-          <Button>
-            <Link to="/campaign/dashboard">Dashboard</Link>
-          </Button>
-          <Button>
-            <Link to="/campaign/templates">Templates</Link>
-          </Button>
-        </ButtonGroup>
-      </Box> */}
-      <DataGrid
+      {/* <DataGrid
         rows={userData.map(user => ({
           ...user,
           id: user._id
@@ -117,7 +107,7 @@ const OneDirectApi = () => {
         // autoPageSize
         className={classes.dataGrid}
         loading={loading}
-      />
+      /> */}
     </div>
   );
 };
