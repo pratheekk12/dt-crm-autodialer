@@ -662,18 +662,6 @@ export function getDispositionFormQuestions2() {
 export function getDispositionFormQuestions3() {
   const questionArr = [
     {
-      questionCode: 'escalated',
-      question: 'Escalated to L2',
-      questionType: 'checkbox',
-      questionName: 'QA_34',
-      option: [
-        {
-          label: 'Yes',
-          name: 'escalated'
-        }
-      ]
-    },
-    {
       questionCode: 'mainDisposition',
       question: 'Main Disposition',
       questionName: 'QA_1',
@@ -935,6 +923,18 @@ export function getDispositionFormQuestions3() {
                                 rows: 4
                               },
                               option: [{}]
+                            },
+                            {
+                              questionCode: 'escalated',
+                              question: 'Escalated to L2',
+                              questionType: 'checkbox',
+                              questionName: 'QA_38',
+                              option: [
+                                {
+                                  label: 'Yes',
+                                  name: 'escalated'
+                                }
+                              ]
                             }
                           ]
                         },
@@ -1019,6 +1019,18 @@ export function getDispositionFormQuestions3() {
                                 rows: 4
                               },
                               option: [{}]
+                            },
+                            {
+                              questionCode: 'escalated',
+                              question: 'Escalated to L2',
+                              questionType: 'checkbox',
+                              questionName: 'QA_37',
+                              option: [
+                                {
+                                  label: 'Yes',
+                                  name: 'escalated'
+                                }
+                              ]
                             }
                           ]
                         },
@@ -1238,6 +1250,18 @@ export function getDispositionFormQuestions3() {
                                 rows: 4
                               },
                               option: [{}]
+                            },
+                            {
+                              questionCode: 'escalated',
+                              question: 'Escalated to L2',
+                              questionType: 'checkbox',
+                              questionName: 'QA_36',
+                              option: [
+                                {
+                                  label: 'Yes',
+                                  name: 'escalated'
+                                }
+                              ]
                             }
                           ]
                         }
@@ -1257,6 +1281,18 @@ export function getDispositionFormQuestions3() {
                         rows: 4
                       },
                       option: [{}]
+                    },
+                    {
+                      questionCode: 'escalated',
+                      question: 'Escalated to L2',
+                      questionType: 'checkbox',
+                      questionName: 'QA_34',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'escalated'
+                        }
+                      ]
                     }
                   ]
                 }
@@ -1301,6 +1337,18 @@ export function getDispositionFormQuestions3() {
                 },
                 {
                   label: 'Feedback taken'
+                }
+              ]
+            },
+            {
+              questionCode: 'escalated',
+              question: 'Escalated to L2',
+              questionType: 'checkbox',
+              questionName: 'QA_35',
+              option: [
+                {
+                  label: 'Yes',
+                  name: 'escalated'
                 }
               ]
             }
