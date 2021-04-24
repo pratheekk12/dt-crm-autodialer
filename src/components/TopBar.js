@@ -199,7 +199,7 @@ const TopBar = ({
         <RouterLink to="/">
           <Logo />
         </RouterLink>
-        <div className={classes.search}>
+        {/* <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
@@ -214,7 +214,7 @@ const TopBar = ({
             value={searchText}
             onBlur={distributorID}
           />
-        </div>
+        </div> */}
         <Box flexGrow={1} />
         <Hidden mdDown>
           {navBarRoutes(permissions, userRole)
