@@ -49,17 +49,17 @@ const CallInteractionTable = ({ tableParams }) => {
       headerName: 'Disposition Status',
       flex: 1,
       renderCell: rowData => rowData.row.disposition
-    },
-    {
-      field: 'recordingfile',
-      headerName: 'Call Recording',
-      flex: 1,
-      renderCell: rowData => (
-        <a target="_blank" href={rowData.row.recordingfile}>
-          <Chip label="Download" clickable color="primary" />
-        </a>
-      )
     }
+    // {
+    //   field: 'recordingfile',
+    //   headerName: 'Call Recording',
+    //   flex: 1,
+    //   renderCell: rowData => (
+    //     <a target="_blank" href={rowData.row.recordingfile}>
+    //       <Chip label="Download" clickable color="primary" />
+    //     </a>
+    //   )
+    // }
   ];
   return (
     <>
