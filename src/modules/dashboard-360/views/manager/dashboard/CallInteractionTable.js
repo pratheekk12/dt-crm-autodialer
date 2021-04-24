@@ -92,7 +92,7 @@ const CallInteractionTable = ({ tableParams }) => {
             interactionData && interactionData.length
               ? interactionData.map(data => ({
                   ...data,
-                  id: interactionData.uniqueid
+                  id: data.uniqueid
                 }))
               : []
           }
