@@ -1,36 +1,48 @@
 import { TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const Branches = ({ value }) => {
-  const branches = [
-    {
-      name: 'Branch 1'
-    },
-    {
-      name: 'Branch 2'
-    },
-    {
-      name: 'Branch 3'
-    },
-    {
-      name: 'Branch 4'
-    }
-  ];
+  const [restaurantsList, setRestaurantsList] = useState([]);
+  const userData = useSelector(state => state.userData);
+  const getRestaurants = () => {
+    axios
+      .get('/crm-route/restaurants')
+      .then(res => {
+        res.data.map(data => {
+          userData.restaurants.map(restaurant => {
+            if (restaurant === data._id) {
+              setRestaurantsList(prev => [...prev, data]);
+            }
+          });
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getRestaurants();
+  }, []);
   return (
     <>
-      <Autocomplete
-        id="branches"
-        options={branches}
-        onChange={(event, newValue) => {
-          value(newValue);
-        }}
-        style={{ width: '100%', backgroundColor: 'white' }}
-        getOptionLabel={option => option.name}
-        renderInput={params => (
-          <TextField {...params} label="Branch Name" variant="outlined" />
-        )}
-      />
+      {restaurantsList.length > 0 && (
+        <Autocomplete
+          id="branches"
+          options={restaurantsList}
+          onChange={(event, newValue) => {
+            console.log(newValue);
+            value(newValue);
+          }}
+          style={{ width: '100%', backgroundColor: 'white' }}
+          getOptionLabel={option => option.restaurantName}
+          renderInput={params => (
+            <TextField {...params} label="Branch Name" variant="outlined" />
+          )}
+        />
+      )}
     </>
   );
 };

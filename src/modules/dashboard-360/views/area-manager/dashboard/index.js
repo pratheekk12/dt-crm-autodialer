@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import { Grid } from '@material-ui/core';
 import BranchesOverallRating from './BranchesOverallRating';
-import Branches from '../../../../../../Branches';
+import Branches from './Branches';
 import BranchDetail from './branch-details';
 
 const AdminDashboard = () => {
