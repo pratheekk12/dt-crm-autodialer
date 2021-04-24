@@ -12,7 +12,6 @@ const FileHistoryTable = ({ status }) => {
       .get('/channel/excel-uploads')
       .then(res => {
         setFileHistoryList(res.data);
-        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -91,7 +90,7 @@ const FileHistoryTable = ({ status }) => {
               : []
           }
           pageSize={5}
-          rowsPerPageOptions={[5, 10, 20]}
+          // rowsPerPageOptions={[5, 10, 20]}
           pagination
           autoHeight
         />

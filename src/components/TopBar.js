@@ -243,11 +243,14 @@ const TopBar = ({
           <IconButton color="inherit" onClick={() => history.push('/user')}>
             <AccountBoxRoundedIcon />
           </IconButton> */}
-          {userData.role === 'user' && (
+          {userData.role === 'DTL1' && (
             <Typography variant="h5">{`User-L1`}</Typography>
           )}
           {restaurantName !== null && (
             <Typography variant="h5">{restaurantName}</Typography>
+          )}
+          {userData.role === 'DTAreaManager' && (
+            <Typography variant="h5">{userData.username}</Typography>
           )}
           <Tooltip title="Logout">
             <IconButton color="inherit" onClick={() => logoutUser()}>

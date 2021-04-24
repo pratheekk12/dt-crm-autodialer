@@ -175,7 +175,7 @@ const ManageUsers = ({ roles, setRoles, history }) => {
                         ...user
                       }))}
                       pageSize={10}
-                      rowsPerPageOptions={[10, 20, 50]}
+                      // rowsPerPageOptions={[10, 20, 50]}
                       pagination
                     />
                     <Dialog

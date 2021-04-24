@@ -14,8 +14,8 @@ const CallInteractionTable = ({ tableParams }) => {
       .get('https://dt.granalytics.in/ami/cdr', {
         params: {
           date: tableParams.selectDate
-            ? tableParams.selectDate.toISOString()
-            : defaultDate.toISOString()
+            ? tableParams.selectDate.toISOString().slice(0, 10)
+            : defaultDate.toISOString().slice(0, 10)
         }
       })
       .then(res => setInteractionData(res.data.cdr))
@@ -49,17 +49,17 @@ const CallInteractionTable = ({ tableParams }) => {
       headerName: 'Disposition Status',
       flex: 1,
       renderCell: rowData => rowData.row.disposition
-    },
-    {
-      field: 'recordingfile',
-      headerName: 'Call Recording',
-      flex: 1,
-      renderCell: rowData => (
-        <a target="_blank" href={rowData.row.recordingfile}>
-          <Chip label="Download" clickable color="primary" />
-        </a>
-      )
     }
+    // {
+    //   field: 'recordingfile',
+    //   headerName: 'Call Recording',
+    //   flex: 1,
+    //   renderCell: rowData => (
+    //     <a target="_blank" href={rowData.row.recordingfile}>
+    //       <Chip label="Download" clickable color="primary" />
+    //     </a>
+    //   )
+    // }
   ];
   return (
     <>
@@ -92,14 +92,14 @@ const CallInteractionTable = ({ tableParams }) => {
             interactionData !== null
               ? interactionData.map(data => ({
                   ...data,
-                  id: interactionData.uniqueid
+                  id: data.uniqueid
                 }))
               : []
           }
           pageSize={5}
           pagination
           autoHeight
-          rowsPerPageOptions={[5, 10, 20]}
+          // rowsPerPageOptions={[5, 10, 20]}
         />
       </Card>
     </>

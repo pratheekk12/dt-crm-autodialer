@@ -15,7 +15,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import RenderQuestionByInputTypes from 'src/components/RenderQuestionByInputTypes';
 import {
   getDependentQuestionsCodes,
-  getDispositionFormQuestions2
+  getDispositionFormQuestions3
 } from 'src/modules/dashboard-360/utils/util-functions';
 import { SAVE_DISPOSITION } from 'src/modules/dashboard-360/utils/endpoints';
 import { useSelector } from 'react-redux';
@@ -32,7 +32,6 @@ function Alert(props) {
 
 const DispositionForm = ({ visibility, customer }) => {
   const userData = useSelector(state => state.userData);
-  console.log('user data', userData);
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const handleClose = (event, reason) => {
@@ -48,7 +47,7 @@ const DispositionForm = ({ visibility, customer }) => {
 
   const classes = useStyle();
   const formRef = useRef({});
-  const defaultQuestions = getDispositionFormQuestions2();
+  const defaultQuestions = getDispositionFormQuestions3();
   const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
 
@@ -87,7 +86,7 @@ const DispositionForm = ({ visibility, customer }) => {
   };
 
   const resetQuestions = () => {
-    const defaultState = getDispositionFormQuestions2();
+    const defaultState = getDispositionFormQuestions3();
     setQuestions(defaultState);
   };
 
@@ -98,8 +97,9 @@ const DispositionForm = ({ visibility, customer }) => {
     formValue.customerPhoneNumber = customer.phoneNumber;
     formValue.agentName = userData.username;
     formValue.guestName = customer.guestName;
+    formValue.restaurantId = customer.restaurantId;
+    formValue.customerId = customer.customerId;
     formValue.feedbackId = customer._id;
-    console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
       setSnackbarMessage({

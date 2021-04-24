@@ -7,9 +7,6 @@ import BranchDetail from './branch-details';
 
 const AdminDashboard = () => {
   const [value, setValue] = useState('');
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
   return (
     <>
       <CustomBreadcrumbs />

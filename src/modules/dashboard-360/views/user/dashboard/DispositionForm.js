@@ -100,7 +100,6 @@ const DispositionForm = ({ visibility, customer }) => {
     formValue.restaurantId = customer.restaurantId;
     formValue.customerId = customer.customerId;
     formValue.feedbackId = customer._id;
-    console.log({ formValue });
     try {
       await Axios.post(SAVE_DISPOSITION, formValue);
       setSnackbarMessage({
@@ -213,7 +212,6 @@ const DispositionForm = ({ visibility, customer }) => {
           validateOnBlur={false}
           initialValues={initialValuesObj}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            console.log(values);
             await saveDispositionForm(values);
             setSubmitting(false);
             resetQuestions();
