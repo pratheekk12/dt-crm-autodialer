@@ -249,6 +249,9 @@ const TopBar = ({
           {restaurantName !== null && (
             <Typography variant="h5">{restaurantName}</Typography>
           )}
+          {userData.role === 'DTAreaManager' && (
+            <Typography variant="h5">{userData.username}</Typography>
+          )}
           <Tooltip title="Logout">
             <IconButton color="inherit" onClick={() => logoutUser()}>
               <ExitToAppIcon />
