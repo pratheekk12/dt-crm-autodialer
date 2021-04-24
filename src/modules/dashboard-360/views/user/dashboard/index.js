@@ -52,7 +52,6 @@ const Dashboard = () => {
     if (customer) {
       setTimer(
         setInterval(() => {
-          // console.log('Interval');
           let remSecond;
           setSecondsLeft(prev => {
             remSecond = prev;
@@ -60,7 +59,6 @@ const Dashboard = () => {
           });
           if (remSecond !== 0) {
             setSecondsLeft(remSecond - 1);
-            // console.log(remSecond);
           } else {
             dail();
             setSecondsLeft(0);
@@ -70,8 +68,6 @@ const Dashboard = () => {
       );
     }
   };
-
-  console.log('custojmerew', customer);
 
   useEffect(() => {
     if (customer !== null) {
