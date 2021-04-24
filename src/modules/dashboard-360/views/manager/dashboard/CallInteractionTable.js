@@ -99,7 +99,7 @@ const CallInteractionTable = ({ tableParams }) => {
           pageSize={5}
           pagination
           autoHeight
-          rowsPerPageOptions={[5, 10, 20]}
+          // rowsPerPageOptions={[5, 10, 20]}
         />
       </Card>
     </>

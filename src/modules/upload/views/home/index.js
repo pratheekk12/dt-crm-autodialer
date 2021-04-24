@@ -96,9 +96,9 @@ export default function Home() {
           <FileUpload status={setUploadFileStatus} />
           <FileHistoryTable status={uploadFileStatus} />
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        {/* <TabPanel value={value} index={1} dir={theme.direction}>
           <OneDirectApi />
-        </TabPanel>
+        </TabPanel> */}
         {/* <TabPanel value={value} index={2} dir={theme.direction}>
           API Call
         </TabPanel> */}

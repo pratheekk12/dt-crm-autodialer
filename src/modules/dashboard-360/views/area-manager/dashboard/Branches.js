@@ -33,7 +33,6 @@ const Branches = ({ value }) => {
           id="branches"
           options={restaurantsList}
           onChange={(event, newValue) => {
-            console.log(newValue);
             value(newValue);
           }}
           style={{ width: '100%', backgroundColor: 'white' }}

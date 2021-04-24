@@ -8,17 +8,8 @@ const DispositionTable = () => {
   const [reportsData, setReportsData] = useState(null);
 
   const getDispositionData = async () => {
-    const tableStartDate = new Date();
-    tableStartDate.setHours(0, 0, 0);
-    const tableEndDate = new Date();
-    tableEndDate.setHours(11, 59, 59);
     await axios
-      .get('/crm-route/dispositionreports', {
-        params: {
-          startDate: tableStartDate.toISOString(),
-          endDate: tableEndDate.toISOString()
-        }
-      })
+      .get('/crm-route/dispositions')
       .then(res => {
         setReportsData(res.data);
       })
@@ -87,7 +78,14 @@ const DispositionTable = () => {
           </div>
         </Grid>
       </Card>
-      <Card style={{ height: 420, width: '100%', padding: '1rem' }}>
+      <Card
+        style={{
+          height: 420,
+          width: '100%',
+          padding: '1rem',
+          overflowY: 'auto'
+        }}
+      >
         <DataGrid
           columns={columns}
           rows={
@@ -99,7 +97,7 @@ const DispositionTable = () => {
               : []
           }
           pageSize={5}
-          rowsPerPageOptions={[5, 10, 20]}
+          // rowsPerPageOptions={[5, 10, 20]}
           pagination
           autoHeight
         />

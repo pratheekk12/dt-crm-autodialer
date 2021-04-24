@@ -243,7 +243,7 @@ const TopBar = ({
           <IconButton color="inherit" onClick={() => history.push('/user')}>
             <AccountBoxRoundedIcon />
           </IconButton> */}
-          {userData.role === 'user' && (
+          {userData.role === 'DTL1' && (
             <Typography variant="h5">{`User-L1`}</Typography>
           )}
           {restaurantName !== null && (
