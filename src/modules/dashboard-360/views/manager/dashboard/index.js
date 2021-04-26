@@ -1,8 +1,8 @@
 import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
-import CallInteractionTable from './CallInteractionTable';
-import DispositionTable from './DispositionTable';
-import SelectDates from './SelectDates';
+import CallInteractionTable from '../../../components/CallInteractionTable';
+import DispositionTable from '../../../components/DispositionTable';
+import SelectDates from '../../../components/SelectDates';
 
 const Dashbaord = () => {
   const [interactionTableParams, setInteractionTableParams] = useState({

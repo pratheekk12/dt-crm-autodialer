@@ -7,10 +7,8 @@ import {
   AccordionDetails
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useSelector } from 'react-redux';
 
 const RecentFiveRecords = ({ records }) => {
-  const userData = useSelector(state => state.userData);
   const columns = [
     {
       field: 'languageChoosed',

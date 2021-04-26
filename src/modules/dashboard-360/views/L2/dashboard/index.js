@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import DispositionForm from './DispositionForm';
+import DispositionForm from '../../../components/DispositionForm';
 import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 // import PendingCallList from './PendingCallList';
-import RecentFiveRecords from './RecentFiveRecords';
-import LeadButtons from './LeadButtons';
+import RecentFiveRecords from '../../../components/RecentFiveRecords';
+import LeadButtons from '../../../components/LeadButtons';
 import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
-import CustomerDetails from './CustomerDetails';
+import CustomerDetails from '../../../components/CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import DispositionTable from './DispositionTable';
+import DispositionTable from '../../../components/DispositionTable';
 import Dialpad from './Dialpad';
 // import SelectDates from './SelectDates';
 // import CallInteractionTable from './CallInteractionTable';
@@ -47,7 +47,7 @@ const Dashboard = () => {
       .get('/crm-route/tlleads')
       .then(res => {
         setCustomer(res.data);
-        setFormDisabled(false);
+        res.data && setFormDisabled(false);
         setOpen(true);
       })
       .catch(err => {
@@ -102,6 +102,7 @@ const Dashboard = () => {
   }, [customer]);
 
   const handleClick = () => {
+    setFormDisabled(true);
     getData();
   };
 
@@ -129,10 +130,10 @@ const Dashboard = () => {
           <Grid item lg={6} xs={12}>
             <LeadButtons customer={customer} />
           </Grid>
-          <Grid item container justify="flex-end" xs={3}>
+          <Grid item container justify="flex-end" lg={3} xs={6}>
             <Dialpad agentPhoneNumber={userData.phone} />
           </Grid>
-          <Grid container item justify="flex-end" lg={3} xs={10}>
+          <Grid container item justify="flex-end" lg={3} xs={6}>
             <Button
               variant="contained"
               color="primary"

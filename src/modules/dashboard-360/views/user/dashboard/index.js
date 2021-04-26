@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import DispositionForm from './DispositionForm';
+import DispositionForm from '../../../components/DispositionForm';
 import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 // import PendingCallList from './PendingCallList';
-import RecentFiveRecords from './RecentFiveRecords';
-import LeadButtons from './LeadButtons';
+import RecentFiveRecords from '../../../components/RecentFiveRecords';
+import LeadButtons from '../../../components/LeadButtons';
 import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
-import CustomerDetails from './CustomerDetails';
+import CustomerDetails from '../../../components/CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
@@ -38,7 +38,7 @@ const Dashboard = () => {
       .get('/channel/getdata')
       .then(res => {
         setCustomer(res.data);
-        setFormDisabled(false);
+        res.data && setFormDisabled(false);
         setOpen(true);
       })
       .catch(err => {
@@ -95,6 +95,7 @@ const Dashboard = () => {
   }, [customer]);
 
   const handleClick = () => {
+    setFormDisabled(true);
     getData();
   };
 

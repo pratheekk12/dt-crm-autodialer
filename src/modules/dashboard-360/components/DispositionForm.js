@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
