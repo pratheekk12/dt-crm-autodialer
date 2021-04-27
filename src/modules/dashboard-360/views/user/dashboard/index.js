@@ -10,6 +10,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useStopwatch } from 'react-timer-hook';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -20,9 +21,45 @@ const Dashboard = () => {
   const [formDisabled, setFormDisabled] = useState(true);
   const [customer, setCustomer] = useState(null);
   const [open, setOpen] = React.useState(false);
-  const [timer, setTimer] = useState(0);
+  const [, setTimer] = useState(0);
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
   const [secondsLeft, setSecondsLeft] = useState(0);
+  const [timeEnabled, setTimeEnabled] = useState(false);
+  const handleBreakTimeOut = () => {
+    setTimeEnabled(!timeEnabled);
+  };
+
+  const { seconds, minutes, hours, start, reset } = useStopwatch({
+    autoStart: false
+  });
+
+  const setBreakDuration = async () => {
+    console.log(userData);
+    axios
+      .post('/crm-route/breaks', {
+        agent_Name: userData.username,
+        agent_Id: userData.userId,
+        Agentsip_id: userData.sip_id,
+        break_duration: `Hr : ${hours} Min : ${minutes} Sec : ${seconds}`
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    if (timeEnabled) {
+      start();
+    } else {
+      if (seconds || minutes) {
+        setBreakDuration();
+      }
+      reset(0, false);
+    }
+  }, [timeEnabled]);
 
   const dail = async () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
@@ -110,20 +147,49 @@ const Dashboard = () => {
     <>
       {!!secondsLeft && (
         <Button
-          style={{ float: 'right', marginRight: '4rem', color: 'white' }}
+          style={{
+            float: 'right',
+            marginRight: '4rem',
+            color: 'white',
+            marginBottom: '-2rem'
+          }}
           variant="contained"
           color="secondary"
         >
           Call Connecting in {secondsLeft}s
         </Button>
       )}
+      {timeEnabled && (
+        <Button
+          style={{
+            float: 'right',
+            marginRight: '4rem',
+            color: 'white',
+            marginBottom: '-2rem'
+          }}
+          variant="contained"
+          color="secondary"
+        >
+          {`Hr : ${hours}  Min : ${minutes} Sec : ${seconds}`}
+        </Button>
+      )}
       <CustomBreadcrumbs />
       <div style={{ padding: '1rem 2rem 2rem' }}>
         <Grid container spacing={5}>
-          <Grid item lg={9} xs={12}>
+          <Grid item lg={6} xs={12}>
             <LeadButtons customer={customer} />
           </Grid>
-          <Grid container item justify="flex-end" lg={3} xs={12}>
+          <Grid container item justify="flex-end" lg={3} xs={6}>
+            <Button
+              variant="contained"
+              color={timeEnabled ? 'secondary' : 'primary'}
+              style={{ color: 'white' }}
+              onClick={handleBreakTimeOut}
+            >
+              {timeEnabled ? 'Stop' : 'Take Break'}
+            </Button>
+          </Grid>
+          <Grid container item justify="flex-end" lg={3} xs={6}>
             <Button
               variant="contained"
               color="primary"
