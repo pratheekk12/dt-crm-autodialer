@@ -40,8 +40,6 @@ const Dashboard = () => {
     });
   };
 
-  useEffect(() => {});
-
   const getData = async () => {
     await axios
       .get('/crm-route/tlleads')
