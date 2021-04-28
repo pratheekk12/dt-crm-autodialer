@@ -186,7 +186,7 @@ const Dashboard = () => {
               style={{ color: 'white' }}
               onClick={handleBreakTimeOut}
             >
-              {timeEnabled ? 'Stop' : 'Take Break'}
+              {timeEnabled ? 'Resume Work' : 'Take Break'}
             </Button>
           </Grid>
           <Grid container item justify="flex-end" lg={3} xs={6}>
