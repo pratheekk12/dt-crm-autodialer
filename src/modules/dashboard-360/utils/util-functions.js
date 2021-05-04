@@ -1360,3 +1360,310 @@ export function getDispositionFormQuestions3() {
 
   return questionArr;
 }
+
+export function getDispositionFormQuestions4() {
+  const questionArr = [
+    {
+      questionCode: 'mainDisposition',
+      question: 'Main Disposition',
+      questionName: 'QA_101',
+      option: [
+        {
+          label: 'Connected',
+          dependentQuestion: [
+            {
+              questionCode: 'response',
+              question: 'Response',
+              questionName: 'QA_103',
+              option: [
+                {
+                  label: 'Interested',
+                  dependentQuestion: [
+                    {
+                      questionCode: 'languageChoosed',
+                      question: 'Language',
+                      questionName: 'QA_105',
+                      option: [
+                        {
+                          label: 'English'
+                        },
+                        {
+                          label: 'Tamil'
+                        },
+                        {
+                          label: 'Kannada'
+                        },
+                        {
+                          label: 'Hindi'
+                        },
+                        {
+                          label: 'Malayalam'
+                        },
+                        {
+                          label: 'Telugu'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'foodQuality',
+                      question: 'Food Quality',
+                      questionName: 'QA_106',
+                      questionType: 'radio',
+                      option: [
+                        {
+                          label: 'Highly Satisfied'
+                        },
+                        {
+                          label: 'Satisfied'
+                        },
+                        {
+                          label: 'Neutral'
+                        },
+                        {
+                          label: 'Dissatisfied'
+                        },
+                        {
+                          label: 'Highly Dissatisfied'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'foodQuantity',
+                      question: 'Food Quantity',
+                      questionType: 'radio',
+                      questionName: 'QA_107',
+                      option: [
+                        {
+                          label: 'Highly Satisfied'
+                        },
+                        {
+                          label: 'Satisfied'
+                        },
+                        {
+                          label: 'Neutral'
+                        },
+                        {
+                          label: 'Dissatisfied'
+                        },
+                        {
+                          label: 'Highly Dissatisfied'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'foodPackaging',
+                      question: 'Food Packaging',
+                      questionName: 'QA_108',
+                      questionType: 'radio',
+                      option: [
+                        {
+                          label: 'Highly Satisfied'
+                        },
+                        {
+                          label: 'Satisfied'
+                        },
+                        {
+                          label: 'Neutral'
+                        },
+                        {
+                          label: 'Dissatisfied'
+                        },
+                        {
+                          label: 'Highly Dissatisfied'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'wrongItem',
+                      question: 'Wrong Item',
+                      questionType: 'radio',
+                      questionName: 'QA_109',
+                      option: [
+                        {
+                          label: 'Highly Satisfied'
+                        },
+                        {
+                          label: 'Satisfied'
+                        },
+                        {
+                          label: 'Neutral'
+                        },
+                        {
+                          label: 'Dissatisfied'
+                        },
+                        {
+                          label: 'Highly Dissatisfied'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'missingItem',
+                      question: 'Missing Item',
+                      questionType: 'radio',
+                      questionName: 'QA_110',
+                      option: [
+                        {
+                          label: 'Highly Satisfied'
+                        },
+                        {
+                          label: 'Satisfied'
+                        },
+                        {
+                          label: 'Neutral'
+                        },
+                        {
+                          label: 'Dissatisfied'
+                        },
+                        {
+                          label: 'Highly Dissatisfied'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'overallCustomerRating',
+                      question: 'Overall customer rating given in call',
+                      questionName: 'QA_111',
+                      questionType: 'radio',
+                      option: [
+                        {
+                          label: '1'
+                        },
+                        {
+                          label: '2'
+                        },
+                        {
+                          label: '3'
+                        },
+                        {
+                          label: '4'
+                        },
+                        {
+                          label: '5'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'customerExperiences',
+                      question: "Customer Experience's",
+                      questionName: 'QA_112',
+                      option: [
+                        {
+                          label: 'Happy',
+                          dependentQuestion: [
+                            {
+                              questionCode: 'recommendUs',
+                              question:
+                                'How would you recommend us to your friends and family',
+                              questionName: 'QA_113',
+                              questionType: 'radio',
+                              option: [
+                                {
+                                  label: '1'
+                                },
+                                {
+                                  label: '2'
+                                },
+                                {
+                                  label: '3'
+                                },
+                                {
+                                  label: '4'
+                                },
+                                {
+                                  label: '5'
+                                },
+                                {
+                                  label: '6'
+                                },
+                                {
+                                  label: '7'
+                                },
+                                {
+                                  label: '8'
+                                },
+                                {
+                                  label: '9'
+                                },
+                                {
+                                  label: '10'
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          label: 'Average'
+                        },
+                        {
+                          label: 'Not Happy'
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  label: 'Not interested',
+                  dependentQuestion: [
+                    {
+                      questionCode: 'remarks_feedback5',
+                      question: 'Remarks/feedback',
+                      questionName: 'QA_104',
+                      questionType: 'textarea',
+                      additionalConfig: {
+                        rows: 4
+                      },
+                      option: [{}]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          label: 'Not Connected',
+          dependentQuestion: [
+            {
+              questionCode: 'subDisposition',
+              question: 'Sub disposition',
+              questionName: 'QA_102',
+              option: [
+                {
+                  label: 'RNR'
+                },
+                {
+                  label: 'Not Reachable'
+                },
+                {
+                  label: 'Switch Off'
+                },
+                {
+                  label: 'Wrong Number'
+                },
+                {
+                  label: 'Call Disconnected'
+                },
+                {
+                  label: 'Language Barrier'
+                },
+                {
+                  label: 'Not Interested to share feedback'
+                },
+                {
+                  label: 'Invalid number'
+                },
+                {
+                  label: 'Busy'
+                },
+                {
+                  label: 'Feedback taken'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+  return questionArr;
+}
