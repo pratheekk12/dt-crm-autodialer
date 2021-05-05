@@ -46,7 +46,10 @@ const DispositionForm = ({ visibility, customer }) => {
     message: ''
   });
 
-  const currentQuestion = getDispositionFormQuestions3();
+  let currentQuestion = getDispositionFormQuestions3();
+  if (customer.campaignType && customer.campaignType !== null) {
+    currentQuestion = getDispositionFormQuestions4();
+  }
 
   const classes = useStyle();
   const formRef = useRef({});

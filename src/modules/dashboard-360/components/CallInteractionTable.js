@@ -5,7 +5,8 @@ import Chip from '@material-ui/core/Chip';
 import axios from 'axios';
 import ExcelReport from 'src/components/ExcelReport';
 
-const CallInteractionTable = ({ tableParams }) => {
+const CallInteractionTable = ({ tableParams, restaurantId }) => {
+  console.log(restaurantId);
   const [interactionData, setInteractionData] = useState(null);
   let defaultDate = new Date();
   defaultDate.setHours(0, 0, 0);
@@ -15,7 +16,8 @@ const CallInteractionTable = ({ tableParams }) => {
         params: {
           date: tableParams.selectDate
             ? tableParams.selectDate.toISOString().slice(0, 10)
-            : defaultDate.toISOString().slice(0, 10)
+            : defaultDate.toISOString().slice(0, 10),
+          restaurantId
         }
       })
       .then(res => setInteractionData(res.data.cdr))

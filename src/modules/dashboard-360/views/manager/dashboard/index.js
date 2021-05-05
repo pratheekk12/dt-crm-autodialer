@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import CallInteractionTable from '../../../components/CallInteractionTable';
 import DispositionTable from '../../../components/DispositionTable';
 import SelectDates from '../../../components/SelectDates';
+import { useSelector } from 'react-redux';
 
 const Dashbaord = () => {
   const [interactionTableParams, setInteractionTableParams] = useState({
     selectDate: null
   });
+  const userData = useSelector(state => state.userData);
 
   return (
     <>
@@ -21,7 +23,10 @@ const Dashbaord = () => {
           </Grid>
           <Grid item xs={12}>
             {interactionTableParams.selectDate && (
-              <CallInteractionTable tableParams={interactionTableParams} />
+              <CallInteractionTable
+                tableParams={interactionTableParams}
+                restaurantId={userData.restaurants[0]}
+              />
             )}
           </Grid>
         </Grid>

@@ -20,7 +20,7 @@ const BranchDetail = ({ branch }) => {
           spacing={3}
         >
           <Grid item xs={12}>
-            <BranchDashboard />
+            <BranchDashboard branchDetails={branch} />
           </Grid>
           {/* <Grid item xs={12} lg={6}>
             <OverallRating />

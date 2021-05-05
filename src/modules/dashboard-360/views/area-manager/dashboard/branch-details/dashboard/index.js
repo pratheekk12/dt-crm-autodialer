@@ -4,7 +4,8 @@ import CallInteractionTable from '../../../../../components/CallInteractionTable
 import DispositionTable from '../../../../../components/DispositionTable';
 import SelectDates from '../../../../../components/SelectDates';
 
-const Dashbaord = () => {
+const Dashbaord = ({ branchDetails }) => {
+  console.log(branchDetails);
   const [interactionTableParams, setInteractionTableParams] = useState({
     selectDate: null
   });
@@ -20,7 +21,10 @@ const Dashbaord = () => {
         </Grid>
         <Grid item xs={12}>
           {interactionTableParams.selectDate && (
-            <CallInteractionTable tableParams={interactionTableParams} />
+            <CallInteractionTable
+              tableParams={interactionTableParams}
+              restaurantId={branchDetails._id}
+            />
           )}
         </Grid>
       </Grid>
