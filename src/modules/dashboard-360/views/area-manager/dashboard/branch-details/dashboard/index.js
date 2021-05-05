@@ -5,7 +5,6 @@ import DispositionTable from '../../../../../components/DispositionTable';
 import SelectDates from '../../../../../components/SelectDates';
 
 const Dashbaord = ({ branchDetails }) => {
-  console.log(branchDetails);
   const [interactionTableParams, setInteractionTableParams] = useState({
     selectDate: null
   });
