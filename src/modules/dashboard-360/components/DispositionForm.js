@@ -15,7 +15,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import RenderQuestionByInputTypes from 'src/components/RenderQuestionByInputTypes';
 import {
   getDependentQuestionsCodes,
-  getDispositionFormQuestions3
+  getDispositionFormQuestions3,
+  getDispositionFormQuestions4
 } from 'src/modules/dashboard-360/utils/util-functions';
 import { SAVE_DISPOSITION } from 'src/modules/dashboard-360/utils/endpoints';
 import { useSelector } from 'react-redux';
@@ -45,9 +46,14 @@ const DispositionForm = ({ visibility, customer }) => {
     message: ''
   });
 
+  let currentQuestion = getDispositionFormQuestions3();
+  if (customer.campaignType && customer.campaignType !== null) {
+    currentQuestion = getDispositionFormQuestions4();
+  }
+
   const classes = useStyle();
   const formRef = useRef({});
-  const defaultQuestions = getDispositionFormQuestions3();
+  const defaultQuestions = currentQuestion;
   const allQuestions = [...defaultQuestions];
   const [questions, setQuestions] = useState(allQuestions);
 
@@ -86,7 +92,7 @@ const DispositionForm = ({ visibility, customer }) => {
   };
 
   const resetQuestions = () => {
-    const defaultState = getDispositionFormQuestions3();
+    const defaultState = currentQuestion();
     setQuestions(defaultState);
   };
 
