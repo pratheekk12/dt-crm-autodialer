@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Autocomplete } from '@material-ui/lab';
@@ -35,6 +35,7 @@ const DispositionForm = ({ visibility, customer }) => {
   const userData = useSelector(state => state.userData);
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -46,16 +47,25 @@ const DispositionForm = ({ visibility, customer }) => {
     message: ''
   });
 
-  let currentQuestion = getDispositionFormQuestions3();
-  if (customer.campaignType && customer.campaignType !== null) {
-    currentQuestion = getDispositionFormQuestions4();
-  }
-
   const classes = useStyle();
   const formRef = useRef({});
-  const defaultQuestions = currentQuestion;
-  const allQuestions = [...defaultQuestions];
-  const [questions, setQuestions] = useState(allQuestions);
+  const [questions, setQuestions] = useState(getDispositionFormQuestions3);
+
+  let initialValuesObj = {};
+
+  const renderInputBaseQuestions = () => {
+    if (customer.campaignType && customer.campaignType !== null)
+      return getDispositionFormQuestions4;
+
+    return getDispositionFormQuestions3;
+  };
+
+  useEffect(() => {
+    setQuestions(renderInputBaseQuestions());
+    questions.map(question => {
+      initialValuesObj[question.questionCode] = '';
+    });
+  }, [customer]);
 
   const addAnotherQues = (
     ques,
@@ -92,7 +102,7 @@ const DispositionForm = ({ visibility, customer }) => {
   };
 
   const resetQuestions = () => {
-    const defaultState = currentQuestion();
+    const defaultState = renderInputBaseQuestions();
     setQuestions(defaultState);
   };
 
@@ -198,11 +208,6 @@ const DispositionForm = ({ visibility, customer }) => {
       }
     }
   };
-
-  let initialValuesObj = {};
-  questions.map(question => {
-    initialValuesObj[question.questionCode] = '';
-  });
 
   return (
     <>
