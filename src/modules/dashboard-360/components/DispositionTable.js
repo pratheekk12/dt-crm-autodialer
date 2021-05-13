@@ -11,18 +11,13 @@ const DispositionTable = ({ restaurantId }) => {
     await axios
       .get('/crm-route/dispositions')
       .then(res => {
-        res.data.filter(data => {
-          console.log(data);
-          console.log(restaurantId);
-          return data.restaurantId == restaurantId;
-        });
-        setReportsData(
-          res.data.filter(data => {
-            console.log(data);
-            console.log(restaurantId);
-            return data.restaurantId == restaurantId;
-          })
-        );
+        restaurantId && restaurantId.length > 0
+          ? setReportsData(
+              res.data.filter(data => {
+                return data.restaurantId == restaurantId;
+              })
+            )
+          : setReportsData(res.data);
       })
       .catch(err => {
         console.log(err);
