@@ -13,7 +13,7 @@ const Dashbaord = ({ branchDetails }) => {
     <>
       <Grid container spacing={5}>
         <Grid item xs={12}>
-          <DispositionTable />
+          <DispositionTable restaurantId={branchDetails._id} />
         </Grid>
         <Grid item xs={12}>
           <SelectDates tableParams={setInteractionTableParams} />

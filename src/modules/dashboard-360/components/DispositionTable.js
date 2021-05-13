@@ -4,14 +4,25 @@ import { Card, CardHeader, Grid } from '@material-ui/core';
 import axios from 'axios';
 import ExcelReport from 'src/components/ExcelReport';
 
-const DispositionTable = () => {
+const DispositionTable = ({ restaurantId }) => {
   const [reportsData, setReportsData] = useState(null);
 
   const getDispositionData = async () => {
     await axios
       .get('/crm-route/dispositions')
       .then(res => {
-        setReportsData(res.data);
+        res.data.filter(data => {
+          console.log(data);
+          console.log(restaurantId);
+          return data.restaurantId == restaurantId;
+        });
+        setReportsData(
+          res.data.filter(data => {
+            console.log(data);
+            console.log(restaurantId);
+            return data.restaurantId == restaurantId;
+          })
+        );
       })
       .catch(err => {
         console.log(err);
@@ -20,7 +31,7 @@ const DispositionTable = () => {
 
   useEffect(() => {
     getDispositionData();
-  }, []);
+  }, [restaurantId]);
 
   const columns = [
     {
