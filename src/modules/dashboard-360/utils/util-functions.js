@@ -1598,6 +1598,18 @@ export function getDispositionFormQuestions4() {
                           label: 'Not Happy'
                         }
                       ]
+                    },
+                    {
+                      questionCode: 'escalated',
+                      question: 'Escalated to L2',
+                      questionType: 'checkbox',
+                      questionName: 'QA_140',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'escalated'
+                        }
+                      ]
                     }
                   ]
                 },
@@ -1613,6 +1625,18 @@ export function getDispositionFormQuestions4() {
                         rows: 4
                       },
                       option: [{}]
+                    },
+                    {
+                      questionCode: 'escalated',
+                      question: 'Escalated to L2',
+                      questionType: 'checkbox',
+                      questionName: 'QA_139',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'escalated'
+                        }
+                      ]
                     }
                   ]
                 }
@@ -1657,6 +1681,18 @@ export function getDispositionFormQuestions4() {
                 },
                 {
                   label: 'Feedback taken'
+                }
+              ]
+            },
+            {
+              questionCode: 'escalated',
+              question: 'Escalated to L2',
+              questionType: 'checkbox',
+              questionName: 'QA_137',
+              option: [
+                {
+                  label: 'Yes',
+                  name: 'escalated'
                 }
               ]
             }
