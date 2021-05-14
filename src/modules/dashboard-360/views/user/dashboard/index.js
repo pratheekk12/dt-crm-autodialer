@@ -65,7 +65,7 @@ const Dashboard = () => {
     await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
       params: {
         sipAgentID: userData.sip_id,
-        NumbertobeCalled: '2' + customer.phoneNumber.slice(2),
+        NumbertobeCalled: '1' + customer.phoneNumber.slice(2),
         restaurantId: customer.restaurantId
       }
     });

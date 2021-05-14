@@ -6,6 +6,8 @@ import StartEndDates from './StartEndDates';
 import DispositionTable from './DispositionTable';
 import AgentProgressDetails from './agent-progress-details';
 import DateRangeForDispostion from './DateRangeForDispostion';
+import SelectDates from 'src/modules/dashboard-360/components/SelectDates';
+import CallInteractionTable from 'src/modules/dashboard-360/components/CallInteractionTable';
 
 const Report = () => {
   const [date, setDate] = React.useState({
@@ -26,13 +28,9 @@ const Report = () => {
   });
 
   const [agentName, setAgentName] = useState('');
-  useEffect(() => {
-    console.log(agentName);
-  }, [agentName]);
-
-  useEffect(() => {
-    console.log(date);
-  }, [date]);
+  const [interactionTableParams, setInteractionTableParams] = useState({
+    selectDate: null
+  });
 
   useEffect(() => {
     setReportParams({
@@ -43,9 +41,6 @@ const Report = () => {
     });
   }, [date, agentName]);
 
-  useEffect(() => {
-    console.log('report params', reportParams);
-  }, [reportParams]);
   return (
     <>
       <CustomBreadcrumbs />
@@ -74,6 +69,17 @@ const Report = () => {
           </Grid>
           <Grid item xs={12}>
             <DispositionTable dispositionParams={dispositionDate} />
+          </Grid>
+          <Grid item xs={12}>
+            <SelectDates tableParams={setInteractionTableParams} />
+          </Grid>
+          <Grid item xs={12}>
+            {interactionTableParams.selectDate && (
+              <CallInteractionTable
+                tableParams={interactionTableParams}
+                restaurantId={null}
+              />
+            )}
           </Grid>
         </Grid>
       </div>

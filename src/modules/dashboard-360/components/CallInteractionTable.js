@@ -24,8 +24,25 @@ const CallInteractionTable = ({ tableParams, restaurantId }) => {
       .catch(err => console.log(err));
   };
 
+  const getInteractionAdminData = async () => {
+    await axios
+      .get('https://dt.granalytics.in/ami/universalcdr', {
+        params: {
+          date: tableParams.selectDate
+            ? tableParams.selectDate.toISOString().slice(0, 10)
+            : defaultDate.toISOString().slice(0, 10)
+        }
+      })
+      .then(res => setInteractionData(res.data.cdr))
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
-    getInteractionData();
+    if (restaurantId === null) {
+      getInteractionAdminData();
+    } else {
+      getInteractionData();
+    }
   }, [tableParams]);
   const columns = [
     {
