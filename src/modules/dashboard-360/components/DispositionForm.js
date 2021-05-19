@@ -16,7 +16,7 @@ import RenderQuestionByInputTypes from 'src/components/RenderQuestionByInputType
 import {
   getDependentQuestionsCodes,
   getDispositionFormQuestions3,
-  getDispositionFormQuestions4
+  getDispositionFormQuestions5
 } from 'src/modules/dashboard-360/utils/util-functions';
 import { SAVE_DISPOSITION } from 'src/modules/dashboard-360/utils/endpoints';
 import { useSelector } from 'react-redux';
@@ -54,10 +54,10 @@ const DispositionForm = ({ visibility, customer }) => {
   let initialValuesObj = {};
 
   const renderInputBaseQuestions = () => {
-    if (customer.campaignType && customer.campaignType !== null)
-      return getDispositionFormQuestions4;
+    // if (customer.campaignType && customer.campaignType !== null)
+    //   return getDispositionFormQuestions5;
 
-    return getDispositionFormQuestions3;
+    return getDispositionFormQuestions5;
   };
 
   useEffect(() => {
@@ -112,7 +112,11 @@ const DispositionForm = ({ visibility, customer }) => {
     formValue.agent_id = userData.userId;
     formValue.customerPhoneNumber = customer.phoneNumber;
     formValue.agentName = userData.username;
-    formValue.guestName = customer.guestName;
+    if (formValue.guestName && formValue.guestName.length) {
+      formValue.guestName = formValue.guestName;
+    } else {
+      formValue.guestName = customer.guestName;
+    }
     formValue.restaurantId = customer.restaurantId;
     formValue.customerId = customer.customerId;
     formValue.feedbackId = customer._id;
@@ -360,7 +364,7 @@ const DispositionForm = ({ visibility, customer }) => {
         </Formik>
         <Snackbar
           open={openSnackbar}
-          autoHideDuration={6000}
+          autoHideDuration={4000}
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity={snackbarMessage.severity}>

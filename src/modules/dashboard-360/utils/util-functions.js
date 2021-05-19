@@ -1703,3 +1703,367 @@ export function getDispositionFormQuestions4() {
   ];
   return questionArr;
 }
+
+export function getDispositionFormQuestions5() {
+  const questionArr = [
+    {
+      questionCode: 'mainDisposition',
+      question: 'Main Disposition',
+      questionName: 'QA_201',
+      option: [
+        {
+          label: 'Connected',
+          dependentQuestion: [
+            {
+              questionCode: 'response',
+              question: 'Response',
+              questionName: 'QA_204',
+              option: [
+                {
+                  label: 'Interested',
+                  dependentQuestion: [
+                    {
+                      questionCode: 'languageChoosed',
+                      question: 'Language',
+                      questionName: 'QA_207',
+                      option: [
+                        {
+                          label: 'English'
+                        },
+                        {
+                          label: 'Tamil'
+                        },
+                        {
+                          label: 'Kannada'
+                        },
+                        {
+                          label: 'Hindi'
+                        },
+                        {
+                          label: 'Malayalam'
+                        },
+                        {
+                          label: 'Telugu'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'guestName',
+                      question: 'Customer Name',
+                      questionName: 'QA_208',
+                      questionType: 'textarea',
+                      additionalConfig: {
+                        rows: 1
+                      },
+                      option: [{}]
+                    },
+                    {
+                      questionCode: 'diningMode',
+                      question: 'Dining Mode',
+                      questionName: 'QA_209',
+                      option: [
+                        {
+                          label: 'Dine-IN'
+                        },
+                        {
+                          label: 'Take Away'
+                        },
+                        {
+                          label: 'Delivery'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'deliveryPartnerForFood',
+                      question:
+                        'Which Delivery Partner did you use for your Food order?',
+                      questionName: 'QA_210',
+                      option: [
+                        {
+                          label: 'Dindigul'
+                        },
+                        {
+                          label: 'Swiggy'
+                        },
+                        {
+                          label: 'Zomato'
+                        },
+                        {
+                          label: 'Take Away'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'overallScore',
+                      question:
+                        'What is your Overall Score on Delivery, Quality and Quantity of your Food order?',
+                      questionName: 'QA_211',
+                      option: [
+                        {
+                          label: '1 (Negative Sentiment)'
+                        },
+                        {
+                          label: '2 (Negative Sentiment)'
+                        },
+                        {
+                          label: '3 (Negative Sentiment)'
+                        },
+                        {
+                          label: '4 (Positive Sentiment)'
+                        },
+                        {
+                          label: '5 (Positive Sentiment)'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'qualityIssues',
+                      question:
+                        'Was there any Quality Issues with your Food order?',
+                      questionName: 'QA_212',
+                      option: [
+                        {
+                          label: 'No Quality Issues'
+                        },
+                        {
+                          label: 'Issue - Food not Properly Cooked'
+                        },
+                        {
+                          label: 'Issue - Food Over Cooked'
+                        },
+                        {
+                          label: 'Issue - Food Oily'
+                        },
+                        {
+                          label: 'Issue - food Spicy'
+                        },
+                        {
+                          label: 'Issue - Food Stale'
+                        },
+                        {
+                          label: 'Issue - Food bland'
+                        },
+                        {
+                          label: 'Issue - Food Has Bad Odour'
+                        },
+                        {
+                          label: 'Issue - Food Not Properly Packed'
+                        },
+                        {
+                          label: 'Issue - Overall quality is not good'
+                        },
+                        {
+                          label: 'Issue - Non-Veg in place of Veg'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'quantityIssue',
+                      question:
+                        'Did you have any quantity issues with your Food order?',
+                      questionName: 'QA_213',
+                      option: [
+                        {
+                          label: 'No Quantity Issues'
+                        },
+                        {
+                          label: 'Issue - Over all Quantity Less'
+                        },
+                        {
+                          label: 'Issue - Non-Veg Quantity Less'
+                        },
+                        {
+                          label: 'Issue - Cost too high for food items'
+                        },
+                        {
+                          label: 'Value for Money'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'recommend',
+                      question:
+                        'Would you recommend Dindigul Thalappakatti to your family and friends?',
+                      questionName: 'QA_214',
+                      option: [
+                        {
+                          label: 'Yes, I would Recommend.'
+                        },
+                        {
+                          label: 'No, I would not Recommend.'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'suggestions',
+                      question:
+                        'Do you have any suggestions to help us improve your experience?',
+                      questionName: 'QA_215',
+                      questionType: 'textarea',
+                      additionalConfig: {
+                        rows: 4
+                      },
+                      option: [{}]
+                    },
+                    {
+                      questionCode: 'agentRemarks',
+                      question: 'Agent Special Remarks...',
+                      questionName: 'QA_216',
+                      questionType: 'textarea',
+                      additionalConfig: {
+                        rows: 4
+                      },
+                      option: [{}]
+                    },
+                    {
+                      questionCode: 'requestCallBack',
+                      question: 'Customer Request Callback',
+                      questionType: 'checkbox',
+                      questionName: 'QA_219',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'requestCallBack'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'escalated',
+                      question: 'Escalated to L2',
+                      questionType: 'checkbox',
+                      questionName: 'QA_217',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'escalated'
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  label: 'Not interested in giving feedback',
+                  dependentQuestion: [
+                    {
+                      questionCode: 'remarks_feedback',
+                      question: 'Remarks/feedback',
+                      questionName: 'QA_205',
+                      questionType: 'textarea',
+                      additionalConfig: {
+                        rows: 4
+                      },
+                      option: [{}]
+                    },
+                    {
+                      questionCode: 'callDisconnectedByCustomer',
+                      question: 'Call Disconnected By Customer',
+                      questionType: 'checkbox',
+                      questionName: 'QA_206',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'callDisconnectedByCustomer'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'requestCallBack',
+                      question: 'Customer Request Callback',
+                      questionType: 'checkbox',
+                      questionName: 'QA_218',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'requestCallBack'
+                        }
+                      ]
+                    },
+                    {
+                      questionCode: 'escalated',
+                      question: 'Escalated to L2',
+                      questionType: 'checkbox',
+                      questionName: 'QA_207',
+                      option: [
+                        {
+                          label: 'Yes',
+                          name: 'escalated'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          label: 'Not Connected',
+          dependentQuestion: [
+            {
+              questionCode: 'subDisposition',
+              question: 'Sub disposition',
+              questionName: 'QA_202',
+              option: [
+                {
+                  label: 'RNR'
+                },
+                {
+                  label: 'Not Connected'
+                },
+                {
+                  label: 'Customer Requested A Call Back'
+                },
+                {
+                  label: 'Call Disconnected By Customer'
+                },
+                {
+                  label: 'Incoming Calls Barred'
+                },
+                {
+                  label: 'Duplicate Number'
+                },
+                {
+                  label: 'Delivery Executive'
+                },
+                {
+                  label: 'Not Reachable'
+                },
+                {
+                  label: 'Switch Off'
+                },
+                {
+                  label: 'Call Disconnected'
+                },
+                {
+                  label: 'Language Barrier'
+                },
+                {
+                  label: 'Invalid number'
+                },
+                {
+                  label: 'Number Busy'
+                },
+                {
+                  label: 'Feedback taken'
+                }
+              ]
+            },
+            {
+              questionCode: 'escalated',
+              question: 'Escalated to L2',
+              questionType: 'checkbox',
+              questionName: 'QA_203',
+              option: [
+                {
+                  label: 'Yes',
+                  name: 'escalated'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+  return questionArr;
+}
