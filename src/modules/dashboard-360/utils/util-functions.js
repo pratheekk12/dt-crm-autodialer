@@ -1780,13 +1780,7 @@ export function getDispositionFormQuestions5() {
                       questionName: 'QA_210',
                       option: [
                         {
-                          label: 'Dindigul'
-                        },
-                        {
-                          label: 'Swiggy'
-                        },
-                        {
-                          label: 'Zomato'
+                          label: 'Own Delivery'
                         },
                         {
                           label: 'Take Away'
@@ -1817,6 +1811,32 @@ export function getDispositionFormQuestions5() {
                       ]
                     },
                     {
+                      questionCode: 'deliveryIssue',
+                      question:
+                        'Was there any Issues with the delivery of your Food order?',
+                      questionName: 'QA_242',
+                      option: [
+                        {
+                          label: 'Delivery Was On Time'
+                        },
+                        {
+                          label: 'Issue - Delay In Delivery'
+                        },
+                        {
+                          label: 'Issue - Food Spilled During Delivery'
+                        },
+                        {
+                          label: 'Issue - Short Items Received'
+                        },
+                        {
+                          label: 'Issue - Received Wrong Order'
+                        },
+                        {
+                          label: 'Issue - Received Cold Food'
+                        }
+                      ]
+                    },
+                    {
                       questionCode: 'qualityIssues',
                       question:
                         'Was there any Quality Issues with your Food order?',
@@ -1826,7 +1846,7 @@ export function getDispositionFormQuestions5() {
                           label: 'No Quality Issues'
                         },
                         {
-                          label: 'Issue - Food not Properly Cooked'
+                          label: 'Issue - Food Not Properly Cooked'
                         },
                         {
                           label: 'Issue - Food Over Cooked'
@@ -1835,13 +1855,13 @@ export function getDispositionFormQuestions5() {
                           label: 'Issue - Food Oily'
                         },
                         {
-                          label: 'Issue - food Spicy'
+                          label: 'Issue - Food Spicy'
                         },
                         {
                           label: 'Issue - Food Stale'
                         },
                         {
-                          label: 'Issue - Food bland'
+                          label: 'Issue - Food Bland'
                         },
                         {
                           label: 'Issue - Food Has Bad Odour'
@@ -1850,10 +1870,10 @@ export function getDispositionFormQuestions5() {
                           label: 'Issue - Food Not Properly Packed'
                         },
                         {
-                          label: 'Issue - Overall quality is not good'
+                          label: 'Issue - Overall Quality Is Not Good'
                         },
                         {
-                          label: 'Issue - Non-Veg in place of Veg'
+                          label: 'Issue - Non-Veg In Place Of Veg'
                         }
                       ]
                     },
@@ -1867,16 +1887,16 @@ export function getDispositionFormQuestions5() {
                           label: 'No Quantity Issues'
                         },
                         {
-                          label: 'Issue - Over all Quantity Less'
+                          label: 'Value For Money'
+                        },
+                        {
+                          label: 'Issue - Over All Quantity Less'
                         },
                         {
                           label: 'Issue - Non-Veg Quantity Less'
                         },
                         {
-                          label: 'Issue - Cost too high for food items'
-                        },
-                        {
-                          label: 'Value for Money'
+                          label: 'Issue - Cost Too High For Food Items'
                         }
                       ]
                     },
@@ -1991,6 +2011,24 @@ export function getDispositionFormQuestions5() {
                       ]
                     }
                   ]
+                },
+                {
+                  label: 'Language Barrier'
+                },
+                {
+                  label: 'Duplicate Number'
+                },
+                {
+                  label: 'Wrong Number'
+                },
+                {
+                  label: 'Disconnected by Customer'
+                },
+                {
+                  label: 'Customer Requested a Callback'
+                },
+                {
+                  label: 'Feedback taken earlier'
                 }
               ]
             }
@@ -2011,19 +2049,10 @@ export function getDispositionFormQuestions5() {
                   label: 'Not Connected'
                 },
                 {
-                  label: 'Customer Requested A Call Back'
-                },
-                {
                   label: 'Call Disconnected By Customer'
                 },
                 {
                   label: 'Incoming Calls Barred'
-                },
-                {
-                  label: 'Duplicate Number'
-                },
-                {
-                  label: 'Delivery Executive'
                 },
                 {
                   label: 'Not Reachable'
@@ -2032,19 +2061,10 @@ export function getDispositionFormQuestions5() {
                   label: 'Switch Off'
                 },
                 {
-                  label: 'Call Disconnected'
-                },
-                {
-                  label: 'Language Barrier'
-                },
-                {
                   label: 'Invalid number'
                 },
                 {
                   label: 'Number Busy'
-                },
-                {
-                  label: 'Feedback taken'
                 }
               ]
             },

@@ -322,7 +322,7 @@ const DispositionForm = ({ visibility, customer }) => {
                                   ...params.inputProps,
                                   ...inputObj
                                 }}
-                                required
+                                // required
                               />
                             );
                           }}
