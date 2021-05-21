@@ -11,11 +11,19 @@ function createData(key, value) {
 }
 
 const CustomerDetails = ({ customer }) => {
+  const callAttempt = () => {
+    if (!customer.hasOwnProperty('attemptCallBack')) return;
+    if (customer.attemptCallBack === 0) return;
+    if (customer.attemptCallBack === 1) return '1st Attempt';
+    if (customer.attemptCallBack === 2) return '2nd Attempt';
+    return '3rd Attempt';
+  };
   let rows = [];
   if (customer !== null) {
     rows = [
       createData('Guest Name', customer.guestName),
       createData('Experience Rating', customer.overallExperience),
+      createData('Call Attempts', callAttempt()),
       createData('Overall Rating', customer.overallRating),
       createData('Outlet', customer.outlet),
       createData('Feedback Date', customer.feedbackRegisteredDate),

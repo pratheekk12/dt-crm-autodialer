@@ -1748,6 +1748,19 @@ export function getDispositionFormQuestions5() {
                       ]
                     },
                     {
+                      questionCode: 'callBack',
+                      question: 'Customer Request Callback',
+                      questionName: 'QA_239',
+                      option: [
+                        {
+                          label: 'Yes'
+                        },
+                        {
+                          label: 'No'
+                        }
+                      ]
+                    },
+                    {
                       questionCode: 'guestName',
                       question: 'Customer Name',
                       questionName: 'QA_208',
@@ -1936,18 +1949,6 @@ export function getDispositionFormQuestions5() {
                       option: [{}]
                     },
                     {
-                      questionCode: 'requestCallBack',
-                      question: 'Customer Request Callback',
-                      questionType: 'checkbox',
-                      questionName: 'QA_219',
-                      option: [
-                        {
-                          label: 'Yes',
-                          name: 'requestCallBack'
-                        }
-                      ]
-                    },
-                    {
                       questionCode: 'escalated',
                       question: 'Escalated to L2',
                       questionType: 'checkbox',
@@ -1983,18 +1984,6 @@ export function getDispositionFormQuestions5() {
                         {
                           label: 'Yes',
                           name: 'callDisconnectedByCustomer'
-                        }
-                      ]
-                    },
-                    {
-                      questionCode: 'requestCallBack',
-                      question: 'Customer Request Callback',
-                      questionType: 'checkbox',
-                      questionName: 'QA_218',
-                      option: [
-                        {
-                          label: 'Yes',
-                          name: 'requestCallBack'
                         }
                       ]
                     },
@@ -2047,9 +2036,6 @@ export function getDispositionFormQuestions5() {
                 },
                 {
                   label: 'Not Connected'
-                },
-                {
-                  label: 'Call Disconnected By Customer'
                 },
                 {
                   label: 'Incoming Calls Barred'
