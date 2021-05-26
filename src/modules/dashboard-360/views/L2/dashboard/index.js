@@ -4,7 +4,6 @@ import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 // import PendingCallList from './PendingCallList';
 import RecentFiveRecords from '../../../components/RecentFiveRecords';
 import LeadButtons from '../../../components/LeadButtons';
-import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
 import CustomerDetails from '../../../components/CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
@@ -12,6 +11,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import DispositionTable from '../../../components/DispositionTable';
 import Dialpad from './Dialpad';
+import RecentCustomerOrderDetails from 'src/modules/dashboard-360/components/RecentCustomerOrderDetails';
 // import SelectDates from './SelectDates';
 // import CallInteractionTable from './CallInteractionTable';
 

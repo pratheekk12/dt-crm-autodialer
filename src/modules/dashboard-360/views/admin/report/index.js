@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import { Grid } from '@material-ui/core';
 import AgentName from './AgentName';
-import StartEndDates from './StartEndDates';
+import StartEndDates from 'src/modules/dashboard-360/components/StartEndDates';
 import DispositionTable from './DispositionTable';
 import AgentProgressDetails from './agent-progress-details';
 import DateRangeForDispostion from './DateRangeForDispostion';

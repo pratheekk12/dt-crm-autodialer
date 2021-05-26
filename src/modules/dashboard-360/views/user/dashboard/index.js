@@ -4,13 +4,13 @@ import { Grid, Card, CardHeader, Button, Snackbar } from '@material-ui/core';
 // import PendingCallList from './PendingCallList';
 import RecentFiveRecords from '../../../components/RecentFiveRecords';
 import LeadButtons from '../../../components/LeadButtons';
-import RecentCustomerOrderDetails from './RecentCustomerOrderDetails';
 import CustomerDetails from '../../../components/CustomerDetails';
 import MuiAlert from '@material-ui/lab/Alert';
 import CustomBreadcrumbs from 'src/components/CustomBreadcrumbs';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useStopwatch } from 'react-timer-hook';
+import RecentCustomerOrderDetails from 'src/modules/dashboard-360/components/RecentCustomerOrderDetails';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

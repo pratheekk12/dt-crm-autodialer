@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import FileUpload from '../FileUpload';
-import OneDirectApi from '../OneDirectApi';
+import InrestoApi from '../InrestoApi';
 import FileHistoryTable from '../FileHistoryTable';
 
 function TabPanel(props) {
@@ -81,7 +81,7 @@ export default function Home() {
           centered
         >
           <Tab label="Upload" {...a11yProps(0)} />
-          <Tab label="OneDirect" {...a11yProps(1)} />
+          <Tab label="Inresto Api" {...a11yProps(1)} />
           {/* <Tab label="Inresto" {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
@@ -96,9 +96,9 @@ export default function Home() {
           <FileUpload status={setUploadFileStatus} />
           <FileHistoryTable status={uploadFileStatus} />
         </TabPanel>
-        {/* <TabPanel value={value} index={1} dir={theme.direction}>
-          <OneDirectApi />
-        </TabPanel> */}
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <InrestoApi />
+        </TabPanel>
         {/* <TabPanel value={value} index={2} dir={theme.direction}>
           API Call
         </TabPanel> */}
