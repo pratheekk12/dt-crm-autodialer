@@ -19,12 +19,19 @@ const InrestoApi = () => {
         limit: 200,
         skip: 0
       })
+      // .then(function(response) {
+      //   console.log(response);
+      //   setDisableInrestoBtn(true);
+      //   setTimeout(() => {
+      //     setDisableInrestoBtn(false);
+      //   }, 86400000);
+      // })
       .then(function(response) {
         console.log(response);
         setDisableInrestoBtn(true);
         setTimeout(() => {
           setDisableInrestoBtn(false);
-        }, 86400000);
+        }, 60000);
       })
       .catch(function(error) {
         console.log(error);
