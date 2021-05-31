@@ -25,7 +25,9 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [timeEnabled, setTimeEnabled] = useState(false);
+  const [orders,setOrders] = useState([])
   const handleBreakTimeOut = () => {
+    //console.log("i am called")
     setTimeEnabled(!timeEnabled);
   };
 
@@ -62,22 +64,24 @@ const Dashboard = () => {
   }, [timeEnabled]);
 
   const dail = async () => {
-    await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
-      params: {
-        sipAgentID: userData.sip_id,
-        NumbertobeCalled: '1' + customer.phoneNumber.slice(2),
-        restaurantId: customer.restaurantId
-      }
-    });
+    // await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
+    //   params: {
+    //     sipAgentID: userData.sip_id,
+    //     NumbertobeCalled: '1' + customer.phoneNumber.slice(2),
+    //     restaurantId: customer.restaurantId
+    //   }
+    // });
   };
 
   const getData = async () => {
     await axios
       .get('/channel/getdata')
       .then(res => {
+        console.log(res.data)
         setCustomer(res.data);
         res.data && setFormDisabled(false);
         setOpen(true);
+        getCustomerlastThreeOrders()
       })
       .catch(err => {
         setFormDisabled(true);
@@ -85,6 +89,25 @@ const Dashboard = () => {
         setOpen(true);
       });
   };
+
+  const getCustomerlastThreeOrders =()=>{
+    var data = {"apiKey":"25c71cd65026ea2deef9d55c273c2b54","resId":"5964634c395506cf6949b9d5","phone":"918754122211"};
+    
+    axios.post(`/crm-route/inrestoorders`,data)
+      .then((res)=>{
+        //console.log(res)
+        var i=0
+        res.data[0].items.map((ele)=>{
+          i=i+1
+          return ele.id = i
+        })
+        setOrders(res.data[0])
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  }
+  console.log(customer)
 
   const dialTimer = () => {
     if (customer) {
@@ -107,6 +130,7 @@ const Dashboard = () => {
     }
   };
 
+  //console.log(customer)
   useEffect(() => {
     if (customer !== null) {
       setSecondsLeft(15);
@@ -120,6 +144,7 @@ const Dashboard = () => {
             }
           })
           .then(res => {
+            console.log(res)
             setLastFiveRecords(res.data);
           })
           .catch(err => {
@@ -127,10 +152,14 @@ const Dashboard = () => {
           });
       };
       getLastFiveRecords();
+      
     } else {
       setSecondsLeft(0);
     }
+    getCustomerlastThreeOrders()
   }, [customer]);
+
+  //console.log(orders,"orders")
 
   const handleClick = () => {
     setFormDisabled(true);
@@ -239,7 +268,7 @@ const Dashboard = () => {
               </Card>
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
-              <RecentCustomerOrderDetails />
+              <RecentCustomerOrderDetails orders={orders}/>
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentFiveRecords

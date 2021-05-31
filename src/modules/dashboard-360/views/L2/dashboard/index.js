@@ -27,27 +27,30 @@ const Dashboard = () => {
   const [lastFiveRecords, setLastFiveRecords] = useState(null);
   const [timer, setTimer] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(0);
+  const [orders,setOrders] = useState([])
   // const [interactionTableParams, setInteractionTableParams] = useState({
   //   selectDate: null
   // });
 
   const dial = async () => {
-    await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
-      params: {
-        sipAgentID: `Local/1${userData.phone}@from-internal`,
-        NumbertobeCalled: '1' + customer.phoneNumber.slice(2),
-        restaurantId: customer.restaurantId
-      }
-    });
+    // await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
+    //   params: {
+    //     sipAgentID: `Local/1${userData.phone}@from-internal`,
+    //     NumbertobeCalled: '1' + customer.phoneNumber.slice(2),
+    //     restaurantId: customer.restaurantId
+    //   }
+    // });
   };
 
   const getData = async () => {
     await axios
       .get('/crm-route/tlleads')
       .then(res => {
+        console.log(res.data)
         setCustomer(res.data);
         res.data && setFormDisabled(false);
         setOpen(true);
+        getCustomerlastThreeOrders()
       })
       .catch(err => {
         setFormDisabled(true);
@@ -77,8 +80,34 @@ const Dashboard = () => {
     }
   };
 
+  const getCustomerlastThreeOrders =()=>{
+    console.log(" i am called")
+    var axios = require('axios');
+    var data = JSON.stringify({"apiKey":"25c71cd65026ea2deef9d55c273c2b54","resId":"5964634c395506cf6949b9d5","phone":customer.phoneNumber});
+    
+    var config = {
+      method: 'post',
+      url: 'http://192.168.4.44:43001/crm-route/inrestoorders',
+      headers: { 
+        'Content-Type': 'application/json', 
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      setOrders(response.data[0])
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   useEffect(() => {
+    console.log(customer,"customer")
     if (customer) {
+     
       setSecondsLeft(15);
       dialTimer();
       const getLastFiveRecords = async () => {
@@ -90,6 +119,7 @@ const Dashboard = () => {
             }
           })
           .then(res => {
+            console.log(res.data)
             setLastFiveRecords(res.data);
           })
           .catch(err => {
@@ -97,8 +127,12 @@ const Dashboard = () => {
           });
       };
       getLastFiveRecords();
+      
     }
+    getCustomerlastThreeOrders()
   }, [customer]);
+
+  console.log(orders,"orders")
 
   const handleClick = () => {
     setFormDisabled(true);
@@ -186,7 +220,7 @@ const Dashboard = () => {
               </Card>
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
-              <RecentCustomerOrderDetails />
+              <RecentCustomerOrderDetails orders={orders}/>
             </Grid>
             <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <RecentFiveRecords

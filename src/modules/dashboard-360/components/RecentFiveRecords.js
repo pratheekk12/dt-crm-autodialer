@@ -11,28 +11,40 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const RecentFiveRecords = ({ records }) => {
   const columns = [
     {
-      field: 'languageChoosed',
-      headerName: 'Language',
-      flex: 1,
-      renderCell: rowData => rowData.row.languageChoosed
-    },
-    {
-      field: 'overallCustomerRating',
-      headerName: 'Rating',
-      flex: 1,
-      renderCell: rowData => rowData.row.overallCustomerRating
-    },
-    {
-      field: 'customerExperiences',
-      headerName: 'Experience',
-      flex: 1,
-      renderCell: rowData => rowData.row.customerExperiences
-    },
-    {
-      field: 'issues',
-      headerName: 'Issues',
+      field: 'agentName',
+      headerName: 'Agent Name',
       flex: 2,
-      renderCell: rowData => rowData.row.issues
+      renderCell: rowData => rowData.row.agentName
+    },
+    {
+      field: 'guestName',
+      headerName: 'GuestName',
+      flex: 2,
+      renderCell: rowData => rowData.row.guestName
+    },
+    {
+      field: 'mainDisposition',
+      headerName: 'Call Status',
+      flex: 2,
+      renderCell: rowData => rowData.row.mainDisposition
+    },
+    {
+      field: 'response',
+      headerName: 'Response',
+      flex: 2,
+      renderCell: rowData => rowData.row.response
+    },
+    {
+      field: 'suggestions',
+      headerName: 'Suggestions',
+      flex: 2,
+      renderCell: rowData => rowData.row.suggestions
+    },
+    {
+      field: 'overallScore',
+      headerName: 'Rating',
+      flex: 2,
+      renderCell: rowData => rowData.row.overallScore
     }
   ];
 
@@ -43,25 +55,29 @@ const RecentFiveRecords = ({ records }) => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography variant="body1">Last 5 agent Interaction</Typography>
+        <Typography variant="body1">Last 5 Customer Interactions</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <div style={{ height: 380, width: '100%' }}>
-          <DataGrid
-            columns={columns}
-            rows={
-              records.length
-                ? records.map(record => ({
-                    ...record,
-                    id: record._id
-                  }))
-                : []
-            }
-            pageSize={5}
-            pagination
-            autoHeight
-          />
-        </div>
+        {
+          records.length > 0 ? (
+            <div style={{ height: 380, width: '100%' }}>
+            <DataGrid
+              columns={columns}
+              rows={
+                records.length
+                  ? records.map(record => ({
+                      ...record,
+                      id: record._id
+                    }))
+                  : []
+              }
+              pageSize={5}
+              pagination
+              autoHeight
+            />
+          </div>
+          ) :(null)
+        }
       </AccordionDetails>
     </Accordion>
   );

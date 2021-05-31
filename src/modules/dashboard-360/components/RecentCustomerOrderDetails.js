@@ -1,64 +1,78 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import {
   Typography,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  Paper,
+  TableContainer,
+  TableHead,
+  Table,
+  TableCell,
+  TableRow,
+  TableBody
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import axios from 'axios';
 
-const RecentCustomerOrderDetails = () => {
+const RecentCustomerOrderDetails = (props) => {
+  const {orders} = props
+
+  //console.log(orders)
+
+  //const [orders,setOrders] = useState([])
+  const [items,setItems] = useState([])
+
+
+  function createData(key, value) {
+    return { key, value };
+  }
+
+  let rows = [];
+  if (orders !== null) {
+    rows = [
+      createData('Date', orders.registerDate),
+      createData('Time', orders.registerTime),
+      createData('Outlet', orders.outlet),
+      createData('Overall Rating', orders.rating),
+      createData('Order Type', orders.orderType),
+      createData('Order Cost', orders.orderCost),
+    ];
+  }
+
   const columns = [
-    { field: 'id', headerName: 'Order ID', flex: 1 },
+    //{ field: 'id', headerName: 'Order ID', flex: 1 },
     {
-      field: 'customerName',
-      headerName: 'Customer Name',
+      field: 'itemName',
+      headerName: 'Item Name',
       flex: 2
     },
     {
-      field: 'order1',
+      field: 'quantity',
       flex: 1,
-      headerName: 'Order 1'
+      headerName: 'Quantity'
     },
     {
-      field: 'order2',
+      field: 'totalCost',
       flex: 1.5,
-      headerName: 'Order 2'
+      headerName: 'Total Cost'
     },
-    {
-      field: 'order3',
-      flex: 2,
-      headerName: 'Order 3'
-    }
   ];
-  const rows = [
-    {
-      id: 1,
-      customerName: 'Amit Yadav',
-      order1: 'Item 1',
-      order2: 'Item 2',
-      order3: 'Item 3'
-    },
-    {
-      id: 2,
-      customerName: 'Amit Yadav',
-      order1: 'Item 1',
-      order2: 'Item 2',
-      order3: 'Item 3'
-    },
-    {
-      id: 3,
-      customerName: 'Amit Yadav',
-      order1: 'Item 1',
-      order2: 'Item 2',
-      order3: ''
-    }
-  ];
+  
+
+
+  console.log(orders)
+  
+
+  // useEffect(()=>{
+  //   getCustomerlastThreeOrders()
+   
+  // },[])
 
   return (
     <>
-      <Accordion disabled>
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -67,15 +81,38 @@ const RecentCustomerOrderDetails = () => {
           <Typography variant="body1">Last 3 Customer Order Details</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <div style={{ height: 280, width: '100%' }}>
-            <DataGrid
-              columns={columns}
-              rows={rows}
-              pageSize={3}
-              pagination
-              autoHeight
-            />
+              <div style={{ height: 480, width: '100%' }}>
+          <TableContainer component={Paper}>
+        <Table size="small" aria-label="customer table">
+          <TableBody>
+            {rows.length !== 0 &&
+              rows.map(row => (
+                <TableRow key={row.key}>
+                  <TableCell component="th" scope="row">
+                    {row.key}
+                  </TableCell>
+                  <TableCell align="right">{row.value}</TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <br/>
+      {
+        Object.keys(orders) != 0 ? (
+         <DataGrid 
+         rows={orders.items}
+         columns = {columns}
+         autoHeight="true"
+         pagination ="false"
+         pageSize="3"
+         />
+        ):(null)
+      }
+     
+        
           </div>
+          
         </AccordionDetails>
       </Accordion>
     </>
