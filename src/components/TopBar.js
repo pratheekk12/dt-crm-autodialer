@@ -167,7 +167,71 @@ const TopBar = ({
   const distributorID = evt => {
     searchDist(searchText);
   };
+  
   async function logoutUser() {
+    
+    if(localStorage.getItem('Agent_Object_ID')){
+      if (localStorage.getItem('callStatus') === 'AgentDisposed' || localStorage.getItem('callStatus') === 'LoggedIn' || localStorage.getItem('callStatus') === 'BREAKOUT' || localStorage.getItem('callStatus') === 'BREAKIN') {
+        var axios = require('axios');
+        var data = JSON.stringify({ "Event": "LoggedOut" });
+  
+        var config = {
+          method: 'put',
+          url: `http://192.168.4.44:62001/api/agents/${localStorage.getItem('Agent_Object_ID')}`,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: data
+        };
+  
+        axios(config)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data), "status changed");
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+  
+        var axios = require('axios');
+        var data = '';
+  
+        var config = {
+          method: 'get',
+          url: `http://192.168.4.44:62002/ami/actions/rmq?Queue=${localStorage.getItem('Queue')}&Interface=SIP/${localStorage.getItem('AgentSIPID')}`,
+          headers: {},
+          data: data
+        };
+  
+        axios(config)
+          .then(function (response) {
+            console.log(response.data, "removed from queue");
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+  
+        const AgentSIPID = localStorage.getItem('AgentSIPID')
+        var axios = require('axios');
+        var config = {
+          method: 'get',
+          url: `http://192.168.4.44:62002/ami/actions/break?Queue=${localStorage.getItem('Queue')}&Interface=SIP%2F${AgentSIPID}&Reason=BREAK_IN&Break=true`,
+          headers: {}
+        };
+  
+        axios(config)
+          .then(function (response) {
+            console.log((response.data));
+            logout()
+            localStorage.clear()
+            window.location.reload()
+  
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+    
+    }
     try {
       await Axios.get(LOGOUT_URL);
       logout();

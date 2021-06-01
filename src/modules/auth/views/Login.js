@@ -25,6 +25,7 @@ import {
 } from '../../../redux/action';
 import { CRUD_LOGIN } from '../utils/endpoints';
 import { ADMIN, AREAMANAGER, MANAGER, USER } from 'src/redux/constants';
+import axios from 'axios';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -105,6 +106,73 @@ function Login(props) {
     try {
       const res = await Axios.post(CRUD_LOGIN, values);
       const obj = res.data.userObj || res.data.userDetails;
+
+      console.log(obj,"login api")
+
+      if(obj.role === 'DTL1'){
+        
+        localStorage.setItem('AgentSIPID1', '1010');
+        localStorage.setItem('Queue','5003')
+        localStorage.setItem('Agent_Object_ID', '60b5d2a3918b902ed36bc536')
+
+        // const data2 = 
+
+        // axios.post(`http://192.168.3.36:5555/api/login`, data2)
+        // .then((res) => {
+        //   console.log(res)
+        // }
+        const data1 =''
+        var config = {
+          method: 'get',
+          url: `http://192.168.4.44:62002/ami/actions/addq?Queue=${5003}&Interface=${res.data.sip_id}`,
+          headers: {},
+          data: data1
+        };
+
+
+        axios(config)
+          .then(function (response) {
+            console.log(response.data, "queue addedd");
+          })
+          .catch(function (error) {
+            console.log(error, "error in adding queue");
+          });
+
+          var data3 ={
+            "Event": "LoggedIn"
+          }
+          axios.put(`http://192.168.4.44:62001/api/agents/${localStorage.getItem('Agent_Object_ID')}`,data3)
+            .then((response)=>{
+              console.log(response)
+            })
+            .catch((err)=>{
+              console.log(err)
+            })
+
+       
+
+        const AgentSIPID = localStorage.getItem('AgentSIPID1')
+        //var axios = require('axios');
+        var config = {
+          method: 'get',
+          url: `http://192.168.4.44:62002/ami/actions/break?Queue=${5003}&Interface=SIP%2F${AgentSIPID}&Reason=BREAK_OUT&Break=false`,
+          headers: {}
+        };
+
+        axios(config)
+          .then(function (response) {
+            console.log((response.data));
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+      
+        
+        
+
+      }
 
       setUserDetailsMain(obj);
       setAccess(obj.permissions);

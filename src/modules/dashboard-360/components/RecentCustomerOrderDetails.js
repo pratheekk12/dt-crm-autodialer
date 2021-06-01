@@ -62,7 +62,7 @@ const RecentCustomerOrderDetails = (props) => {
   
 
 
-  console.log(orders)
+  // console.log(orders)
   
 
   // useEffect(()=>{

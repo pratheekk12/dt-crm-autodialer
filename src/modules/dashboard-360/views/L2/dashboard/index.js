@@ -33,13 +33,13 @@ const Dashboard = () => {
   // });
 
   const dial = async () => {
-    // await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
-    //   params: {
-    //     sipAgentID: `Local/1${userData.phone}@from-internal`,
-    //     NumbertobeCalled: '1' + customer.phoneNumber.slice(2),
-    //     restaurantId: customer.restaurantId
-    //   }
-    // });
+    await axios.get('https://dt.granalytics.in/ami/actions/orginatecall', {
+      params: {
+        sipAgentID: `Local/1${userData.phone}@from-internal`,
+        NumbertobeCalled: '1' + customer.phoneNumber.slice(2),
+        restaurantId: customer.restaurantId
+      }
+    });
   };
 
   const getData = async () => {
@@ -50,7 +50,7 @@ const Dashboard = () => {
         setCustomer(res.data);
         res.data && setFormDisabled(false);
         setOpen(true);
-        getCustomerlastThreeOrders()
+        //getCustomerlastThreeOrders()
       })
       .catch(err => {
         setFormDisabled(true);
@@ -80,34 +80,10 @@ const Dashboard = () => {
     }
   };
 
-  const getCustomerlastThreeOrders =()=>{
-    console.log(" i am called")
-    var axios = require('axios');
-    var data = JSON.stringify({"apiKey":"25c71cd65026ea2deef9d55c273c2b54","resId":"5964634c395506cf6949b9d5","phone":customer.phoneNumber});
-    
-    var config = {
-      method: 'post',
-      url: 'http://192.168.4.44:43001/crm-route/inrestoorders',
-      headers: { 
-        'Content-Type': 'application/json', 
-      },
-      data : data
-    };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      setOrders(response.data[0])
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+  
 
   useEffect(() => {
-    console.log(customer,"customer")
-    if (customer) {
-     
+    if (customer !== null) {
       setSecondsLeft(15);
       dialTimer();
       const getLastFiveRecords = async () => {
@@ -119,7 +95,7 @@ const Dashboard = () => {
             }
           })
           .then(res => {
-            console.log(res.data)
+            console.log(res)
             setLastFiveRecords(res.data);
           })
           .catch(err => {
@@ -127,12 +103,41 @@ const Dashboard = () => {
           });
       };
       getLastFiveRecords();
+
+      const getCustomerlastThreeOrders =(data)=>{
+        //console.log(customer)
+        if(Object.keys(customer) != 0){
+          var data = {"apiKey":"25c71cd65026ea2deef9d55c273c2b54","resId":customer.restaurantId,"phone": customer.phoneNumber};
+        
+          axios.post(`/crm-route/inrestoorders`,data)
+            .then((res)=>{
+              //console.log(res)
+              if(res.data.length > 0){
+                var i=0
+              res.data[0].items.map((ele)=>{
+                i=i+1
+                return ele.id = i
+              })
+              console.log(res.data,"order details")
+              setOrders(res.data[0])
+              }
+              
+            })
+            .catch((err)=>{
+              console.log(err)
+            })
+        }
+       
+      }
+      getCustomerlastThreeOrders()
       
+    } else {
+      setSecondsLeft(0);
     }
-    getCustomerlastThreeOrders()
+    //getCustomerlastThreeOrders()
   }, [customer]);
 
-  console.log(orders,"orders")
+  //console.log(orders,"orders")
 
   const handleClick = () => {
     setFormDisabled(true);
